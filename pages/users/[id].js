@@ -3,15 +3,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useFetch } from '../../hooks/useFetch';
 
-import styles from '../../styles/Home.module.css';
-
 export default function UserDetail() {
 	const router = useRouter();
   	const { id } = router.query
 	const { data, error } = useFetch(`/api/users/${id}/orders`);
 
-	if (error) return <div>failed to load</div>
-	if (!data) return <div>loading...</div>
+	if (error) return <div className="main"><p className="title">failed to load</p></div>
+	if (!data) return <div className="main"><p className="title">loading...</p></div>
 
 	function formatMoney(amount) {
 		return new Intl.NumberFormat('pt-BR', {
@@ -21,14 +19,14 @@ export default function UserDetail() {
 	}
 
 	return (
-		<div className={styles.container}>
+		<>
 			<Head>
 				<title>{data.user.name}</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className={styles.main}>
-				<h1 className={styles.title}>
+			<main className="main">
+				<h1 className="title">
 					{data.user.name}
 				</h1>
 
@@ -37,9 +35,9 @@ export default function UserDetail() {
 				)}
 
 				{data.user.orders.length > 0 && (
-					<div className={styles.grid}>
+					<div className="grid">
 						{data.user.orders.map(order => (
-							<a key={order._id} className={styles.card}>
+							<a key={order._id} className="card">
 								<h3>{order.stock}</h3>
 								<p>Preço: {formatMoney(order.price)}</p>
 								<p>Quantidade: {order.qty}</p>
@@ -53,17 +51,6 @@ export default function UserDetail() {
 					<a><h3>&larr; Voltar</h3></a>
 				</Link>
 			</main>
-
-			<footer className={styles.footer}>
-				<a
-					href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Powered by{' '}
-					<img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-				</a>
-			</footer>
-		</div>
+		</>
 	);
 }
