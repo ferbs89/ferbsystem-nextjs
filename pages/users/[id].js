@@ -19,38 +19,45 @@ export default function UserDetail() {
 	}
 
 	return (
-		<>
+		<div className="content">
 			<Head>
-				<title>{data.user.name}</title>
+				<title>{data.user.name} | Ferbsystem</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className="main">
-				<h1 className="title">
-					{data.user.name}
-				</h1>
+			<h1>{data.user.name}</h1>
 
-				{data.user.orders.length == 0 && (
-					<p>Nenhuma operação encontrada.</p>
-				)}
+			{data.user.orders.length == 0 && (
+				<p>Nenhuma operação encontrada.</p>
+			)}
 
-				{data.user.orders.length > 0 && (
-					<div className="grid">
+			{data.user.orders.length > 0 && (
+				<table>
+					<thead>
+						<tr>
+							<th>Ativo</th>
+							<th>Preço</th>
+							<th>Quantidade</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+
+					<tbody>
 						{data.user.orders.map(order => (
-							<a key={order._id} className="card">
-								<h3>{order.stock}</h3>
-								<p>Preço: {formatMoney(order.price)}</p>
-								<p>Quantidade: {order.qty}</p>
-								<p>Total: {formatMoney(order.price * order.qty)}</p>
-							</a>
+							<tr key={order._id}>
+								<td data-header="Ativo">{order.stock}</td>
+								<td data-header="Preço">{formatMoney(order.price)}</td>
+								<td data-header="Quantidade">{order.qty}</td>
+								<td data-header="Total">{formatMoney(order.price * order.qty)}</td>
+							</tr>
 						))}
-					</div>
-				)}
+					</tbody>
+				</table>
+			)}
 
-				<Link href="/users">
-					<a><h3>&larr; Voltar</h3></a>
-				</Link>
-			</main>
-		</>
+			<Link href="/users">
+				<a className="back-link">Voltar</a>
+			</Link>
+		</div>
 	);
 }

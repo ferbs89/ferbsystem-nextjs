@@ -1,0 +1,89 @@
+header {
+	display: flex;
+	align-items: center;
+	padding: 32px;
+	border-bottom: 1px solid #dcdce6;
+}
+
+header .brand {
+	margin-right: 16px;
+}
+
+header .brand img {
+	width: 100%;
+	height: auto;
+	max-width: 231px;
+	max-height: 64px;
+}
+
+header .profile {
+	margin-left: auto;
+	text-align: right;
+}
+
+header .profile span {
+	display: block;
+	margin-bottom: 4px;
+}
+
+header .profile span.name {
+	color: #41414d;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+header .profile span.email {
+	color: #737380;
+}
+
+header .profile a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin-top: 4px;
+	color: #17496E;
+	text-decoration: none;
+	font-weight: 500;
+	transition: opacity 0.2s;
+}
+
+header .profile a:hover {
+	opacity: 0.8;
+}
+
+header .profile svg {
+	width: 20px;
+	height: 20px;
+	margin-left: 8px;
+	color: #17496E;
+}
+
+@media screen and (max-width: 480px) {
+	header {
+		flex-direction: column;
+		align-items: normal;
+	}
+
+    header .brand {
+		margin-right: 0px;
+		margin-bottom: 16px;
+	}
+
+	header .profile {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-left: 0px;
+		text-align: left;
+	}
+
+	header .profile span,
+	header .profile a {
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+
+	header .profile span.name {
+		margin-bottom: 4px;
+	}
+}

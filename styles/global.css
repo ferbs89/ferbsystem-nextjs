@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font: 400 14px Roboto, sans-serif;
+	background: #17496E;
+	-webkit-font-smoothing: antialiased;
+}
+
+.container {
+	width: 100%;
+	max-width: 1280px;
+	height: 100vh;
+	background: #FFF;
+	margin: 0px auto;
+}
+
+.content {
+	background: #FFF;
+	padding: 32px;
+}
+
+h1 {
+	font-size: 24px;
+	margin-bottom: 16px;
+}
+
+input {
+	width: 100%;
+	height: 48px;
+	color: #333;
+	border: 1px solid #dcdce6;
+	border-radius: 8px;
+	padding: 0 16px;
+}
+
+form .field {
+	margin-bottom: 16px;
+}
+
+form .field span {
+	display: block;
+	color: #F00;
+	margin-top: 8px;
+}
+
+input, button, textarea {
+	font: 400 14px Roboto, sans-serif;
+}
+
+button {
+	cursor: pointer;
+}
+
+.button {
+	width: 100%;
+	height: 48px;
+	background: #17496E;
+	border: 0;
+	border-radius: 8px;
+	color: #FFF;
+	font-weight: 500;
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	font-size: 16px;
+	transition: filter 0.2s;
+}
+
+.button:hover {
+	filter: brightness(90%);
+}
+
+.back-link {
+	display: inline-flex;
+	align-items: center;
+	margin-top: 32px;
+	color: #17496E;
+	font-size: 16px;
+	text-decoration: none;
+	font-weight: 500;
+	transition: opacity 0.2s;
+}
+
+.back-link svg {
+	width: 20px;
+	height: 20px;
+	margin-right: 8px;
+	color: #17496E;
+}
+
+.back-link:hover {
+	opacity: 0.8;
+}
+
+.center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.page-title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 16px;
+	margin-bottom: 32px;
+	height: 48px;
+}
+
+.page-title .right {
+	display: flex;
+	justify-content: flex-end;
+	width: 40%;
+}
+
+.page-title input {
+	max-width: 300px;
+	margin-right: 16px;
+}
+
+.page-title button {
+	width: auto;
+	padding: 16px;
+}
+
+.container .content form {
+	width: 100%;
+	max-width: 400px;
+	margin-top: 32px;
+}
+
+.container .content form label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 500;
+	font-size: 16px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table th {
+	text-align: left;
+}
+
+table th, table td {
+	padding: 8px;
+	border-bottom: 1px solid #dcdce6;
+	color: #05111a;
+}
+
+table th.action, table td.action {
+	text-align: center;
+	width: 80px;
+	min-width: auto;
+}
+
+table td.action button {
+	background: #FFF;
+	border: 0;
+}
+
+table td.action button svg {
+	width: 20px;
+	height: 20px;
+	color: #a8a8b3;
+}
+
+table tfoot td {
+	border: 0px;
+	font-weight: bold;
+}
+
+.Toastify__toast {
+	padding: 16px;
+	border-radius: 8px;
+}
+
+@media screen and (max-width: 750px) {
+	.page-title {
+		flex-direction: column;
+		align-items: normal;
+		height: auto;
+	}
+
+	.page-title .right {
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.page-title input {
+		max-width: 100%;
+		margin-right: 0px;
+		margin-bottom: 16px;
+	}
+
+	.page-title button {
+		width: 100%;
+	}
+
+	table tr {
+		display: block;
+		padding: 8px;
+		border: 1px solid #dcdce6;
+		text-align: center;
+		border-radius: 8px;
+		margin-bottom: 16px;
+	}
+
+	table tr:last-child {
+		margin-bottom: 0px;
+	}
+	
+	table thead {
+		display: none;
+	}
+	
+	table td {
+		display: block;
+		border: 0;
+		width: 100%;
+		text-align: justify;
+		line-height: 1.5em;
+	}
+	
+	table td:before {
+		content: attr(data-header);		
+		display: block;		
+		font-weight: bold;
+	}
+
+	table td.action {
+		display: inline-block;
+		width: auto;
+		margin: 0 8px;
+	}
+
+	table td.action svg {
+		margin-top: 2px;
+	}
+
+	table tfoot tr {
+		margin-top: 16px;
+		padding-top: 16px;
+		padding-bottom: 16px;
+	}
+
+	table tfoot td {
+		padding: 0px;
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.Toastify__toast {
+		border-radius: 0px;
+	}
+}

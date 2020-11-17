@@ -9,32 +9,39 @@ export default function Users() {
 	if (!data) return <div className="main"><p className="title">loading...</p></div>
 
 	return (
-		<>
+		<div className="content">
 			<Head>
-				<title>Usuários</title>
+				<title>Usuários | Ferbsystem</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className="main">
-				<h1 className="title">
-					Usuários
-				</h1>
+			<h1>Usuários</h1>
 
-				<div className="grid">
-					{data.map(user => (
-						<Link key={user._id} href={`/users/${user._id}`}>
-							<a className="card">
-								<h3>{user.name} &rarr;</h3>
-								<p>{user.email}</p>
-							</a>
-						</Link>
-					))}
-				</div>
+			{data.length > 0 && (
+				<table>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>E-mail</th>
+							<th className="action">Ação</th>
+						</tr>
+					</thead>
 
-				<Link href="/">
-					<a><h3>&larr; Voltar</h3></a>
-				</Link>
-			</main>
-		</>
+					<tbody>
+						{data.map(user => (
+							<tr key={user._id}>
+								<td data-header="Nome">{user.name}</td>
+								<td data-header="E-mail">{user.email}</td>
+								<td data-header="Ação" className="action">
+									<Link href={`/users/${user._id}`}>
+										<a>Visualizar</a>
+									</Link>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			)}
+		</div>
 	);
 }
