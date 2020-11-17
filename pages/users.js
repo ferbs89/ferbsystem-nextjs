@@ -5,8 +5,8 @@ import { useFetch } from '../hooks/useFetch';
 export default function Users() {
 	const { data, error } = useFetch('/api/users');
 
-	if (error) return <div className="main"><p className="title">failed to load</p></div>
-	if (!data) return <div className="main"><p className="title">loading...</p></div>
+	if (error) return <div className="content"><p>Ocorreu um erro ao carregar os dados.</p></div>
+	if (!data) return <div className="content"><p>Carregando...</p></div>
 
 	return (
 		<div className="content">

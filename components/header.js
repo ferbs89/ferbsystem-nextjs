@@ -4,7 +4,7 @@ export default function Header() {
 	return (
 		<header>
 			<div className="brand">
-				<img src="./logo.png" alt="Ferbsystem" />
+				<img src="/logo.png" alt="Ferbsystem" />
 			</div>
 
 			<div className="profile">

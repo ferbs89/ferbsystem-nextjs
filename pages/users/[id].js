@@ -5,11 +5,11 @@ import { useFetch } from '../../hooks/useFetch';
 
 export default function UserDetail() {
 	const router = useRouter();
-  	const { id } = router.query
-	const { data, error } = useFetch(`/api/users/${id}/orders`);
+	const { id } = router.query;
+	const { data, error } = useFetch(id ? `/api/users/${id}/orders` : null);
 
-	if (error) return <div className="main"><p className="title">failed to load</p></div>
-	if (!data) return <div className="main"><p className="title">loading...</p></div>
+	if (error) return <div className="content"><p>Ocorreu um erro ao carregar os dados.</p></div>
+	if (!data) return <div className="content"><p>Carregando...</p></div>
 
 	function formatMoney(amount) {
 		return new Intl.NumberFormat('pt-BR', {
