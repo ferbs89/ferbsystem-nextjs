@@ -11,7 +11,6 @@ export default async (req, res) => {
 
 	try {
 		_id = new ObjectID(id);
-
 	} catch(error) {
 		res.status(400).end();
 		return;

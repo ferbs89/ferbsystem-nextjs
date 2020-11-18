@@ -1,12 +1,18 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
+import axios from 'axios';
 
 export default function UserDetail() {
 	const router = useRouter();
 	const { id } = router.query;
-	const { data, error } = useFetch(id ? `/api/users/${id}/orders` : null);
+	const { data, error, mutate } = useFetch(id ? `/api/users/${id}/orders` : null);
+
+	const [stock, setStock] = useState('');
+	const [price, setPrice] = useState('');
+	const [qty, setQty] = useState('');
 
 	if (error) return <div className="content"><p>Ocorreu um erro ao carregar os dados.</p></div>
 	if (!data) return <div className="content"><p>Carregando...</p></div>
@@ -16,6 +22,28 @@ export default function UserDetail() {
 			style: 'currency',
 			currency: 'BRL',
 		}).format(amount);
+	}
+
+	async function handleSubmit() {
+		await axios.post(`/api/users/${id}/orders`, {
+			stock,
+			price,
+			qty,
+		}).then(response => {
+			mutate();
+
+			setStock('');
+			setPrice('');
+			setQty('');
+		});
+	}
+
+	async function handleDelete(order_id) {
+		await axios.put(`/api/users/${id}/orders`, {
+			order_id,
+		}).then(response => {
+			mutate();
+		});
 	}
 
 	return (
@@ -28,7 +56,7 @@ export default function UserDetail() {
 			<h1>{data.user.name}</h1>
 
 			{data.user.orders.length == 0 && (
-				<p>Nenhuma operação encontrada.</p>
+				<p>Nenhum registro encontrado.</p>
 			)}
 
 			{data.user.orders.length > 0 && (
@@ -39,6 +67,7 @@ export default function UserDetail() {
 							<th>Preço</th>
 							<th>Quantidade</th>
 							<th>Total</th>
+							<th className="action">Ação</th>
 						</tr>
 					</thead>
 
@@ -49,8 +78,17 @@ export default function UserDetail() {
 								<td data-header="Preço">{formatMoney(order.price)}</td>
 								<td data-header="Quantidade">{order.qty}</td>
 								<td data-header="Total">{formatMoney(order.price * order.qty)}</td>
+								<td className="action"><button onClick={() => handleDelete(order._id)}>Excluir</button></td>
 							</tr>
 						))}
+						
+						<tr>
+							<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)}/></td>
+							<td><input type="text" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)}/></td>
+							<td><input type="text" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)}/></td>
+							<td></td>
+							<td className="action"><button onClick={handleSubmit}>Adicionar</button></td>
+						</tr>
 					</tbody>
 				</table>
 			)}
