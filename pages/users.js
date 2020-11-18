@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useFetch } from '../hooks/useFetch';
+import { FiSearch } from 'react-icons/fi';
 
 export default function Users() {
 	const { data, error } = useFetch('/api/users');
@@ -32,9 +33,9 @@ export default function Users() {
 							<tr key={user._id}>
 								<td data-header="Nome">{user.name}</td>
 								<td data-header="E-mail">{user.email}</td>
-								<td data-header="Ação" className="action">
+								<td data-header="Visualizar" className="action">
 									<Link href={`/users/${user._id}`}>
-										<a>Visualizar</a>
+										<button><FiSearch /></button>
 									</Link>
 								</td>
 							</tr>

@@ -1,14 +1,15 @@
 import Link from 'next/link';
+import { FiHome, FiUsers } from 'react-icons/fi';
 
 export default function Menu() {
 	return (
 		<div className="menu">
 			<Link href="/">
-				<a>Home</a>
+				<a><FiHome />Home</a>
 			</Link>
 
 			<Link href="/users">
-				<a>Usuários</a>
+				<a><FiUsers />Usuários</a>
 			</Link>
 		</div>
 	);

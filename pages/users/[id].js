@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import axios from 'axios';
+import { FiPlusCircle, FiTrash2, FiArrowLeft } from 'react-icons/fi';
 
 export default function UserDetail() {
 	const router = useRouter();
@@ -78,7 +79,7 @@ export default function UserDetail() {
 								<td data-header="Preço">{formatMoney(order.price)}</td>
 								<td data-header="Quantidade">{order.qty}</td>
 								<td data-header="Total">{formatMoney(order.price * order.qty)}</td>
-								<td className="action"><button onClick={() => handleDelete(order._id)}>Excluir</button></td>
+								<td data-header="Excluir" className="action"><button onClick={() => handleDelete(order._id)}><FiTrash2 /></button></td>
 							</tr>
 						))}
 						
@@ -86,15 +87,15 @@ export default function UserDetail() {
 							<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)}/></td>
 							<td><input type="text" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)}/></td>
 							<td><input type="text" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)}/></td>
-							<td></td>
-							<td className="action"><button onClick={handleSubmit}>Adicionar</button></td>
+							<td>{price > 0 && qty > 0 && formatMoney(price * qty)}</td>
+							<td data-header="Adicionar" className="action"><button onClick={handleSubmit}><FiPlusCircle /></button></td>
 						</tr>
 					</tbody>
 				</table>
 			)}
 
 			<Link href="/users">
-				<a className="back-link">Voltar</a>
+				<a className="back-link"><FiArrowLeft />Voltar</a>
 			</Link>
 		</div>
 	);
