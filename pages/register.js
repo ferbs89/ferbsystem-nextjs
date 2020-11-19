@@ -14,7 +14,7 @@ export default function Register() {
 				</div>
 
 				<div className="field">
-					<input type="text" placeholder="E-mail" />
+					<input type="email" placeholder="E-mail" />
 				</div>
 				
 				<div className="field">

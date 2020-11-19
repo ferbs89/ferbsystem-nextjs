@@ -7,7 +7,7 @@ export default function Login() {
 		<Layout title="Login">
 			<form>
 				<div className="field">
-					<input type="text" placeholder="E-mail" />
+					<input type="email" placeholder="E-mail" />
 				</div>
 				
 				<div className="field">

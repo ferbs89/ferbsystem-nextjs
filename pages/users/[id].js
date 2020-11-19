@@ -29,6 +29,9 @@ export default function UserDetail() {
 	}
 
 	async function handleSubmit() {
+		if (!stock || !price || !qty)
+			return;
+
 		await axios.post(`/api/users/${id}/orders`, {
 			stock,
 			price,
@@ -84,8 +87,8 @@ export default function UserDetail() {
 							
 							<tr>
 								<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)}/></td>
-								<td><input type="text" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)}/></td>
-								<td><input type="text" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)}/></td>
+								<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)}/></td>
+								<td><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)}/></td>
 								<td>{price > 0 && qty > 0 && formatMoney(price * qty)}</td>
 								<td data-header="Adicionar" className="action"><button onClick={handleSubmit}><FiPlusCircle /></button></td>
 							</tr>
