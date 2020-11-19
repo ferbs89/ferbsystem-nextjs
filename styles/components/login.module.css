@@ -1,0 +1,49 @@
+.container {
+	width: 100%;
+	max-width: 1140px;
+	height: 100vh;
+	margin: 0 auto;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container .content {
+	width: 100%;
+	max-width: 400px;
+	margin: 16px;
+	padding: 32px;
+	background: #eef6fb;
+	box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+}
+
+.container .content .logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container .content .logo img {
+	width: 100%;
+	height: auto;
+	max-width: 231px;
+	max-height: 64px;
+}
+
+.container .content form {
+	margin-top: 16px;
+}
+
+.container .content h1 {
+	margin-top: 16px;
+	margin-bottom: 8px;
+	text-align: center;
+}
+
+.container .content p {
+	font-size: 16px;
+	color: #737380;
+	text-align: center;
+}

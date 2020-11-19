@@ -1,14 +1,11 @@
-import Head from 'next/head';
+import Layout from '../components/layout';
 
 export default function Home() {
 	return (
-		<div className="content">
-			<Head>
-				<title>Home | Ferbsystem</title>
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
-
-			<h1>Home</h1>
-		</div>
+		<Layout title="Home">
+			<div className="content">
+				<h1>Home</h1>
+			</div>
+		</Layout>
 	);
 }
