@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { FiCheck, FiEdit, FiTrash2 } from 'react-icons/fi';
+import { mutate } from 'swr';
 import axios from 'axios';
 
-export default function OrderEdit({ order }) {
+export default function Order({ order }) {
 	const [stock, setStock] = useState(order.stock);
 	const [price, setPrice] = useState(order.price);
 	const [qty, setQty] = useState(order.qty);
@@ -25,16 +26,14 @@ export default function OrderEdit({ order }) {
 			price,
 			qty,
 		}).then(response => {
-			// mutate();
+			mutate(`/api/users/${order.user_id}/orders`);
 			setEdit(false);
 		});
 	}
 
 	async function handleDelete(order_id) {
-		await axios.delete(`/api/users/${order.user_id}/orders?order_id=${order_id}`, {
-			
-		}).then(response => {
-			// mutate();
+		await axios.delete(`/api/users/${order.user_id}/orders?order_id=${order_id}`).then(response => {
+			mutate(`/api/users/${order.user_id}/orders`);
 		});
 	}
 
