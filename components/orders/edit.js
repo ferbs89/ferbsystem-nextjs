@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { FiCheck, FiEdit, FiTrash2 } from 'react-icons/fi';
 import { mutate } from 'swr';
 import axios from 'axios';
 
-export default function Order({ order }) {
+import { FiCheck, FiEdit, FiTrash2 } from 'react-icons/fi';
+
+export default function OrderEdit({ order }) {
 	const [stock, setStock] = useState(order.stock);
 	const [price, setPrice] = useState(order.price);
 	const [qty, setQty] = useState(order.qty);
@@ -58,7 +59,9 @@ export default function Order({ order }) {
 					<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 					<td><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
 					<td data-header="Total">{formatMoney(price * qty)}</td>
-					<td data-header="Editar" className="action"><button onClick={() => handleEdit(order._id)}><FiCheck /></button></td>
+					<td data-header="Editar" className="action">
+						<button onClick={() => handleEdit(order._id)}><FiCheck /></button>
+					</td>
 				</tr>
 			)}
 		</>

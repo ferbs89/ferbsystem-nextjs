@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import { useFetch } from '../hooks/useFetch';
-import { FiSearch } from 'react-icons/fi';
+import { useFetch } from '../../hooks/useFetch';
 
-import Layout from '../components/layout';
-import Loading from '../components/loading';
-import Error from '../components/error';
+import Layout from '../../components/layout';
+import Loading from '../../components/loading';
+import Error from '../../components/error';
+
+import { FiSearch } from 'react-icons/fi';
 
 export default function Users() {
 	const { data, error } = useFetch('/api/users');

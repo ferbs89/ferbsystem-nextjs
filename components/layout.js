@@ -9,6 +9,7 @@ export default function Layout({ children, title }) {
 			<Head>
 				<title>{title} | Ferbsystem</title>
 				<link rel="icon" href="/favicon.ico" />
+				<meta name="theme-color" content="#17496E" />
 			</Head>
 
 			<Header />

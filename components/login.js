@@ -8,6 +8,7 @@ export default function LoginLayout({ children, title }) {
 			<Head>
 				<title>{title} | Ferbsystem</title>
 				<link rel="icon" href="/favicon.ico" />
+				<meta name="theme-color" content="#17496E" />
 			</Head>
 
 			<div className={styles.content}>
