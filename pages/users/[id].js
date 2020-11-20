@@ -1,13 +1,15 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useState } from 'react';
-import { FiPlusCircle, FiTrash2, FiArrowLeft } from 'react-icons/fi';
 import axios from 'axios';
 import { useFetch } from '../../hooks/useFetch';
 
 import Layout from '../../components/layout';
 import Loading from '../../components/loading';
 import Error from '../../components/error';
+import Order from '../../components/order';
+
+import { FiPlusCircle, FiArrowLeft } from 'react-icons/fi';
 
 export default function UserDetail() {
 	const router = useRouter();
@@ -28,7 +30,7 @@ export default function UserDetail() {
 		}).format(amount);
 	}
 
-	async function handleSubmit() {
+	async function handleCreate() {
 		if (!stock || !price || !qty)
 			return;
 
@@ -42,14 +44,6 @@ export default function UserDetail() {
 			setStock('');
 			setPrice('');
 			setQty('');
-		});
-	}
-
-	async function handleDelete(order_id) {
-		await axios.put(`/api/users/${id}/orders`, {
-			order_id,
-		}).then(response => {
-			mutate();
 		});
 	}
 
@@ -76,21 +70,15 @@ export default function UserDetail() {
 
 						<tbody>
 							{data.user.orders.map(order => (
-								<tr key={order._id}>
-									<td data-header="Ativo">{order.stock}</td>
-									<td data-header="Preço">{formatMoney(order.price)}</td>
-									<td data-header="Quantidade">{order.qty}</td>
-									<td data-header="Total">{formatMoney(order.price * order.qty)}</td>
-									<td data-header="Excluir" className="action"><button onClick={() => handleDelete(order._id)}><FiTrash2 /></button></td>
-								</tr>
+								<Order key={order._id} order={order} />
 							))}
 							
 							<tr>
-								<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)}/></td>
-								<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)}/></td>
-								<td><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)}/></td>
+								<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
+								<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
+								<td><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
 								<td>{price > 0 && qty > 0 && formatMoney(price * qty)}</td>
-								<td data-header="Adicionar" className="action"><button onClick={handleSubmit}><FiPlusCircle /></button></td>
+								<td data-header="Adicionar" className="action"><button onClick={handleCreate}><FiPlusCircle /></button></td>
 							</tr>
 						</tbody>
 					</table>

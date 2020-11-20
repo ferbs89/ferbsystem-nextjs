@@ -160,13 +160,14 @@ table th, table td {
 
 table th.action, table td.action {
 	text-align: center;
-	width: 80px;
+	width: 100px;
 	min-width: auto;
 }
 
 table td.action button {
 	background: #FFF;
 	border: 0;
+	margin: 0px 4px;
 }
 
 table td.action button svg {
