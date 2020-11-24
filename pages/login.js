@@ -12,8 +12,8 @@ export default function Login() {
 		redirectIfFound: true,
 	});
 
-	const [email, setEmail] = useState('ferbs89@gmail.com');
-	const [password, setPassword] = useState('fer');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 
 	async function handleLogin(e) {
 		e.preventDefault();
