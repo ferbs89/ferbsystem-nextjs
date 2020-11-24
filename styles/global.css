@@ -233,6 +233,7 @@ table tfoot td {
 		display: block;
 		border: 0;
 		width: 100%;
+		height: auto;
 		text-align: justify;
 		line-height: 1.5em;
 	}
