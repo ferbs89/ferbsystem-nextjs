@@ -1,7 +1,13 @@
+import withSession from '../../../lib/session';
 import connect from '../../../lib/database';
 import { ObjectID } from 'mongodb';
 
-export default async (req, res) => {
+export default withSession(async (req, res) => {
+	const user = req.session.get('user');
+
+	if (!user)
+		return res.status(401).json({ error: "Authentication failed" });
+
 	const db = await connect();
 	const collection = db.collection('users');
 	const { id } = req.query;
@@ -36,4 +42,4 @@ export default async (req, res) => {
 			res.status(200).json(response);
 			break;
 	}
-}
+});

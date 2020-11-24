@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useUser from '../../hooks/useUser';
 import { useFetch } from '../../hooks/useFetch';
 
 import Layout from '../../components/layout';
@@ -8,26 +7,25 @@ import Error from '../../components/error';
 import OrderCreate from '../../components/orders/create';
 import OrderEdit from '../../components/orders/edit';
 
-import { FiArrowLeft } from 'react-icons/fi';
+export default function Orders() {
+	const { user } = useUser({ redirectTo: '/login' });
+	const { data, error } = useFetch(user?._id ? `/api/users/${user._id}/orders` : null);
 
-export default function UserDetail() {
-	const router = useRouter();
-	const { id } = router.query;
-	const { data, error, mutate } = useFetch(id ? `/api/users/${id}/orders` : null);
+	if (!user || user.isLoggedIn === false) return <Loading />
 
 	if (error) return <Error />
 	if (!data) return <Loading />
 
 	return (
-		<Layout title={data.user.name}>
+		<Layout title="Operações">
 			<div className="content">
-				<h1>{data.user.name}</h1>
+				<h1>Operações</h1>
 
-				{data.user.orders.length == 0 && (
+				{data.length == 0 && (
 					<p>Nenhum registro encontrado.</p>
 				)}
 
-				{data.user.orders.length > 0 && (
+				{data.length > 0 && (
 					<table>
 						<thead>
 							<tr>
@@ -40,18 +38,14 @@ export default function UserDetail() {
 						</thead>
 
 						<tbody>
-							{data.user.orders.map(order => (
+							{data.map(order => (
 								<OrderEdit key={order._id} order={order} />
 							))}
 							
-							<OrderCreate user_id={id} />
+							<OrderCreate user_id={user._id} />
 						</tbody>
 					</table>
 				)}
-
-				<Link href="/users">
-					<a className="back-link"><FiArrowLeft />Voltar</a>
-				</Link>
 			</div>
 		</Layout>
 	);

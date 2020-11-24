@@ -1,9 +1,14 @@
+import withSession from '../../../../lib/session';
 import connect from '../../../../lib/database';
 import { ObjectID } from 'mongodb';
 
-export default async (req, res) => {
+export default withSession(async (req, res) => {
+	const user = req.session.get('user');
+
+	if (!user)
+		return res.status(401).json({ error: "Authentication failed" });
+
 	const db = await connect();
-	const users = db.collection('users');
 	const orders = db.collection('orders');
 
 	const { id } = req.query;
@@ -21,16 +26,9 @@ export default async (req, res) => {
 
 	switch (req.method) {
 		case 'GET':
-			const user = await users.findOne({ _id: user_id });
-			const userOrders = await orders.find({ user_id }).toArray();
+			response = await orders.find({ user_id }).toArray();
 
-			res.status(200).json({ 
-				user: {
-					...user,
-					orders: userOrders,
-				},
-			});
-
+			res.status(200).json(response);
 			break;
 
 		case 'POST':
@@ -76,4 +74,4 @@ export default async (req, res) => {
 			res.status(200).json(response);
 			break;
 	}
-}
+})

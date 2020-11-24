@@ -1,23 +1,39 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+import useUser from '../hooks/useUser';
+import axios from 'axios';
+
+import { FiLogOut } from 'react-icons/fi';
 import styles from '../styles/components/header.module.css';
 
 export default function Header() {
+	const router = useRouter();
+	const { user, mutateUser } = useUser();
+
 	return (
 		<div className={styles.header}>
 			<div className={styles.brand}>
 				<img src="/logo.png" alt="Ferbsystem" />
 			</div>
 
-			<div className={styles.profile}>
-				<div className={styles.user}>
-					<span className={styles.name}></span>
-					<span className={styles.email}></span>
-				</div>
+			{user?.isLoggedIn && (
+				<div className={styles.profile}>
+					<div className={styles.user}>
+						<span className={styles.name}>{user?.name}</span>
+						<span className={styles.email}>{user?.email}</span>
+					</div>
 
-				<Link href="">
-					<a></a>
-				</Link>
-			</div>
+					<button onClick={async (e) => {
+						e.preventDefault();
+						await mutateUser(await axios.get('/api/logout'));
+						router.push('/login');
+					}}>
+						<a>
+							Sair
+							<FiLogOut />
+						</a>
+					</button>
+				</div>
+			)}
 		</div>
 	);
 }
