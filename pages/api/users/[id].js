@@ -5,15 +5,14 @@ import { ObjectID } from 'mongodb';
 export default withSession(async (req, res) => {
 	const user = req.session.get('user');
 
-	if (!user)
-		return res.status(401).json({ error: "Authentication failed" });
+	if (!user || user.isLoggedIn === false)
+		return res.status(401).end();
 
 	const db = await connect();
 	const collection = db.collection('users');
 	const { id } = req.query;
 
 	let _id = null;
-	let response = null;
 
 	try {
 		_id = new ObjectID(id);
@@ -24,7 +23,11 @@ export default withSession(async (req, res) => {
 
 	switch (req.method) {
 		case 'GET':
-			response = await collection.findOne({ _id });
+			const response = await collection.findOne({ _id }, { 
+				projection: {
+					password: false,
+				}
+			});
 			
 			res.status(200).json(response);
 			break;
@@ -32,14 +35,14 @@ export default withSession(async (req, res) => {
 		case 'PUT':
 			const { name, email } = req.body;
 
-			response = await collection.updateOne({	_id	}, { 
+			await collection.updateOne({ _id }, { 
 				$set: { 
 					name,
 					email,
 				}
 			});
 
-			res.status(200).json(response);
+			res.status(200).end();
 			break;
 	}
 });

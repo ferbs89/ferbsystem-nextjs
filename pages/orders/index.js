@@ -21,31 +21,25 @@ export default function Orders() {
 			<div className="content">
 				<h1>Operações</h1>
 
-				{data.length == 0 && (
-					<p>Nenhum registro encontrado.</p>
-				)}
+				<table>
+					<thead>
+						<tr>
+							<th>Ativo</th>
+							<th>Preço</th>
+							<th>Quantidade</th>
+							<th>Total</th>
+							<th className="action">Ação</th>
+						</tr>
+					</thead>
 
-				{data.length > 0 && (
-					<table>
-						<thead>
-							<tr>
-								<th>Ativo</th>
-								<th>Preço</th>
-								<th>Quantidade</th>
-								<th>Total</th>
-								<th className="action">Ação</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							{data.map(order => (
-								<OrderEdit key={order._id} order={order} />
-							))}
-							
-							<OrderCreate user_id={user._id} />
-						</tbody>
-					</table>
-				)}
+					<tbody>
+						{data.map(order => (
+							<OrderEdit key={order._id} order={order} />
+						))}
+						
+						<OrderCreate user_id={user._id} />
+					</tbody>
+				</table>
 			</div>
 		</Layout>
 	);

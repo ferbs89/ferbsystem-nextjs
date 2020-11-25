@@ -5,8 +5,8 @@ import { ObjectID } from 'mongodb';
 export default withSession(async (req, res) => {
 	const user = req.session.get('user');
 
-	if (!user)
-		return res.status(401).json({ error: "Authentication failed" });
+	if (!user || user.isLoggedIn === false)
+		return res.status(401).end();
 
 	const db = await connect();
 	const orders = db.collection('orders');
