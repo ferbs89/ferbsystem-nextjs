@@ -1,13 +1,17 @@
 import Link from 'next/link';
 import styles from '../styles/components/menu.module.css';
-import { FiHome, FiUsers, FiDollarSign } from 'react-icons/fi';
+import { FiTrendingUp, FiLayers } from 'react-icons/fi';
 
 export default function Menu() {
 	return (
 		<div className={styles.menu}>
-			<Link href="/"><a><FiHome />Home</a></Link>
-			<Link href="/users"><a><FiUsers />Usuários</a></Link>
-			<Link href="/orders"><a><FiDollarSign />Operações</a></Link>
+			<Link href="/">
+				<a><FiTrendingUp />Ativos</a>
+			</Link>
+
+			<Link href="/orders">
+				<a><FiLayers />Operações</a>
+			</Link>
 		</div>
 	);
 }

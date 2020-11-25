@@ -21,20 +21,20 @@ export default function OrderEdit({ order }) {
 		if (!stock || !price || !qty)
 			return;
 
-		await axios.put(`/api/users/${order.user_id}/orders`, {
-			order_id,
+		await axios.put(`/api/orders/${order_id}`, {
 			stock,
 			price,
 			qty,
-		}).then(response => {
-			mutate(`/api/users/${order.user_id}/orders`);
+
+		}).then(() => {
+			mutate('/api/orders');
 			setEdit(false);
 		});
 	}
 
 	async function handleDelete(order_id) {
-		await axios.delete(`/api/users/${order.user_id}/orders?order_id=${order_id}`).then(response => {
-			mutate(`/api/users/${order.user_id}/orders`);
+		await axios.delete(`/api/orders/${order_id}`).then(() => {
+			mutate('/api/orders');
 		});
 	}
 

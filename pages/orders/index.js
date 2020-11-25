@@ -9,7 +9,7 @@ import OrderEdit from '../../components/orders/edit';
 
 export default function Orders() {
 	const { user } = useUser({ redirectTo: '/login' });
-	const { data, error } = useFetch(user?._id ? `/api/users/${user._id}/orders` : null);
+	const { data, error } = useFetch('/api/orders');
 
 	if (!user || user.isLoggedIn === false) return <Loading />
 
@@ -33,11 +33,11 @@ export default function Orders() {
 					</thead>
 
 					<tbody>
+						<OrderCreate user_id={user._id} />
+
 						{data.map(order => (
 							<OrderEdit key={order._id} order={order} />
 						))}
-						
-						<OrderCreate user_id={user._id} />
 					</tbody>
 				</table>
 			</div>
