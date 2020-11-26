@@ -4,6 +4,8 @@ import useUser from '../hooks/useUser';
 import axios from 'axios';
 
 import Layout from '../components/login';
+
+import { toast } from 'react-toastify';
 import { FiArrowLeft } from 'react-icons/fi';
 
 export default function Register() {
@@ -18,6 +20,22 @@ export default function Register() {
 
 	async function handleRegister(e) {
 		e.preventDefault();
+
+		await axios.post('/api/register', {
+			name,
+			email,
+			password,
+		
+		}).then(async response => {
+			toast.success('Conta criada com sucesso.');
+			await mutateUser();
+
+		}).catch(error => {
+			if (error.response)
+				toast.error(error.response.data);
+			else
+				toast.error('Ocorreu um erro ao criar uma conta.');
+		});
 	}
 	
 	return (
@@ -27,7 +45,7 @@ export default function Register() {
 
 			<form onSubmit={handleRegister}>
 				<div className="field">
-					<input type="email" placeholder="Nome" value={name} onChange={e => setName(e.target.value)} required />
+					<input type="text" placeholder="Nome" value={name} onChange={e => setName(e.target.value)} required />
 				</div>
 
 				<div className="field">

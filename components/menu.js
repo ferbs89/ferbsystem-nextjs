@@ -6,11 +6,17 @@ export default function Menu() {
 	return (
 		<div className={styles.menu}>
 			<Link href="/">
-				<a><FiTrendingUp />Ativos</a>
+				<a>
+					<FiTrendingUp />
+					Ativos
+				</a>
 			</Link>
 
 			<Link href="/orders">
-				<a><FiLayers />Operações</a>
+				<a>
+					<FiLayers />
+					Operações
+				</a>
 			</Link>
 		</div>
 	);

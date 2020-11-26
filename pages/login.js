@@ -4,6 +4,8 @@ import useUser from '../hooks/useUser';
 import axios from 'axios';
 
 import Layout from '../components/login';
+
+import { toast } from 'react-toastify';
 import { FiLogIn } from 'react-icons/fi';
 
 export default function Login() {
@@ -18,12 +20,19 @@ export default function Login() {
 	async function handleLogin(e) {
 		e.preventDefault();
 
-		try {
-			await mutateUser(await axios.post('/api/login', { email, password }));
-
-		} catch (error) {
-			console.error('An unexpected error happened:', error);
-		}
+		await axios.post('/api/login', { 
+			email, 
+			password,
+		
+		}).then(async response => {
+			await mutateUser();
+		
+		}).catch(error => {
+			if (error.response)
+				toast.error(error.response.data);
+			else
+				toast.error('Ocorreu um erro ao efetuar o login.');
+		});
 	}
 
 	return (

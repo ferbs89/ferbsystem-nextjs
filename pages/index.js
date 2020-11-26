@@ -1,9 +1,12 @@
+import Link from 'next/link';
 import useUser from '../hooks/useUser';
 import { useFetch } from '../hooks/useFetch';
 
 import Layout from '../components/layout';
 import Loading from '../components/loading';
 import Error from '../components/error';
+
+import { FiSearch } from 'react-icons/fi';
 
 export default function Home() {
 	const { user } = useUser({ redirectTo: '/login' });
@@ -28,6 +31,7 @@ export default function Home() {
 						<thead>
 							<tr>
 								<th></th>
+								<th className="action"></th>
 							</tr>
 						</thead>
 
@@ -35,6 +39,11 @@ export default function Home() {
 							{data.map(stock => (
 								<tr key={stock}>
 									<td>{stock}</td>
+									<td data-header="Visualizar" className="action">
+										<Link href={`/stocks/${stock}`}>
+											<button><FiSearch /></button>
+										</Link>
+									</td>
 								</tr>
 							))}
 						</tbody>
