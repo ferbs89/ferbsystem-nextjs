@@ -6,8 +6,8 @@ import { FiCheck, FiEdit, FiTrash2 } from 'react-icons/fi';
 
 export default function OrderEdit({ order, query }) {
 	const [stock, setStock] = useState(order.stock);
-	const [price, setPrice] = useState(order.price);
 	const [qty, setQty] = useState(order.qty);
+	const [price, setPrice] = useState(order.price);
 	const [edit, setEdit] = useState(false);
 
 	let url = '/api/orders';
@@ -28,8 +28,8 @@ export default function OrderEdit({ order, query }) {
 
 		await axios.put(`/api/orders/${order_id}`, {
 			stock,
-			price,
 			qty,
+			price,
 
 		}).then(() => {
 			mutate(url);
@@ -50,8 +50,8 @@ export default function OrderEdit({ order, query }) {
 					{!query && (
 						<td data-header="Ativo">{order.stock}</td>
 					)}
-					<td data-header="Preço">{formatMoney(order.price)}</td>
 					<td data-header="Quantidade">{order.qty}</td>
+					<td data-header="Preço">{formatMoney(order.price)}</td>
 					<td data-header="Total">{formatMoney(order.price * order.qty)}</td>
 					<td data-header="Ação" className="action">
 						<button><FiEdit onClick={() => setEdit(true)} /></button>
@@ -65,8 +65,8 @@ export default function OrderEdit({ order, query }) {
 					{!query !== false && (
 						<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
 					)}
-					<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 					<td><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
+					<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 					<td data-header="Total">{formatMoney(price * qty)}</td>
 					<td data-header="Editar" className="action">
 						<button onClick={() => handleEdit(order._id)}><FiCheck /></button>

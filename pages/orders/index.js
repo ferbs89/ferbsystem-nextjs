@@ -25,8 +25,8 @@ export default function Orders() {
 					<thead>
 						<tr>
 							<th>Ativo</th>
-							<th>Preço</th>
 							<th>Quantidade</th>
+							<th>Preço</th>
 							<th>Total</th>
 							<th className="action">Ação</th>
 						</tr>

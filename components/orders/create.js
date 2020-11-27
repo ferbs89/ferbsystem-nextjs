@@ -6,8 +6,8 @@ import { FiPlusCircle } from 'react-icons/fi';
 
 export default function OrderCreate({ query }) {
 	const [stock, setStock] = useState(query ? query : '');
-	const [price, setPrice] = useState('');
 	const [qty, setQty] = useState('');
+	const [price, setPrice] = useState('');
 
 	let url = '/api/orders';
 
@@ -27,8 +27,8 @@ export default function OrderCreate({ query }) {
 
 		await axios.post(url, {
 			stock,
-			price,
 			qty,
+			price,
 			
 		}).then(response => {
 			mutate(url);
@@ -36,8 +36,8 @@ export default function OrderCreate({ query }) {
 			if (!query)
 				setStock('');
 
-			setPrice('');
 			setQty('');
+			setPrice('');
 		});
 	}
 
@@ -46,8 +46,8 @@ export default function OrderCreate({ query }) {
 			{!query && (
 				<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
 			)}
-			<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 			<td><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
+			<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 			<td>{formatMoney(price * qty)}</td>
 			<td data-header="Adicionar" className="action">
 				<button onClick={handleCreate}><FiPlusCircle /></button>

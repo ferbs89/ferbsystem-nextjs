@@ -30,8 +30,8 @@ export default function Stock() {
 				<table>
 					<thead>
 						<tr>
-							<th>Preço</th>
 							<th>Quantidade</th>
+							<th>Preço</th>
 							<th>Total</th>
 							<th className="action">Ação</th>
 						</tr>
