@@ -22,8 +22,13 @@ export default withSession(async (req, res) => {
 
 	switch (req.method) {
 		case 'GET':
+			const query = { user_id };
+
+			if (req.query.stock !== undefined)
+				query.stock = req.query.stock
+
 			const response = await collection
-				.find({ user_id })
+				.find(query)
 				.sort({ _id: -1 })
 				.toArray();
 

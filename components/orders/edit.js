@@ -4,11 +4,16 @@ import axios from 'axios';
 
 import { FiCheck, FiEdit, FiTrash2 } from 'react-icons/fi';
 
-export default function OrderEdit({ order }) {
+export default function OrderEdit({ order, query }) {
 	const [stock, setStock] = useState(order.stock);
 	const [price, setPrice] = useState(order.price);
 	const [qty, setQty] = useState(order.qty);
 	const [edit, setEdit] = useState(false);
+
+	let url = '/api/orders';
+
+	if (query)
+		url += `?stock=${stock}`;
 
 	function formatMoney(amount) {
 		return new Intl.NumberFormat('pt-BR', {
@@ -27,14 +32,14 @@ export default function OrderEdit({ order }) {
 			qty,
 
 		}).then(() => {
-			mutate('/api/orders');
+			mutate(url);
 			setEdit(false);
 		});
 	}
 
 	async function handleDelete(order_id) {
 		await axios.delete(`/api/orders/${order_id}`).then(() => {
-			mutate('/api/orders');
+			mutate(url);
 		});
 	}
 
@@ -42,7 +47,9 @@ export default function OrderEdit({ order }) {
 		<>
 			{!edit && (
 				<tr>
-					<td data-header="Ativo">{order.stock}</td>
+					{!query && (
+						<td data-header="Ativo">{order.stock}</td>
+					)}
 					<td data-header="Preço">{formatMoney(order.price)}</td>
 					<td data-header="Quantidade">{order.qty}</td>
 					<td data-header="Total">{formatMoney(order.price * order.qty)}</td>
@@ -55,7 +62,9 @@ export default function OrderEdit({ order }) {
 
 			{edit && (
 				<tr>
-					<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
+					{!query !== false && (
+						<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
+					)}
 					<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 					<td><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
 					<td data-header="Total">{formatMoney(price * qty)}</td>

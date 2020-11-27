@@ -33,7 +33,7 @@ export default function Orders() {
 					</thead>
 
 					<tbody>
-						<OrderCreate user_id={user._id} />
+						<OrderCreate />
 
 						{data.map(order => (
 							<OrderEdit key={order._id} order={order} />

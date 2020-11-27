@@ -4,10 +4,15 @@ import axios from 'axios';
 
 import { FiPlusCircle } from 'react-icons/fi';
 
-export default function OrderCreate({ user_id }) {
-	const [stock, setStock] = useState('');
+export default function OrderCreate({ query }) {
+	const [stock, setStock] = useState(query ? query : '');
 	const [price, setPrice] = useState('');
 	const [qty, setQty] = useState('');
+
+	let url = '/api/orders';
+
+	if (query)
+		url += `?stock=${stock}`;
 
 	function formatMoney(amount) {
 		return new Intl.NumberFormat('pt-BR', {
@@ -20,14 +25,17 @@ export default function OrderCreate({ user_id }) {
 		if (!stock || !price || !qty)
 			return;
 
-		await axios.post('/api/orders', {
+		await axios.post(url, {
 			stock,
 			price,
 			qty,
 			
 		}).then(response => {
-			mutate('/api/orders');
-			setStock('');
+			mutate(url);
+
+			if (!query)
+				setStock('');
+
 			setPrice('');
 			setQty('');
 		});
@@ -35,7 +43,9 @@ export default function OrderCreate({ user_id }) {
 
 	return (
 		<tr>
-			<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
+			{!query && (
+				<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
+			)}
 			<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 			<td><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
 			<td>{formatMoney(price * qty)}</td>
