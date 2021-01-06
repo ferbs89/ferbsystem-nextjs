@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from '../styles/components/menu.module.css';
-import { FiTrendingUp, FiLayers } from 'react-icons/fi';
+import { FiTrendingUp, FiLayers, FiZap } from 'react-icons/fi';
 
 export default function Menu() {
 	return (
@@ -16,6 +16,13 @@ export default function Menu() {
 				<a>
 					<FiLayers />
 					Operações
+				</a>
+			</Link>
+
+			<Link href="/earnings">
+				<a>
+					<FiZap />
+					Proventos
 				</a>
 			</Link>
 		</div>

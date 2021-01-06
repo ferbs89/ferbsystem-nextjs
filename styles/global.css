@@ -248,6 +248,10 @@ table tfoot td {
 		font-weight: bold;
 	}
 
+	table th.price, table td.price {
+		width: 100%;
+	}
+
 	table td.action {
 		display: inline-block;
 		width: auto;
