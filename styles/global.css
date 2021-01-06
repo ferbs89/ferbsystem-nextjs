@@ -162,6 +162,10 @@ table td {
 	height: 60px;
 }
 
+table th.price, table td.price {
+	width: 15%;
+}
+
 table th.action, table td.action {
 	text-align: center;
 	width: 100px;
@@ -174,7 +178,7 @@ table td.action button {
 	margin: 0px 4px;
 }
 
-table td.action button svg {
+table td.action button svg, table td.action a svg {
 	width: 20px;
 	height: 20px;
 	color: #a8a8b3;

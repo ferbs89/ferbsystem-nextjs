@@ -1,6 +1,6 @@
 import withSession from '../../lib/session';
 import connect from '../../lib/database';
-import { ObjectID } from 'mongodb';
+import { ObjectID, Int32, Double } from 'mongodb';
 
 export default withSession(async (req, res) => {
 	const user = req.session.get('user');
@@ -36,13 +36,13 @@ export default withSession(async (req, res) => {
 			break;
 
 		case 'POST':
-			const { stock, price, qty } = req.body;
+			const { stock, qty, price } = req.body;
 
 			await collection.insertOne({
 				user_id,
 				stock,
-				price,
-				qty,
+				qty: new Int32(qty),
+				price: new Double(price),
 			});
 
 			res.status(200).end();

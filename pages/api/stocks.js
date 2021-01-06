@@ -13,11 +13,36 @@ export default withSession(async (req, res) => {
 
 	switch (req.method) {
 		case 'GET':
-			const response = await collection.distinct('stock', { 
-				user_id: new ObjectID(user._id),
+			const stocks = collection.aggregate([
+				{
+					$match: {
+						user_id: new ObjectID(user._id)
+					}
+				}, {
+					$group: {
+						_id: "$stock",
+						qty: {
+							$sum: "$qty",
+						},
+						total: {
+							$sum: {
+								$multiply: [ "$qty", "$price" ]
+							}
+						},
+					}
+				}
+			]);
+
+			const listStock = [];
+
+			await stocks.forEach(stock => {
+				listStock.push({
+					...stock,
+					pm: stock.total / stock.qty,
+				});
 			});
-			
-			res.status(200).json(response);
+
+			res.status(200).json(listStock);
 			break;
 	}
 });

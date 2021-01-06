@@ -17,6 +17,13 @@ export default function Home() {
 	if (error) return <Error />
 	if (!data) return <Loading />
 
+	function formatMoney(amount) {
+		return new Intl.NumberFormat('pt-BR', {
+			style: 'currency',
+			currency: 'BRL',
+		}).format(amount);
+	}
+
 	return (
 		<Layout title="Ativos">
 			<div className="content">
@@ -30,18 +37,24 @@ export default function Home() {
 					<table>
 						<thead>
 							<tr>
-								<th></th>
-								<th className="action"></th>
+								<th>Código</th>
+								<th className="price">Quantidade</th>
+								<th className="price">Preço médio</th>
+								<th className="price">Total</th>
+								<th className="action">Visualizar</th>
 							</tr>
 						</thead>
 
 						<tbody>
 							{data.map(stock => (
-								<tr key={stock}>
-									<td>{stock}</td>
+								<tr key={stock._id}>
+									<td>{stock._id}</td>
+									<td className="price">{stock.qty}</td>
+									<td className="price">{formatMoney(stock.pm)}</td>
+									<td className="price">{formatMoney(stock.total)}</td>
 									<td data-header="Visualizar" className="action">
-										<Link href={`/stocks/${stock}`}>
-											<button><FiSearch /></button>
+										<Link href={`/stocks/${stock._id}`}>
+											<a><FiSearch /></a>
 										</Link>
 									</td>
 								</tr>
