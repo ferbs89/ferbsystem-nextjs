@@ -6,6 +6,7 @@ import { FiPlusCircle } from 'react-icons/fi';
 
 export default function OrderCreate({ query }) {
 	const [stock, setStock] = useState(query ? query : '');
+	const [date, setDate] = useState('');
 	const [qty, setQty] = useState('');
 	const [price, setPrice] = useState('');
 
@@ -22,10 +23,11 @@ export default function OrderCreate({ query }) {
 	}
 
 	async function handleCreate() {
-		if (!stock || !price || !qty)
+		if (!date || !stock || !price || !qty)
 			return;
 
 		await axios.post(url, {
+			date,
 			stock,
 			qty,
 			price,
@@ -36,6 +38,7 @@ export default function OrderCreate({ query }) {
 			if (!query)
 				setStock('');
 
+			setDate('');
 			setQty('');
 			setPrice('');
 		});
@@ -43,6 +46,7 @@ export default function OrderCreate({ query }) {
 
 	return (
 		<tr>
+			<td><input type="date" value={date} onChange={e => setDate(e.target.value)} /></td>
 			{!query && (
 				<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
 			)}

@@ -24,11 +24,12 @@ export default withSession(async (req, res) => {
 
 	switch (req.method) {
 		case 'PUT':
-			const { stock, price, qty } = req.body;
+			const { date, stock, price, qty } = req.body;
 
 			await collection.updateOne({ _id }, {
 				$set: {
-					stock,
+					date,
+					stock: stock.toUpperCase(),
 					qty: new Int32(qty),
 					price: new Double(price),
 				}

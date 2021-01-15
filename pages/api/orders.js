@@ -36,11 +36,12 @@ export default withSession(async (req, res) => {
 			break;
 
 		case 'POST':
-			const { stock, qty, price } = req.body;
+			const { date, stock, qty, price } = req.body;
 
 			await collection.insertOne({
 				user_id,
-				stock,
+				date,
+				stock: stock.toUpperCase(),
 				qty: new Int32(qty),
 				price: new Double(price),
 			});

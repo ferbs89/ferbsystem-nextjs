@@ -24,6 +24,7 @@ export default function Orders() {
 				<table>
 					<thead>
 						<tr>
+							<th>Data</th>
 							<th>Ativo</th>
 							<th>Quantidade</th>
 							<th>Preço</th>

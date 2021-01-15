@@ -6,6 +6,7 @@ import { FiCheck, FiEdit, FiTrash2 } from 'react-icons/fi';
 
 export default function OrderEdit({ order, query }) {
 	const [stock, setStock] = useState(order.stock);
+	const [date, setDate] = useState(order.date);
 	const [qty, setQty] = useState(order.qty);
 	const [price, setPrice] = useState(order.price);
 	const [edit, setEdit] = useState(false);
@@ -15,6 +16,11 @@ export default function OrderEdit({ order, query }) {
 	if (query)
 		url += `?stock=${stock}`;
 
+	function formatDate(value) {
+		const date = value.split('-');
+		return date[2] + '/' + date[1] + '/' + date[0];
+	}
+	
 	function formatMoney(amount) {
 		return new Intl.NumberFormat('pt-BR', {
 			style: 'currency',
@@ -23,10 +29,11 @@ export default function OrderEdit({ order, query }) {
 	}
 
 	async function handleEdit(order_id) {
-		if (!stock || !price || !qty)
+		if (!date || !stock || !price || !qty)
 			return;
 
 		await axios.put(`/api/orders/${order_id}`, {
+			date,
 			stock,
 			qty,
 			price,
@@ -47,6 +54,7 @@ export default function OrderEdit({ order, query }) {
 		<>
 			{!edit && (
 				<tr>
+					<td data-header="Data">{formatDate(order.date)}</td>
 					{!query && (
 						<td data-header="Ativo">{order.stock}</td>
 					)}
@@ -62,6 +70,7 @@ export default function OrderEdit({ order, query }) {
 
 			{edit && (
 				<tr>
+					<td><input type="date" value={date} onChange={e => setDate(e.target.value)} /></td>
 					{!query !== false && (
 						<td><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
 					)}
