@@ -62,8 +62,10 @@ export default function OrderEdit({ order, query }) {
 					<td data-header="Preço">{formatMoney(order.price)}</td>
 					<td data-header="Total">{formatMoney(order.price * order.qty)}</td>
 					<td data-header="Ação" className="action">
-						<button><FiEdit onClick={() => setEdit(true)} /></button>
-						<button onClick={() => handleDelete(order._id)}><FiTrash2 /></button>
+						<div>
+							<button><FiEdit onClick={() => setEdit(true)} /></button>
+							<button onClick={() => handleDelete(order._id)}><FiTrash2 /></button>
+						</div>
 					</td>
 				</tr>
 			)}
@@ -78,7 +80,9 @@ export default function OrderEdit({ order, query }) {
 					<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 					<td data-header="Total">{formatMoney(price * qty)}</td>
 					<td data-header="Editar" className="action">
-						<button onClick={() => handleEdit(order._id)}><FiCheck /></button>
+						<div>
+							<button onClick={() => handleEdit(order._id)}><FiCheck /></button>
+						</div>
 					</td>
 				</tr>
 			)}

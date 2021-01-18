@@ -163,7 +163,7 @@ table td {
 }
 
 table th.price, table td.price {
-	width: 15%;
+	width: 20%;
 }
 
 table th.action, table td.action {
@@ -173,15 +173,29 @@ table th.action, table td.action {
 }
 
 table td.action button {
-	background: #FFF;
 	border: 0;
 	margin: 0px 4px;
 }
 
-table td.action button svg, table td.action a svg {
+table td.action div {
+	display: flex;
+	justify-content: center;
+}
+
+table td.action a, table td.action button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 32px;
+	height: 32px;
+	background-color: #eee;
+	border-radius: 8px;
+}
+
+table td.action a svg, table td.action button svg {
 	width: 20px;
 	height: 20px;
-	color: #a8a8b3;
+	color: #17496E;
 }
 
 table tfoot td {
@@ -256,10 +270,6 @@ table tfoot td {
 		display: inline-block;
 		width: auto;
 		margin: 0 8px;
-	}
-
-	table td.action svg {
-		margin-top: 2px;
 	}
 
 	table tfoot tr {

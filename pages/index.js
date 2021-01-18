@@ -38,8 +38,8 @@ export default function Home() {
 						<thead>
 							<tr>
 								<th>Código</th>
+								<th className="price">Preço</th>
 								<th className="price">Quantidade</th>
-								<th className="price">Preço médio</th>
 								<th className="price">Total</th>
 								<th className="action">Visualizar</th>
 							</tr>
@@ -48,14 +48,16 @@ export default function Home() {
 						<tbody>
 							{data.map(stock => (
 								<tr key={stock._id}>
-									<td data-header="Código">{stock._id}</td>
+									<td data-header="Código">{stock.stock}</td>
+									<td data-header="Preço" className="price">{formatMoney(stock.price)}</td>
 									<td data-header="Quantidade" className="price">{stock.qty}</td>
-									<td data-header="Preço médio" className="price">{formatMoney(stock.pm)}</td>
 									<td data-header="Total" className="price">{formatMoney(stock.total)}</td>
 									<td data-header="Visualizar" className="action">
-										<Link href={`/stocks/${stock._id}`}>
-											<a><FiSearch /></a>
-										</Link>
+										<div>
+											<Link href={`/stocks/${stock.stock}`}>
+												<a><FiSearch /></a>
+											</Link>
+										</div>
 									</td>
 								</tr>
 							))}

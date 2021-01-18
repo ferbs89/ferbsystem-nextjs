@@ -54,7 +54,9 @@ export default function OrderCreate({ query }) {
 			<td><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 			<td>{formatMoney(price * qty)}</td>
 			<td data-header="Adicionar" className="action">
-				<button onClick={handleCreate}><FiPlusCircle /></button>
+				<div>
+					<button onClick={handleCreate}><FiPlusCircle /></button>
+				</div>
 			</td>
 		</tr>
 	);

@@ -9,7 +9,8 @@ export default withSession(async (req, res) => {
 		return res.status(401).end();
 
 	const db = await connect();
-	const collection = db.collection('orders');
+	const orders = db.collection('orders');
+	const stocks = db.collection('stocks');
 
 	let user_id = null;
 
@@ -27,7 +28,7 @@ export default withSession(async (req, res) => {
 			if (req.query.stock !== undefined)
 				query.stock = req.query.stock
 
-			const response = await collection
+			const response = await orders
 				.find(query)
 				.sort({ _id: -1 })
 				.toArray();
@@ -37,8 +38,37 @@ export default withSession(async (req, res) => {
 
 		case 'POST':
 			const { date, stock, qty, price } = req.body;
+			
+			// Find stock
+			const result = await stocks.findOne({ user_id, stock });
 
-			await collection.insertOne({
+			if (!result) {
+				// Insert stock
+				await stocks.insertOne({
+					user_id,
+					stock: stock.toUpperCase(),
+					total: new Double(qty * price),
+					qty: new Int32(qty),
+					price: new Double(price),
+				});
+			
+			} else {
+				// Update stock
+				const newTotal = parseFloat(result.total + (qty * price)).toFixed(2);
+				const newQty = result.qty + parseInt(qty);
+				const newPrice = parseFloat(newTotal / newQty).toFixed(2);
+
+				await stocks.updateOne({ _id: result._id }, {
+					$set: {
+						total: new Double(newTotal),
+						qty: new Int32(newQty),
+						price: new Double(newPrice),
+					}
+				});
+			}
+
+			// Insert order
+			await orders.insertOne({
 				user_id,
 				date,
 				stock: stock.toUpperCase(),
