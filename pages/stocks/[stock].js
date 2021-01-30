@@ -22,10 +22,37 @@ export default function Stock() {
 	if (error) return <Error />
 	if (!data) return <Loading />
 
+	function formatMoney(amount) {
+		return new Intl.NumberFormat('pt-BR', {
+			style: 'currency',
+			currency: 'BRL',
+		}).format(amount);
+	}
+
 	return (
 		<Layout title={stock}>
 			<div className="content">
-				<h1>{stock}</h1>
+				<table>
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th width="20%">Preço</th>
+							<th width="20%">Quantidade</th>
+							<th width="20%">Total</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr>
+							<td>{data.stock.stock}</td>
+							<td>{formatMoney(data.stock.price)}</td>
+							<td>{data.stock.qty}</td>
+							<td>{formatMoney(data.stock.total)}</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<br/><br/>
 
 				<table>
 					<thead>
@@ -41,7 +68,7 @@ export default function Stock() {
 					<tbody>
 						<OrderCreate query={stock} />
 
-						{data.map(order => (
+						{data.orders.map(order => (
 							<OrderEdit key={order._id} order={order} query={stock} />
 						))}
 					</tbody>

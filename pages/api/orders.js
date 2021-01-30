@@ -15,7 +15,7 @@ export default withSession(async (req, res) => {
 	let user_id = null;
 
 	try {
-		user_id = new ObjectID(user._id);		
+		user_id = new ObjectID(user._id);
 	} catch(error) {
 		res.status(400).end();
 		return;
@@ -26,23 +26,35 @@ export default withSession(async (req, res) => {
 			const query = { user_id };
 
 			if (req.query.stock !== undefined)
-				query.stock = req.query.stock
+				query.stock = req.query.stock;
 
-			const response = await orders
+			const responseStock = await stocks.findOne({
+				user_id,
+				stock: query.stock,
+			});
+
+			if (!responseStock)
+				return res.status(400).end();
+
+			const responseOrders = await orders
 				.find(query)
 				.sort({ _id: -1 })
 				.toArray();
 
-			res.status(200).json(response);
+			return res.status(200).json({ 
+				stock: responseStock, 
+				orders: responseOrders
+			});
+			
 			break;
 
 		case 'POST':
 			const { date, stock, qty, price } = req.body;
 			
 			// Find stock
-			const result = await stocks.findOne({ user_id, stock });
+			const resultStock = await stocks.findOne({ user_id, stock });
 
-			if (!result) {
+			if (!resultStock) {
 				// Insert stock
 				await stocks.insertOne({
 					user_id,
@@ -54,11 +66,11 @@ export default withSession(async (req, res) => {
 			
 			} else {
 				// Update stock
-				const newTotal = parseFloat(result.total + (qty * price)).toFixed(2);
-				const newQty = result.qty + parseInt(qty);
+				const newTotal = parseFloat(resultStock.total + (qty * price)).toFixed(2);
+				const newQty = resultStock.qty + parseInt(qty);
 				const newPrice = parseFloat(newTotal / newQty).toFixed(2);
 
-				await stocks.updateOne({ _id: result._id }, {
+				await stocks.updateOne({ user_id, _id: resultStock._id }, {
 					$set: {
 						total: new Double(newTotal),
 						qty: new Int32(newQty),
@@ -76,7 +88,7 @@ export default withSession(async (req, res) => {
 				price: new Double(price),
 			});
 
-			res.status(200).end();
+			return res.status(200).end();
 			break;
 	}
 });
