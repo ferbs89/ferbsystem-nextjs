@@ -32,10 +32,10 @@ export default function Stock() {
 	return (
 		<Layout title={stock}>
 			<div className="content">
-				<table>
+				<table className="stock-info">
 					<thead>
 						<tr>
-							<th>Código</th>
+							<th width="40%">Ativo</th>
 							<th width="20%">Preço</th>
 							<th width="20%">Quantidade</th>
 							<th width="20%">Total</th>
@@ -44,23 +44,23 @@ export default function Stock() {
 
 					<tbody>
 						<tr>
-							<td>{data.stock.stock}</td>
-							<td>{formatMoney(data.stock.price)}</td>
-							<td>{data.stock.qty}</td>
-							<td>{formatMoney(data.stock.total)}</td>
+							<td className="stock-symbol">{data.stock.stock}</td>
+							<td data-header="Preço">{formatMoney(data.stock.price)}</td>
+							<td data-header="Quantidade">{data.stock.qty}</td>
+							<td data-header="Total">{formatMoney(data.stock.total)}</td>
 						</tr>
 					</tbody>
 				</table>
 
-				<br/><br/>
+				<h1>Operações</h1>
 
 				<table>
 					<thead>
 						<tr>
-							<th>Data</th>
-							<th>Quantidade</th>
-							<th>Preço</th>
-							<th>Total</th>
+							<th width="25%">Data</th>
+							<th width="25%">Quantidade</th>
+							<th width="25%">Preço</th>
+							<th width="25%">Total</th>
 							<th className="action">Ação</th>
 						</tr>
 					</thead>

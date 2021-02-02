@@ -25,16 +25,19 @@ export default withSession(async (req, res) => {
 		case 'GET':
 			const query = { user_id };
 
-			if (req.query.stock !== undefined)
+			let responseStock = null;
+
+			if (req.query.stock !== undefined) {
 				query.stock = req.query.stock;
 
-			const responseStock = await stocks.findOne({
-				user_id,
-				stock: query.stock,
-			});
+				responseStock = await stocks.findOne({
+					user_id,
+					stock: query.stock,
+				});
 
-			if (!responseStock)
-				return res.status(400).end();
+				if (!responseStock)
+					return res.status(400).end();
+			}
 
 			const responseOrders = await orders
 				.find(query)

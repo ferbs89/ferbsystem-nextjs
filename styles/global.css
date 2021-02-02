@@ -203,6 +203,19 @@ table tfoot td {
 	font-weight: bold;
 }
 
+table.stock-info {
+	margin-bottom: 32px;
+}
+
+table.stock-info th, table.stock-info td {
+	font-size: 16.8px;
+}
+
+table.stock-info td.stock-symbol {
+	font-size: 24px;
+	font-weight: bold;
+}
+
 .Toastify__toast {
 	padding: 16px;
 	border-radius: 8px;

@@ -24,11 +24,11 @@ export default function Orders() {
 				<table>
 					<thead>
 						<tr>
-							<th>Data</th>
-							<th>Ativo</th>
-							<th>Quantidade</th>
-							<th>Preço</th>
-							<th>Total</th>
+							<th width="20%">Data</th>
+							<th width="20%">Ativo</th>
+							<th width="20%">Quantidade</th>
+							<th width="20%">Preço</th>
+							<th width="20%">Total</th>
 							<th className="action">Ação</th>
 						</tr>
 					</thead>
@@ -36,7 +36,7 @@ export default function Orders() {
 					<tbody>
 						<OrderCreate />
 
-						{data.map(order => (
+						{data.orders.map(order => (
 							<OrderEdit key={order._id} order={order} />
 						))}
 					</tbody>
