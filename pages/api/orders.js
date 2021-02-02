@@ -41,7 +41,7 @@ export default withSession(async (req, res) => {
 
 			const responseOrders = await orders
 				.find(query)
-				.sort({ _id: -1 })
+				.sort({ date: -1, stock: -1 })
 				.toArray();
 
 			return res.status(200).json({ 
