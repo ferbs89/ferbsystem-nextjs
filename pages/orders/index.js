@@ -9,7 +9,7 @@ import OrderEdit from '../../components/orders/edit';
 
 export default function Orders() {
 	const { user } = useUser({ redirectTo: '/login' });
-	const { data, error } = useFetch('/api/orders');
+	const { data, error } = useFetch(user?.isLoggedIn ? '/api/orders' : null);
 
 	if (!user || user.isLoggedIn === false) return <Loading />
 

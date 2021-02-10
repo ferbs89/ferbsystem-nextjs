@@ -15,7 +15,7 @@ export default function Stock() {
 	const router = useRouter();
 	const { stock } = router.query;
 	const { user } = useUser({ redirectTo: '/login' });
-	const { data, error } = useFetch(`/api/orders?stock=${stock}`);
+	const { data, error } = useFetch(user?.isLoggedIn ? `/api/orders?stock=${stock}` : null);
 
 	if (!user || user.isLoggedIn === false) return <Loading />
 

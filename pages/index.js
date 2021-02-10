@@ -10,7 +10,7 @@ import { FiSearch } from 'react-icons/fi';
 
 export default function Home() {
 	const { user } = useUser({ redirectTo: '/login' });
-	const { data, error } = useFetch('/api/stocks');
+	const { data, error } = useFetch(user?.isLoggedIn ? '/api/stocks' : null);
 
 	if (!user || user.isLoggedIn === false) return <Loading />
 
