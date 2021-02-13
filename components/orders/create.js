@@ -33,9 +33,9 @@ export default function OrderCreate({ query }) {
 			qty,
 			price,
 			
-		}).then(response => {
+		}).then(async response => {
 			toast.success('Operação salva com sucesso.');
-			mutate(url);
+			await mutate(url);
 
 			if (!query)
 				setStock('');
@@ -55,7 +55,7 @@ export default function OrderCreate({ query }) {
 			<td data-header="Quantidade"><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
 			<td data-header="Preço"><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 			<td data-header="Total">{formatMoney(price * qty)}</td>
-			<td data-header="Adicionar" className="action">
+			<td className="action">
 				<div>
 					<button onClick={handleCreate}><FiPlusCircle /></button>
 				</div>

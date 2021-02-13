@@ -52,7 +52,7 @@ export default function Home() {
 									<td data-header="Preço" className="price">{formatMoney(stock.price)}</td>
 									<td data-header="Quantidade" className="price">{stock.qty}</td>
 									<td data-header="Total" className="price">{formatMoney(stock.total)}</td>
-									<td data-header="Visualizar" className="action">
+									<td className="action">
 										<div>
 											<Link href={`/stocks/${stock.stock}`}>
 												<a><FiSearch /></a>

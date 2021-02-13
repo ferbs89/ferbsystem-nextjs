@@ -39,17 +39,17 @@ export default function OrderEdit({ order, query }) {
 			qty,
 			price,
 
-		}).then(() => {
+		}).then(async () => {
 			toast.success('Operação salva com sucesso.');
-			mutate(url);
+			await mutate(url);
 			setEdit(false);
 		});
 	}
 
 	async function handleDelete(order_id) {
-		await axios.delete(`/api/orders/${order_id}`).then(() => {
+		await axios.delete(`/api/orders/${order_id}`).then(async () => {
 			toast.success('Operação removida com sucesso.');
-			mutate(url);
+			await mutate(url);
 		});
 	}
 
@@ -63,10 +63,20 @@ export default function OrderEdit({ order, query }) {
 					)}
 					<td data-header="Quantidade">{order.qty}</td>
 					<td data-header="Preço">{formatMoney(order.price)}</td>
-					<td data-header="Total">{formatMoney(order.price * order.qty)}</td>
-					<td data-header="Ação" className="action">
+					<td data-header="Total">
+						{formatMoney(order.price * order.qty)}
+						
+						{order.profit != 0 && order.profit > 0 && (
+							<span className="profit positive">Lucro: {formatMoney(order.profit)}</span>
+						)}
+
+						{order.profit != 0 && order.profit < 0 && (
+							<span className="profit negative">Lucro: {formatMoney(order.profit)}</span>
+						)}
+					</td>
+					<td className="action">
 						<div>
-							<button><FiEdit onClick={() => setEdit(true)} /></button>
+							<button onClick={() => setEdit(true)}><FiEdit /></button>
 							<button onClick={() => handleDelete(order._id)}><FiTrash2 /></button>
 						</div>
 					</td>
@@ -82,7 +92,7 @@ export default function OrderEdit({ order, query }) {
 					<td data-header="Quantidade"><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
 					<td data-header="Preço"><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 					<td data-header="Total">{formatMoney(price * qty)}</td>
-					<td data-header="Editar" className="action">
+					<td className="action">
 						<div>
 							<button onClick={() => handleEdit(order._id)}><FiCheck /></button>
 						</div>
