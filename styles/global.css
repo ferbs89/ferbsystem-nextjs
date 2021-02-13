@@ -16,19 +16,20 @@ body {
 .container {
 	width: 100%;
 	max-width: 1280px;
-	height: 100vh;
-	background: #FFF;
 	margin: 0px auto;
 }
 
 .content {
 	background: #FFF;
+	margin-top: 8px;
 	padding: 32px;
+	border-radius: 8px;
 }
 
 h1 {
-	font-size: 24px;
 	margin-bottom: 16px;
+	font-size: 24px;
+	font-weight: 500;
 }
 
 input {
@@ -103,31 +104,6 @@ button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
-
-.page-title {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-top: 16px;
-	margin-bottom: 32px;
-	height: 48px;
-}
-
-.page-title .right {
-	display: flex;
-	justify-content: flex-end;
-	width: 40%;
-}
-
-.page-title input {
-	max-width: 300px;
-	margin-right: 16px;
-}
-
-.page-title button {
-	width: auto;
-	padding: 16px;
 }
 
 .container .content form {
@@ -222,27 +198,6 @@ table.stock-info td.stock-symbol {
 }
 
 @media screen and (max-width: 750px) {
-	.page-title {
-		flex-direction: column;
-		align-items: normal;
-		height: auto;
-	}
-
-	.page-title .right {
-		flex-direction: column;
-		width: 100%;
-	}
-
-	.page-title input {
-		max-width: 100%;
-		margin-right: 0px;
-		margin-bottom: 16px;
-	}
-
-	.page-title button {
-		width: 100%;
-	}
-
 	table tr {
 		display: block;
 		padding: 8px;
@@ -294,11 +249,5 @@ table.stock-info td.stock-symbol {
 	table tfoot td {
 		padding: 0px;
 		text-align: center;
-	}
-}
-
-@media screen and (max-width: 480px) {
-	.Toastify__toast {
-		border-radius: 0px;
 	}
 }

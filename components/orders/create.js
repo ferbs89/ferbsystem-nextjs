@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { mutate } from 'swr';
 import axios from 'axios';
 
+import { toast } from 'react-toastify';
 import { FiPlusCircle } from 'react-icons/fi';
 
 export default function OrderCreate({ query }) {
@@ -33,6 +34,7 @@ export default function OrderCreate({ query }) {
 			price,
 			
 		}).then(response => {
+			toast.success('Operação salva com sucesso.');
 			mutate(url);
 
 			if (!query)

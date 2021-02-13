@@ -1,11 +1,11 @@
-import useUser from '../../hooks/useUser';
-import { useFetch } from '../../hooks/useFetch';
+import useUser from '../hooks/useUser';
+import { useFetch } from '../hooks/useFetch';
 
-import Layout from '../../components/layout';
-import Loading from '../../components/loading';
-import Error from '../../components/error';
-import OrderCreate from '../../components/orders/create';
-import OrderEdit from '../../components/orders/edit';
+import Layout from '../components/layout';
+import Loading from '../components/loading';
+import Error from '../components/error';
+import OrderCreate from '../components/orders/create';
+import OrderEdit from '../components/orders/edit';
 
 export default function Orders() {
 	const { user } = useUser({ redirectTo: '/login' });

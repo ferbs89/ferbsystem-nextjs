@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { mutate } from 'swr';
 import axios from 'axios';
 
+import { toast } from 'react-toastify';
 import { FiCheck, FiEdit, FiTrash2 } from 'react-icons/fi';
 
 export default function OrderEdit({ order, query }) {
@@ -39,6 +40,7 @@ export default function OrderEdit({ order, query }) {
 			price,
 
 		}).then(() => {
+			toast.success('Operação salva com sucesso.');
 			mutate(url);
 			setEdit(false);
 		});
@@ -46,6 +48,7 @@ export default function OrderEdit({ order, query }) {
 
 	async function handleDelete(order_id) {
 		await axios.delete(`/api/orders/${order_id}`).then(() => {
+			toast.success('Operação removida com sucesso.');
 			mutate(url);
 		});
 	}

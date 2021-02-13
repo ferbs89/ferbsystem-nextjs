@@ -3,7 +3,9 @@
 	align-items: center;
 	height: 64px;
 	padding-left: 32px;
-	border-bottom: 1px solid #dcdce6;
+	background: #FFF;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
 }
 
 .menu a {
