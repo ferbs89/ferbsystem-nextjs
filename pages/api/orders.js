@@ -13,41 +13,48 @@ export default withSession(async (req, res) => {
 	const stocks = db.collection('stocks');
 
 	let user_id = null;
-	let newTotal, newQty, newPrice, newProfit, sellTotal, stockTotal, profit = 0;
+	let resultStock = null;
+
+	let newQty = 0;
+	let newTotal = 0;
+	let newProfit = 0;
+	let sellTotal = 0;
+	let stockTotal = 0;
+	let stockPrice = 0;
+	let profit = 0;
 
 	try {
 		user_id = new ObjectID(user._id);
 	} catch(error) {
-		res.status(400).end();
-		return;
+		return res.status(400).end();
 	}
 
 	switch (req.method) {
 		case 'GET':
 			const query = { user_id };
 
-			let responseStock = null;
-
 			if (req.query.stock !== undefined) {
 				query.stock = req.query.stock;
 
-				responseStock = await stocks.findOne({
+				// Find stock
+				resultStock = await stocks.findOne({
 					user_id,
 					stock: query.stock,
 				});
 
-				if (!responseStock)
+				if (!resultStock)
 					return res.status(400).end();
 			}
 
-			const responseOrders = await orders
+			// Find orders
+			const resultOrders = await orders
 				.find(query)
-				.sort({ date: -1, stock: -1, _id: -1 })
+				.sort({ date: -1, _id: -1, stock: -1 })
 				.toArray();
 
-			return res.status(200).json({ 
-				stock: responseStock, 
-				orders: responseOrders
+			return res.status(200).json({
+				stock: resultStock,
+				orders: resultOrders,
 			});
 			
 			break;
@@ -56,43 +63,43 @@ export default withSession(async (req, res) => {
 			const { date, stock, qty, price } = req.body;
 			
 			// Find stock
-			const resultStock = await stocks.findOne({ user_id, stock });
+			resultStock = await stocks.findOne({ user_id, stock });
 
 			if (!resultStock) {
 				// Insert stock
 				await stocks.insertOne({
 					user_id,
 					stock: stock.toUpperCase(),
-					total: new Double(qty * price),
 					qty: new Int32(qty),
-					price: new Double(price),
+					total: new Double(qty * price),
+					profit: new Double(profit),
 				});
 			
 			} else {
 				if (qty > 0) {
 					// Buy order
-					newTotal = parseFloat(resultStock.total + (qty * price)).toFixed(2);
-					newQty = resultStock.qty + parseInt(qty);
-					newPrice = parseFloat(newTotal / newQty).toFixed(2);
-			
+					stockPrice = price;
+					newProfit = resultStock.profit;
+
 				} else {
 					// Sell order
-					sellTotal = parseFloat(price * Math.abs(qty)).toFixed(2);
-					stockTotal = parseFloat(resultStock.price * Math.abs(qty)).toFixed(2);					
-					profit = parseFloat(sellTotal - stockTotal).toFixed(2);					
+					stockPrice = resultStock.total / resultStock.qty;					
 
-					newTotal = parseFloat(resultStock.total + (qty * resultStock.price)).toFixed(2);
-					newQty = resultStock.qty + parseInt(qty);
-					newPrice = resultStock.price;
+					sellTotal = parseFloat(price * Math.abs(qty)).toFixed(2);
+					stockTotal = parseFloat(stockPrice * Math.abs(qty)).toFixed(2);
+
+					profit = parseFloat(sellTotal - stockTotal).toFixed(2);
 					newProfit = parseFloat(resultStock.profit + parseFloat(profit)).toFixed(2);
 				}
+
+				newQty = resultStock.qty + parseInt(qty);
+				newTotal = parseFloat(resultStock.total + (qty * stockPrice)).toFixed(2);
 
 				// Update stock
 				await stocks.updateOne({ user_id, _id: resultStock._id }, {
 					$set: {
-						total: new Double(newTotal),
 						qty: new Int32(newQty),
-						price: new Double(newPrice),
+						total: new Double(newTotal),
 						profit: new Double(newProfit),
 					}
 				});

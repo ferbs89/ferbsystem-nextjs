@@ -27,8 +27,8 @@ export default function Register() {
 			password,
 		
 		}).then(async response => {
-			toast.success('Conta criada com sucesso.');
 			await mutateUser();
+			toast.success('Conta criada com sucesso.');
 
 		}).catch(error => {
 			if (error.response)

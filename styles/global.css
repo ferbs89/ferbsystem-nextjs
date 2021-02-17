@@ -169,6 +169,7 @@ table td.action a, table td.action button {
 	width: 32px;
 	height: 32px;
 	background-color: #eee;
+	border: 1px solid #dcdce6;
 	border-radius: 8px;
 }
 

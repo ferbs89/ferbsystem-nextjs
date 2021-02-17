@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import useUser from '../hooks/useUser';
 import { useFetch } from '../hooks/useFetch';
+import { formatMoney } from '../utils/functions';
 
 import Layout from '../components/layout';
 import Loading from '../components/loading';
@@ -16,13 +17,6 @@ export default function Home() {
 
 	if (error) return <Error />
 	if (!data) return <Loading />
-
-	function formatMoney(amount) {
-		return new Intl.NumberFormat('pt-BR', {
-			style: 'currency',
-			currency: 'BRL',
-		}).format(amount);
-	}
 
 	return (
 		<Layout title="Ativos">
@@ -49,7 +43,7 @@ export default function Home() {
 							{data.map(stock => (
 								<tr key={stock._id}>
 									<td data-header="Código">{stock.stock}</td>
-									<td data-header="Preço" className="price">{formatMoney(stock.price)}</td>
+									<td data-header="Preço" className="price">{formatMoney(stock.total / stock.qty)}</td>
 									<td data-header="Quantidade" className="price">{stock.qty}</td>
 									<td data-header="Total" className="price">{formatMoney(stock.total)}</td>
 									<td className="action">

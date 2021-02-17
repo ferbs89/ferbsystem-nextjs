@@ -20,5 +20,5 @@ export default withSession(async (req, res) => {
 	});
 
 	await req.session.save();
-	res.status(200).end();
+	return res.status(200).end();
 });

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { mutate } from 'swr';
 import axios from 'axios';
+import { formatMoney } from '../../utils/functions';
 
 import { toast } from 'react-toastify';
 import { FiPlusCircle } from 'react-icons/fi';
@@ -16,16 +17,11 @@ export default function OrderCreate({ query }) {
 	if (query)
 		url += `?stock=${stock}`;
 
-	function formatMoney(amount) {
-		return new Intl.NumberFormat('pt-BR', {
-			style: 'currency',
-			currency: 'BRL',
-		}).format(amount);
-	}
-
 	async function handleCreate() {
-		if (!date || !stock || !price || !qty)
+		if (!date || !stock || !price || !qty) {
+			toast.error('Preencha todos os campos.');
 			return;
+		}
 
 		await axios.post(url, {
 			date,
@@ -34,8 +30,8 @@ export default function OrderCreate({ query }) {
 			price,
 			
 		}).then(async response => {
-			toast.success('Operação salva com sucesso.');
 			await mutate(url);
+			toast.success('Operação salva com sucesso.');
 
 			if (!query)
 				setStock('');

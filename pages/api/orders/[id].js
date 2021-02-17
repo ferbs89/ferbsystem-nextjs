@@ -14,47 +14,93 @@ export default withSession(async (req, res) => {
 
 	const { id } = req.query;
 
-	let user_id = null;
 	let _id = null;
+	let user_id = null;
+	let resultOrder = null;
+	let resultStock = null;
+
+	let newQty = 0;
+	let newTotal = 0;
+	let newPrice = 0;
+	let newProfit = 0;
+	let oldQty = 0;
+	let oldTotal = 0
+	let oldProfit = 0;
+	let sellTotal = 0;
+	let stockTotal = 0;
+	let stockPrice = 0;
+	let profit = 0;
 
 	try {
-		user_id = new ObjectID(user._id);
 		_id = new ObjectID(id);
+		user_id = new ObjectID(user._id);
 	} catch(error) {
-		res.status(400).end();
-		return;
+		return res.status(400).end();
 	}
+
+	// Find order
+	resultOrder = await orders.findOne({ _id, user_id });
+
+	if (!resultOrder)
+		return res.status(400).end();
 
 	switch (req.method) {
 		case 'PUT':
-			const { date, stock, price, qty } = req.body;
+			const { date, stock, qty, price } = req.body;
 
-			const resultStock = await stocks.findOne({ user_id, stock });
-			const resultOrder = await orders.findOne({ user_id, _id });
+			// Find stock
+			resultStock = await stocks.findOne({ user_id, stock });
 
-			// Remove old values
-			const oldTotal = parseFloat(resultStock.total - (resultOrder.qty * resultOrder.price)).toFixed(2);
-			const oldQty = resultStock.qty - resultOrder.qty;
+			if (!resultStock)
+				return res.status(400).end();
+
+			if (resultOrder.qty > 0) {
+				stockPrice = resultOrder.price;
+				newPrice = price;
+			
+			} else {
+				stockPrice = resultStock.total / resultStock.qty;
+				newPrice = stockPrice;
+
+				sellTotal = parseFloat(price * Math.abs(qty)).toFixed(2);
+				stockTotal = parseFloat(stockPrice * Math.abs(qty)).toFixed(2);
+
+				profit = parseFloat(sellTotal - stockTotal).toFixed(2);
+			}
+
+			// Calculate old values
+			oldQty = resultStock.qty - resultOrder.qty;
+			oldTotal = parseFloat(resultStock.total - (resultOrder.qty * stockPrice)).toFixed(2);
+			oldProfit = parseFloat(resultStock.profit - resultOrder.profit).toFixed(2);
 
 			// Calculate new values
-			const newTotal = parseFloat(parseFloat(oldTotal) + parseFloat(qty * price)).toFixed(2);
-			const newQty = oldQty + parseInt(qty);
-			const newPrice = parseFloat(newTotal / newQty).toFixed(2);
+			newQty = oldQty + parseInt(qty);
+			newTotal = parseFloat(parseFloat(oldTotal) + parseFloat(qty * newPrice)).toFixed(2);
+			newProfit = parseFloat(parseFloat(oldProfit) + parseFloat(profit)).toFixed(2);
 
-			await stocks.updateOne({ user_id, _id: resultStock._id }, {
+			// Update stock
+			await stocks.updateOne({ 
+				_id: resultStock._id,
+				user_id, 
+			}, {
 				$set: {
-					total: new Double(newTotal),
 					qty: new Int32(newQty),
-					price: new Double(newPrice),
+					total: new Double(newTotal),
+					profit: new Double(newProfit),
 				}
 			});
 
-			await orders.updateOne({ user_id, _id }, {
+			// Update order
+			await orders.updateOne({
+				_id,
+				user_id,
+			}, {
 				$set: {
 					date,
 					stock: stock.toUpperCase(),
 					qty: new Int32(qty),
 					price: new Double(price),
+					profit: new Double(profit),
 				}
 			});
 
@@ -62,23 +108,36 @@ export default withSession(async (req, res) => {
 			break;
 
 		case 'DELETE':
-			const deleteOrder = await orders.findOne({ user_id, _id });
-			const deleteStock = await stocks.findOne({ user_id, stock: deleteOrder.stock });
+			// Find stock
+			resultStock = await stocks.findOne({ user_id, stock: resultOrder.stock });
 
-			// Remove old values
-			const oldTotal2 = parseFloat(deleteStock.total - (deleteOrder.qty * deleteOrder.price)).toFixed(2);
-			const oldQty2 = deleteStock.qty - deleteOrder.qty;
-			const oldPrice2 = parseFloat(oldTotal2 / oldQty2).toFixed(2);
+			if (!resultStock)
+				return res.status(400).end();
 
-			await stocks.updateOne({ user_id, _id: deleteStock._id }, {
+			if (resultOrder.qty > 0)
+				stockPrice = resultOrder.price;
+			else
+				stockPrice = resultStock.total / resultStock.qty;
+
+			// Calculate old values
+			oldQty = resultStock.qty - resultOrder.qty;
+			oldTotal = parseFloat(resultStock.total - (resultOrder.qty * stockPrice)).toFixed(2);
+			oldProfit = parseFloat(resultStock.profit - resultOrder.profit).toFixed(2);
+
+			// Update stock
+			await stocks.updateOne({ 
+				_id: resultStock._id,
+				user_id,
+			}, {
 				$set: {
-					total: new Double(oldTotal2),
-					qty: new Int32(oldQty2),
-					price: new Double(oldPrice2),
+					qty: new Int32(oldQty),
+					total: new Double(oldTotal),
+					profit: new Double(oldProfit),
 				}
 			});
 
-			await orders.deleteOne({ user_id, _id });
+			// Delete order
+			await orders.deleteOne({ _id, user_id });
 
 			return res.status(200).end();
 			break;

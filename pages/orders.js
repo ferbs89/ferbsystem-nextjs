@@ -4,8 +4,8 @@ import { useFetch } from '../hooks/useFetch';
 import Layout from '../components/layout';
 import Loading from '../components/loading';
 import Error from '../components/error';
-import OrderCreate from '../components/orders/create';
-import OrderEdit from '../components/orders/edit';
+import OrderCreate from '../components/orders/order-create';
+import OrderEdit from '../components/orders/order-edit';
 
 export default function Orders() {
 	const { user } = useUser({ redirectTo: '/login' });

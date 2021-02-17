@@ -2,12 +2,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useUser from '../../hooks/useUser';
 import { useFetch } from '../../hooks/useFetch';
+import { formatMoney } from '../../utils/functions';
 
 import Layout from '../../components/layout';
 import Loading from '../../components/loading';
 import Error from '../../components/error';
-import OrderCreate from '../../components/orders/create';
-import OrderEdit from '../../components/orders/edit';
+import OrderCreate from '../../components/orders/order-create';
+import OrderEdit from '../../components/orders/order-edit';
 
 import { FiArrowLeft } from 'react-icons/fi';
 
@@ -22,32 +23,27 @@ export default function Stock() {
 	if (error) return <Error />
 	if (!data) return <Loading />
 
-	function formatMoney(amount) {
-		return new Intl.NumberFormat('pt-BR', {
-			style: 'currency',
-			currency: 'BRL',
-		}).format(amount);
-	}
-
 	return (
 		<Layout title={stock}>
 			<div className="content">
 				<table className="stock-info">
 					<thead>
 						<tr>
-							<th width="40%">Ativo</th>
-							<th width="20%">Preço</th>
+							<th width="20%">Ativo</th>
 							<th width="20%">Quantidade</th>
+							<th width="20%">Preço</th>
 							<th width="20%">Total</th>
+							<th width="20%">L/P</th>
 						</tr>
 					</thead>
 
 					<tbody>
 						<tr>
 							<td className="stock-symbol">{data.stock.stock}</td>
-							<td data-header="Preço">{formatMoney(data.stock.price)}</td>
 							<td data-header="Quantidade">{data.stock.qty}</td>
+							<td data-header="Preço">{formatMoney(data.stock.total / data.stock.qty)}</td>
 							<td data-header="Total">{formatMoney(data.stock.total)}</td>
+							<td data-header="L/P">{formatMoney(data.stock.profit)}</td>
 						</tr>
 					</tbody>
 				</table>

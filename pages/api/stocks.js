@@ -16,8 +16,7 @@ export default withSession(async (req, res) => {
 	try {
 		user_id = new ObjectID(user._id);		
 	} catch(error) {
-		res.status(400).end();
-		return;
+		return res.status(400).end();
 	}
 
 	switch (req.method) {
@@ -27,7 +26,7 @@ export default withSession(async (req, res) => {
 				.sort({ stock: 1 })
 				.toArray();
 
-			res.status(200).json(response);
+			return res.status(200).json(response);
 			break;
 	}
 });

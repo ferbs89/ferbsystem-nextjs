@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { mutate } from 'swr';
 import axios from 'axios';
+import { formatMoney, formatDate } from '../../utils/functions';
 
 import { toast } from 'react-toastify';
 import { FiCheck, FiEdit, FiTrash2 } from 'react-icons/fi';
@@ -16,22 +17,12 @@ export default function OrderEdit({ order, query }) {
 
 	if (query)
 		url += `?stock=${stock}`;
-
-	function formatDate(value) {
-		const date = value.split('-');
-		return date[2] + '/' + date[1] + '/' + date[0];
-	}
 	
-	function formatMoney(amount) {
-		return new Intl.NumberFormat('pt-BR', {
-			style: 'currency',
-			currency: 'BRL',
-		}).format(amount);
-	}
-
 	async function handleEdit(order_id) {
-		if (!date || !stock || !price || !qty)
+		if (!date || !stock || !price || !qty) {
+			toast.error('Preencha todos os campos.');
 			return;
+		}
 
 		await axios.put(`/api/orders/${order_id}`, {
 			date,
@@ -40,16 +31,16 @@ export default function OrderEdit({ order, query }) {
 			price,
 
 		}).then(async () => {
-			toast.success('Operação salva com sucesso.');
 			await mutate(url);
+			toast.success('Operação salva com sucesso.');
 			setEdit(false);
 		});
 	}
 
 	async function handleDelete(order_id) {
 		await axios.delete(`/api/orders/${order_id}`).then(async () => {
-			toast.success('Operação removida com sucesso.');
 			await mutate(url);
+			toast.success('Operação removida com sucesso.');
 		});
 	}
 

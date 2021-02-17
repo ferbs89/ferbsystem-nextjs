@@ -17,7 +17,7 @@ export default withSession(async (req, res) => {
 			}
 		});
 
-		res.json({
+		return res.json({
 			isLoggedIn: true,
 			_id: response._id,
 			name: response.name,
@@ -25,7 +25,7 @@ export default withSession(async (req, res) => {
 		});
 		
 	} else {
-		res.json({
+		return res.json({
 			isLoggedIn: false,
 		});
 	}
