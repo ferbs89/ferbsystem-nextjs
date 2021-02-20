@@ -42,13 +42,13 @@ export default function Home() {
 						<tbody>
 							{data.map(stock => (
 								<tr key={stock._id}>
-									<td data-header="Código">{stock.stock}</td>
+									<td data-header="Código">{stock._id}</td>
 									<td data-header="Preço" className="price">{formatMoney(stock.total / stock.qty)}</td>
 									<td data-header="Quantidade" className="price">{stock.qty}</td>
 									<td data-header="Total" className="price">{formatMoney(stock.total)}</td>
 									<td className="action">
 										<div>
-											<Link href={`/stocks/${stock.stock}`}>
+											<Link href={`/stocks/${stock._id}`}>
 												<a><FiSearch /></a>
 											</Link>
 										</div>

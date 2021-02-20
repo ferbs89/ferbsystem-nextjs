@@ -199,7 +199,7 @@ table.stock-info td.stock-symbol {
 
 .profit {
 	display: block;
-	/* margin-left: 8px; */
+	margin-top: 4px;
 	font-size: 12px;
 	font-weight: 500;
 }

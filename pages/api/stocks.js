@@ -9,7 +9,7 @@ export default withSession(async (req, res) => {
 		return res.status(401).end();
 
 	const db = await connect();
-	const collection = db.collection('stocks');
+	const orders = db.collection('orders');
 
 	let user_id = null;
 
@@ -21,12 +21,35 @@ export default withSession(async (req, res) => {
 
 	switch (req.method) {
 		case 'GET':
-			const response = await collection
-				.find({ user_id })
-				.sort({ stock: 1 })
-				.toArray();
+			const list = orders.aggregate([{
+				$match: {
+					user_id: new ObjectID(user._id),
+				},
+			}, {
+				$group: {
+					_id: "$stock",
+					qty: {
+						$sum: "$qty",
+					},
+					total: {
+						$sum: {
+							$multiply: ["$qty", "$price"],
+						},
+					},
+				},
+			}, {
+				$sort: { 
+					_id: 1,
+				},
+			}]);
+			
+			const stocks = [];
+			
+			await list.forEach(stock => {
+				stocks.push(stock);
+			});
 
-			return res.status(200).json(response);
+			return res.status(200).json(stocks);
 			break;
 	}
 });

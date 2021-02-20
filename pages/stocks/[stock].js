@@ -39,7 +39,7 @@ export default function Stock() {
 
 					<tbody>
 						<tr>
-							<td className="stock-symbol">{data.stock.stock}</td>
+							<td className="stock-symbol">{data.stock._id}</td>
 							<td data-header="Quantidade">{data.stock.qty}</td>
 							<td data-header="Preço">{formatMoney(data.stock.total / data.stock.qty)}</td>
 							<td data-header="Total">{formatMoney(data.stock.total)}</td>
