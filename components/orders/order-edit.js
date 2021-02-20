@@ -4,7 +4,7 @@ import axios from 'axios';
 import { formatMoney, formatDate } from '../../utils/functions';
 
 import { toast } from 'react-toastify';
-import { FiCheck, FiEdit, FiTrash2 } from 'react-icons/fi';
+import { FiCheck, FiEdit, FiTrash2, FiLoader } from 'react-icons/fi';
 
 export default function OrderEdit({ order, query }) {
 	const [stock, setStock] = useState(order.stock);
@@ -14,6 +14,7 @@ export default function OrderEdit({ order, query }) {
 	const [sell, setSell] = useState(order.sell);
 	const [profit, setProfit] = useState((sell > 0) ? ((Math.abs(qty) * sell) + (qty * price)) : (0));
 	const [edit, setEdit] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	let url = '/api/orders';
 
@@ -25,6 +26,8 @@ export default function OrderEdit({ order, query }) {
 			toast.error('Preencha todos os campos.');
 			return;
 		}
+
+		setLoading(true);
 
 		await axios.put(`/api/orders/${order_id}`, {
 			date,
@@ -40,14 +43,18 @@ export default function OrderEdit({ order, query }) {
 			if (sell > 0)
 				setProfit((Math.abs(qty) * sell) + (qty * price));
 
+			setLoading(false);
 			setEdit(false);
 		});
 	}
 
 	async function handleDelete(order_id) {
+		setLoading(true);
+
 		await axios.delete(`/api/orders/${order_id}`).then(async () => {
 			await mutate(url);
 			toast.success('Operação removida com sucesso.');
+			setLoading(false);
 		});
 	}
 
@@ -73,10 +80,18 @@ export default function OrderEdit({ order, query }) {
 						)}
 					</td>
 					<td className="action">
-						<div>
-							<button onClick={() => setEdit(true)}><FiEdit /></button>
-							<button onClick={() => handleDelete(order._id)}><FiTrash2 /></button>
-						</div>
+						{!loading && (
+							<div>
+								<button onClick={() => setEdit(true)}><FiEdit /></button>
+								<button onClick={() => handleDelete(order._id)}><FiTrash2 /></button>
+							</div>
+						)}
+
+						{loading && (
+							<div>
+								<button><FiLoader /></button>
+							</div>							
+						)}
 					</td>
 				</tr>
 			)}
@@ -100,7 +115,13 @@ export default function OrderEdit({ order, query }) {
 					<td data-header="Total">{formatMoney((qty > 0) ? (price * qty) : (sell * qty))}</td>
 					<td className="action">
 						<div>
-							<button onClick={() => handleEdit(order._id)}><FiCheck /></button>
+							{!loading && (
+								<button onClick={() => handleEdit(order._id)}><FiCheck /></button>
+							)}
+
+							{loading && (
+								<button><FiLoader /></button>
+							)}
 						</div>
 					</td>
 				</tr>

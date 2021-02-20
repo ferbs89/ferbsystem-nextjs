@@ -26,9 +26,27 @@ body {
 	border-radius: 8px;
 }
 
+.loading {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	color: #737380;
+}
+
+.loading svg {
+	width: 32px;
+	height: 32px;
+	margin-right: 16px;
+	color: #737380;
+}
+
 h1 {
 	margin-bottom: 16px;
 	font-size: 24px;
+	font-weight: 500;
+}
+
+h2 {
 	font-weight: 500;
 }
 

@@ -41,8 +41,8 @@ export default function Stock() {
 						<tr>
 							<td className="stock-symbol">{data.stock._id}</td>
 							<td data-header="Quantidade">{data.stock.qty}</td>
-							<td data-header="Preço">{formatMoney(data.stock.total / data.stock.qty)}</td>
-							<td data-header="Total">{formatMoney(data.stock.total)}</td>
+							<td data-header="Preço">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total / data.stock.qty))}</td>
+							<td data-header="Total">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total))}</td>
 							<td data-header="L/P">{formatMoney(data.stock.profit)}</td>
 						</tr>
 					</tbody>

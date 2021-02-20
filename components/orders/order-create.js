@@ -4,13 +4,14 @@ import axios from 'axios';
 import { formatMoney } from '../../utils/functions';
 
 import { toast } from 'react-toastify';
-import { FiPlusCircle } from 'react-icons/fi';
+import { FiPlusCircle, FiLoader } from 'react-icons/fi';
 
 export default function OrderCreate({ query }) {
 	const [stock, setStock] = useState(query ? query : '');
 	const [date, setDate] = useState('');
 	const [qty, setQty] = useState('');
 	const [price, setPrice] = useState('');
+	const [loading, setLoading] = useState(false);
 
 	let url = '/api/orders';
 
@@ -22,6 +23,8 @@ export default function OrderCreate({ query }) {
 			toast.error('Preencha todos os campos.');
 			return;
 		}
+
+		setLoading(true);
 
 		await axios.post(url, {
 			date,
@@ -39,6 +42,7 @@ export default function OrderCreate({ query }) {
 			setDate('');
 			setQty('');
 			setPrice('');
+			setLoading(false);
 		});
 	}
 
@@ -53,7 +57,13 @@ export default function OrderCreate({ query }) {
 			<td data-header="Total">{formatMoney(price * qty)}</td>
 			<td className="action">
 				<div>
-					<button onClick={handleCreate}><FiPlusCircle /></button>
+					{!loading && (
+						<button onClick={handleCreate}><FiPlusCircle /></button>
+					)}
+
+					{loading && (
+						<button><FiLoader /></button>
+					)}
 				</div>
 			</td>
 		</tr>
