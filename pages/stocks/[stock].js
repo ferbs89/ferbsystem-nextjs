@@ -30,20 +30,20 @@ export default function Stock() {
 					<thead>
 						<tr>
 							<th width="20%">Ativo</th>
-							<th width="20%">Quantidade</th>
-							<th width="20%">Preço</th>
-							<th width="20%">Total</th>
-							<th width="20%">L/P</th>
+							<th width="20%" className="price">Quantidade</th>
+							<th width="20%" className="price">Preço</th>
+							<th width="20%" className="price">Total</th>
+							<th width="20%" className="price">L/P</th>
 						</tr>
 					</thead>
 
 					<tbody>
 						<tr>
 							<td className="stock-symbol">{data.stock._id}</td>
-							<td data-header="Quantidade">{data.stock.qty}</td>
-							<td data-header="Preço">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total / data.stock.qty))}</td>
-							<td data-header="Total">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total))}</td>
-							<td data-header="L/P">{formatMoney(data.stock.profit)}</td>
+							<td className="price" data-header="Quantidade">{data.stock.qty}</td>
+							<td className="price" data-header="Preço">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total / data.stock.qty))}</td>
+							<td className="price" data-header="Total">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total))}</td>
+							<td className="price" data-header="L/P">{formatMoney(data.stock.profit)}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -53,10 +53,10 @@ export default function Stock() {
 				<table>
 					<thead>
 						<tr>
-							<th width="25%">Data</th>
-							<th width="25%">Quantidade</th>
-							<th width="25%">Preço</th>
-							<th width="25%">Total</th>
+							<th width="23%">Data</th>
+							<th width="23%">Quantidade</th>
+							<th width="23%">Preço</th>
+							<th width="23%">Total</th>
 							<th className="action">Ação</th>
 						</tr>
 					</thead>

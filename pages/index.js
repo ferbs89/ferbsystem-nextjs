@@ -31,10 +31,10 @@ export default function Home() {
 					<table>
 						<thead>
 							<tr>
-								<th>Código</th>
-								<th className="price">Preço</th>
-								<th className="price">Quantidade</th>
-								<th className="price">Total</th>
+								<th width="23%">Código</th>
+								<th width="23%" className="price" >Preço</th>
+								<th width="23%" className="price">Quantidade</th>
+								<th width="23%" className="price">Total</th>
 								<th className="action">Visualizar</th>
 							</tr>
 						</thead>

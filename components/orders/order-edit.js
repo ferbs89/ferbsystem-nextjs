@@ -80,14 +80,12 @@ export default function OrderEdit({ order, query }) {
 						)}
 					</td>
 					<td className="action">
-						{!loading && (
+						{!loading ? (
 							<div>
 								<button onClick={() => setEdit(true)}><FiEdit /></button>
 								<button onClick={() => handleDelete(order._id)}><FiTrash2 /></button>
 							</div>
-						)}
-
-						{loading && (
+						) : (
 							<div>
 								<button><FiLoader /></button>
 							</div>							
@@ -115,11 +113,9 @@ export default function OrderEdit({ order, query }) {
 					<td data-header="Total">{formatMoney((qty > 0) ? (price * qty) : (sell * qty))}</td>
 					<td className="action">
 						<div>
-							{!loading && (
+							{!loading ? (
 								<button onClick={() => handleEdit(order._id)}><FiCheck /></button>
-							)}
-
-							{loading && (
+							) : (
 								<button><FiLoader /></button>
 							)}
 						</div>

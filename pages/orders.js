@@ -24,11 +24,11 @@ export default function Orders() {
 				<table>
 					<thead>
 						<tr>
-							<th width="20%">Data</th>
-							<th width="20%">Ativo</th>
-							<th width="20%">Quantidade</th>
-							<th width="20%">Preço</th>
-							<th width="20%">Total</th>
+							<th width="18%">Data</th>
+							<th width="18%">Ativo</th>
+							<th width="18%">Quantidade</th>
+							<th width="18%">Preço</th>
+							<th width="18%">Total</th>
 							<th className="action">Ação</th>
 						</tr>
 					</thead>

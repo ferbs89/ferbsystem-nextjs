@@ -57,11 +57,9 @@ export default function OrderCreate({ query }) {
 			<td data-header="Total">{formatMoney(price * qty)}</td>
 			<td className="action">
 				<div>
-					{!loading && (
+					{!loading ? (
 						<button onClick={handleCreate}><FiPlusCircle /></button>
-					)}
-
-					{loading && (
+					) : (
 						<button><FiLoader /></button>
 					)}
 				</div>
