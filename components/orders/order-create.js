@@ -34,7 +34,6 @@ export default function OrderCreate({ query }) {
 			
 		}).then(async response => {
 			await mutate(url);
-			toast.success('Operação salva com sucesso.');
 
 			if (!query)
 				setStock('');
@@ -43,6 +42,8 @@ export default function OrderCreate({ query }) {
 			setQty('');
 			setPrice('');
 			setLoading(false);
+
+			toast.success('Operação salva com sucesso.');
 		});
 	}
 

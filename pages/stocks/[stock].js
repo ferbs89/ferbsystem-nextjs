@@ -26,10 +26,12 @@ export default function Stock() {
 	return (
 		<Layout title={stock}>
 			<div className="content">
+				<h1>Ativo</h1>
+
 				<table className="stock-info">
 					<thead>
 						<tr>
-							<th width="20%">Ativo</th>
+							<th width="20%">Código</th>
 							<th width="20%" className="price">Quantidade</th>
 							<th width="20%" className="price">Preço</th>
 							<th width="20%" className="price">Total</th>
@@ -39,7 +41,7 @@ export default function Stock() {
 
 					<tbody>
 						<tr>
-							<td className="stock-symbol">{data.stock._id}</td>
+							<td className="stock-symbol" data-header="Código">{data.stock._id}</td>
 							<td className="price" data-header="Quantidade">{data.stock.qty}</td>
 							<td className="price" data-header="Preço">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total / data.stock.qty))}</td>
 							<td className="price" data-header="Total">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total))}</td>

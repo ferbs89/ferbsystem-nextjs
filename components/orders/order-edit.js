@@ -11,8 +11,8 @@ export default function OrderEdit({ order, query }) {
 	const [date, setDate] = useState(order.date);
 	const [qty, setQty] = useState(order.qty);
 	const [price, setPrice] = useState(order.price);
-	const [sell, setSell] = useState(order.sell);
-	const [profit, setProfit] = useState((sell > 0) ? ((Math.abs(qty) * sell) + (qty * price)) : (0));
+	const [avgPrice, setAvgPrice] = useState(order.avg_price);
+	const [profit, setProfit] = useState((qty < 0) ? ((Math.abs(qty) * price) - (Math.abs(qty) * avgPrice)) : (0));
 	const [edit, setEdit] = useState(false);
 	const [loading, setLoading] = useState(false);
 
@@ -34,17 +34,15 @@ export default function OrderEdit({ order, query }) {
 			stock,
 			qty,
 			price,
-			sell,
 
 		}).then(async () => {
 			await mutate(url);
-			toast.success('Operação salva com sucesso.');
 
-			if (sell > 0)
-				setProfit((Math.abs(qty) * sell) + (qty * price));
-
+			setProfit((qty < 0) ? ((Math.abs(qty) * price) - (Math.abs(qty) * avgPrice)) : (0));
 			setLoading(false);
 			setEdit(false);
+
+			toast.success('Operação salva com sucesso.');
 		});
 	}
 
@@ -53,8 +51,8 @@ export default function OrderEdit({ order, query }) {
 
 		await axios.delete(`/api/orders/${order_id}`).then(async () => {
 			await mutate(url);
-			toast.success('Operação removida com sucesso.');
 			setLoading(false);
+			toast.success('Operação removida com sucesso.');
 		});
 	}
 
@@ -67,9 +65,9 @@ export default function OrderEdit({ order, query }) {
 						<td data-header="Ativo">{order.stock}</td>
 					)}
 					<td data-header="Quantidade">{order.qty}</td>
-					<td data-header="Preço">{formatMoney((order.qty > 0) ? (order.price) : (order.sell))}</td>
+					<td data-header="Preço">{formatMoney(order.price)}</td>
 					<td data-header="Total">
-						{formatMoney((order.qty > 0) ? (order.price * order.qty) : (order.sell * order.qty))}
+						{formatMoney(order.price * order.qty)}
 						
 						{profit > 0 && (
 							<span className="profit positive">Lucro: {formatMoney(profit)}</span>
@@ -101,16 +99,8 @@ export default function OrderEdit({ order, query }) {
 						<td data-header="Ativo"><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
 					)}
 					<td data-header="Quantidade"><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
-					<td data-header="Preço">
-						{qty > 0 && (
-							<input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} />
-						)}
-
-						{qty < 0 && (
-							<input type="number" min="0" step="0.01" placeholder="Preço" value={sell} onChange={e => setSell(e.target.value)} />
-						)}
-					</td>
-					<td data-header="Total">{formatMoney((qty > 0) ? (price * qty) : (sell * qty))}</td>
+					<td data-header="Preço"><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
+					<td data-header="Total">{formatMoney(price * qty)}</td>
 					<td className="action">
 						<div>
 							{!loading ? (

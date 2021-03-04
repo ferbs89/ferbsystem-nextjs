@@ -32,7 +32,7 @@ export default withSession(async (req, res) => {
 
 	switch (req.method) {
 		case 'PUT':
-			const { date, stock, qty, price, sell } = req.body;
+			const { date, stock, qty, price } = req.body;
 
 			await orders.updateOne({
 				_id,
@@ -43,7 +43,6 @@ export default withSession(async (req, res) => {
 					stock: stock.toUpperCase(),
 					qty: new Int32(qty),
 					price: new Double(price),
-					sell: new Double(sell),
 				}
 			});
 

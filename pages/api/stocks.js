@@ -31,11 +31,6 @@ export default withSession(async (req, res) => {
 					qty: {
 						$sum: "$qty",
 					},
-					total: {
-						$sum: {
-							$multiply: ["$qty", "$price"],
-						},
-					},
 				},
 			}, {
 				$sort: { 
