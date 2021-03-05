@@ -31,10 +31,11 @@ export default function Home() {
 					<table>
 						<thead>
 							<tr>
-								<th width="23%">Código</th>
-								<th width="23%" className="price" >Preço</th>
-								<th width="23%" className="price">Quantidade</th>
-								<th width="23%" className="price">Total</th>
+								<th width="18%">Código</th>
+								<th width="18%" className="price">Quantidade</th>
+								<th width="18%" className="price">Preço</th>
+								<th width="18%" className="price">Total</th>
+								<th width="18%" className="price">L/P</th>
 								<th className="action">Visualizar</th>
 							</tr>
 						</thead>
@@ -43,9 +44,10 @@ export default function Home() {
 							{data.map(stock => (
 								<tr key={stock._id}>
 									<td data-header="Código">{stock._id}</td>
-									<td data-header="Preço" className="price">{formatMoney(stock.total / stock.qty)}</td>
 									<td data-header="Quantidade" className="price">{stock.qty}</td>
+									<td data-header="Preço" className="price">{formatMoney(stock.total / stock.qty)}</td>
 									<td data-header="Total" className="price">{formatMoney(stock.total)}</td>
+									<td data-header="L/P" className="price">{formatMoney(stock.profit)}</td>
 									<td className="action">
 										<div>
 											<Link href={`/stocks/${stock._id}`}>

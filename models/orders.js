@@ -32,13 +32,13 @@ export async function getOrders(query) {
 			}
 		});
 
-		if (resultStock.qty == 0) {
+		if (resultStock.qty > 0) {
+			resultStock.avg_price = resultStock.total / resultStock.qty;
+			
+		} else {
 			resultStock.total = 0;
 			resultStock.avg_price = 0;
 		}
-
-		if (resultStock.qty > 0)
-			resultStock.avg_price = resultStock.total / resultStock.qty;
 	}
 
 	return { 

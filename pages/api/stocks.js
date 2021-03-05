@@ -1,6 +1,7 @@
 import withSession from '../../lib/session';
 import connect from '../../lib/database';
 import { ObjectID } from 'mongodb';
+import { getOrders } from '../../models/orders';
 
 export default withSession(async (req, res) => {
 	const user = req.session.get('user');
@@ -21,7 +22,7 @@ export default withSession(async (req, res) => {
 
 	switch (req.method) {
 		case 'GET':
-			const list = orders.aggregate([{
+			const aggCursor = orders.aggregate([{
 				$match: {
 					user_id: new ObjectID(user._id),
 				},
@@ -39,12 +40,19 @@ export default withSession(async (req, res) => {
 			}]);
 			
 			const stocks = [];
+			const resultStocks = [];
 			
-			await list.forEach(stock => {
-				stocks.push(stock);
+			await aggCursor.forEach(item => {
+				stocks.push(item);
 			});
 
-			return res.status(200).json(stocks);
+			for (const item of stocks) {
+				await getOrders({ user_id, stock: item._id }).then(response => {
+					resultStocks.push(response.stock);
+				});
+			}
+
+			return res.status(200).json(resultStocks);
 			break;
 	}
 });
