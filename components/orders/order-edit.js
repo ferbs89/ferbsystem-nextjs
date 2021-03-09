@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { mutate } from 'swr';
 import axios from 'axios';
-import { formatMoney, formatDate } from '../../utils/functions';
+import { formatMoney, formatDateDMY, formatDateYMD } from '../../utils/functions';
 
 import { toast } from 'react-toastify';
 import { FiCheck, FiEdit, FiTrash2, FiLoader } from 'react-icons/fi';
@@ -11,8 +11,6 @@ export default function OrderEdit({ order, query }) {
 	const [date, setDate] = useState(order.date);
 	const [qty, setQty] = useState(order.qty);
 	const [price, setPrice] = useState(order.price);
-	const [avgPrice, setAvgPrice] = useState(order.avg_price);
-	const [profit, setProfit] = useState((qty < 0) ? ((Math.abs(qty) * price) - (Math.abs(qty) * avgPrice)) : (0));
 	const [edit, setEdit] = useState(false);
 	const [loading, setLoading] = useState(false);
 
@@ -37,11 +35,8 @@ export default function OrderEdit({ order, query }) {
 
 		}).then(async () => {
 			await mutate(url);
-
-			setProfit((qty < 0) ? ((Math.abs(qty) * price) - (Math.abs(qty) * avgPrice)) : (0));
 			setLoading(false);
 			setEdit(false);
-
 			toast.success('Operação salva com sucesso.');
 		});
 	}
@@ -60,7 +55,7 @@ export default function OrderEdit({ order, query }) {
 		<>
 			{!edit && (
 				<tr>
-					<td data-header="Data">{formatDate(order.date)}</td>
+					<td data-header="Data">{formatDateDMY(order.date)}</td>
 					{!query && (
 						<td data-header="Ativo">{order.stock}</td>
 					)}
@@ -69,12 +64,12 @@ export default function OrderEdit({ order, query }) {
 					<td data-header="Total">
 						{formatMoney(order.price * order.qty)}
 						
-						{profit > 0 && (
-							<span className="profit positive">Lucro: {formatMoney(profit)}</span>
+						{order.profit > 0 && (
+							<span className="profit positive">Lucro: {formatMoney(order.profit)}</span>
 						)}
 
-						{profit < 0 && (
-							<span className="profit negative">Lucro: {formatMoney(profit)}</span>
+						{order.profit < 0 && (
+							<span className="profit negative">Lucro: {formatMoney(order.profit)}</span>
 						)}
 					</td>
 					<td className="action">
@@ -94,7 +89,7 @@ export default function OrderEdit({ order, query }) {
 
 			{edit && (
 				<tr>
-					<td data-header="Data"><input type="date" value={date} onChange={e => setDate(e.target.value)} /></td>
+					<td data-header="Data"><input type="date" value={formatDateYMD(date)} onChange={e => setDate(e.target.value)} /></td>
 					{!query !== false && (
 						<td data-header="Ativo"><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
 					)}

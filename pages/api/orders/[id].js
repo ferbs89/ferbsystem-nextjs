@@ -39,7 +39,7 @@ export default withSession(async (req, res) => {
 				user_id,
 			}, {
 				$set: {
-					date,
+					date: new Date(date),
 					stock: stock.toUpperCase(),
 					qty: new Int32(qty),
 					price: new Double(price),

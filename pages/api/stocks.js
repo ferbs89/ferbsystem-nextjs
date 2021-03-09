@@ -1,7 +1,7 @@
 import withSession from '../../lib/session';
 import connect from '../../lib/database';
 import { ObjectID } from 'mongodb';
-import { getOrders } from '../../models/orders';
+import { getStockOrders } from '../../models/orders';
 
 export default withSession(async (req, res) => {
 	const user = req.session.get('user');
@@ -47,7 +47,7 @@ export default withSession(async (req, res) => {
 			});
 
 			for (const item of stocks) {
-				await getOrders({ user_id, stock: item._id }).then(response => {
+				await getStockOrders({ user_id, stock: item._id }).then(response => {
 					resultStocks.push(response.stock);
 				});
 			}
