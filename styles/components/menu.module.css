@@ -36,7 +36,12 @@
 		padding-left: 0px;
 	}
 
+	.menu svg {
+		margin-right: 0;
+	}
+
 	.menu a {
+		flex-direction: column;
 		margin-right: 0px;
 	}
 }
