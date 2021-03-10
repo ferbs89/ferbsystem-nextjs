@@ -12,7 +12,8 @@ export default function Header() {
 	return (
 		<div className={styles.header}>
 			<div className={styles.brand}>
-				<img src="/logo.png" alt="Ferbsystem" />
+				<img src="/lunaris.png" alt="Ferbsystem" />
+				<span>Lunaris</span>
 			</div>
 
 			{user?.isLoggedIn && (

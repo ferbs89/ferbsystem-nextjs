@@ -8,14 +8,23 @@
 }
 
 .header .brand {
+	display: flex;
+	align-items: center;
 	margin-right: 16px;
 }
 
 .header .brand img {
 	width: 100%;
 	height: auto;
-	max-width: 231px;
+	max-width: 64px;
 	max-height: 64px;
+}
+
+.header .brand span {
+	margin-left: 16px;
+	font-size: 32px;
+	font-weight: 700;
+	color: #17496E;
 }
 
 .header .profile {
@@ -73,8 +82,9 @@
 	}
 
     .header .brand {
+		justify-content: center;
 		margin-right: 0px;
-		margin-bottom: 16px;
+		margin-bottom: 32px;
 	}
 
 	.header .profile {
