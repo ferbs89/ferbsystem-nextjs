@@ -37,11 +37,13 @@
 	}
 
 	.menu svg {
-		margin-right: 0;
+		margin-right: 0px;
+		margin-bottom: 4px;
 	}
 
 	.menu a {
 		flex-direction: column;
+		width: 30%;
 		margin-right: 0px;
 	}
 }
