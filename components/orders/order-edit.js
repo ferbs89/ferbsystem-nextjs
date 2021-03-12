@@ -4,7 +4,7 @@ import axios from 'axios';
 import { formatMoney, formatDateDMY, formatDateYMD } from '../../utils/functions';
 
 import { toast } from 'react-toastify';
-import { FiCheck, FiEdit, FiTrash2, FiLoader } from 'react-icons/fi';
+import { FiCheck, FiEdit, FiTrash2, FiLoader, FiX } from 'react-icons/fi';
 
 export default function OrderEdit({ order, query }) {
 	const [stock, setStock] = useState(order.stock);
@@ -49,6 +49,14 @@ export default function OrderEdit({ order, query }) {
 			setLoading(false);
 			toast.success('Operação removida com sucesso.');
 		});
+	}
+
+	async function handleCancel(order) {
+		setEdit(false);
+		setDate(order.date);
+		setStock(order.stock);
+		setQty(order.qty);
+		setPrice(order.price);
 	}
 
 	return (
@@ -97,13 +105,16 @@ export default function OrderEdit({ order, query }) {
 					<td data-header="Preço"><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
 					<td data-header="Total">{formatMoney(price * qty)}</td>
 					<td className="action">
-						<div>
-							{!loading ? (
+						{!loading ? (
+							<div>
 								<button onClick={() => handleEdit(order._id)}><FiCheck /></button>
-							) : (
+								<button onClick={() => handleCancel(order)}><FiX /></button>
+							</div>
+						) : (
+							<div>
 								<button><FiLoader /></button>
-							)}
-						</div>
+							</div>
+						)}
 					</td>
 				</tr>
 			)}

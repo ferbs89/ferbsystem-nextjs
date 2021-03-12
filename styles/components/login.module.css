@@ -27,8 +27,15 @@
 .container .content .logo img {
 	width: 100%;
 	height: auto;
-	max-width: 231px;
+	max-width: 64px;
 	max-height: 64px;
+}
+
+.container .content .logo span {
+	margin-left: 16px;
+	font-size: 32px;
+	font-weight: 700;
+	color: #17496E;
 }
 
 .container .content form {

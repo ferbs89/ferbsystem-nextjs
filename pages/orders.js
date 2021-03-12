@@ -29,7 +29,7 @@ export default function Orders() {
 							<th width="18%">Quantidade</th>
 							<th width="18%">Preço</th>
 							<th width="18%">Total</th>
-							<th className="action">Ação</th>
+							<th width="10%" className="action">Ação</th>
 						</tr>
 					</thead>
 

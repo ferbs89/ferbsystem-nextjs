@@ -36,7 +36,7 @@ export default function Home() {
 								<th width="18%" className="price">Preço</th>
 								<th width="18%" className="price">Total</th>
 								<th width="18%" className="price">L/P</th>
-								<th className="action">Visualizar</th>
+								<th width="10%" className="action">Visualizar</th>
 							</tr>
 						</thead>
 

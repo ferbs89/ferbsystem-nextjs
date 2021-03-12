@@ -13,7 +13,8 @@ export default function LoginLayout({ children, title }) {
 
 			<div className={styles.content}>
 				<div className={styles.logo}>
-					<img src="/logo.png" alt="Ferbsystem" />
+					<img src="/lunaris.png" alt="Ferbsystem" />
+					<span>Lunaris</span>
 				</div>
 
 				{children}

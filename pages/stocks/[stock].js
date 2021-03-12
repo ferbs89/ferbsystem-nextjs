@@ -55,11 +55,11 @@ export default function Stock() {
 				<table>
 					<thead>
 						<tr>
-							<th width="23%">Data</th>
-							<th width="23%">Quantidade</th>
-							<th width="23%">Preço</th>
-							<th width="23%">Total</th>
-							<th className="action">Ação</th>
+							<th width="22%">Data</th>
+							<th width="22%">Quantidade</th>
+							<th width="22%">Preço</th>
+							<th width="22%">Total</th>
+							<th width="10%" className="action">Ação</th>
 						</tr>
 					</thead>
 
