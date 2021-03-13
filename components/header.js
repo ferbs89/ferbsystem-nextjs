@@ -12,7 +12,7 @@ export default function Header() {
 	return (
 		<div className={styles.header}>
 			<div className={styles.brand}>
-				<img src="/lunaris.png" alt="Ferbsystem" />
+				<img src="/lunaris.png" alt="Lunaris" />
 				<span>Lunaris</span>
 			</div>
 
