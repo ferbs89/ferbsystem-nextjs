@@ -31,11 +31,13 @@ export default function Home() {
 					<table>
 						<thead>
 							<tr>
-								<th width="18%">Código</th>
-								<th width="18%" className="price">Quantidade</th>
-								<th width="18%" className="price">Preço</th>
-								<th width="18%" className="price">Total</th>
-								<th width="18%" className="price">L/P</th>
+								<th>Código</th>
+								<th className="price">Variação</th>
+								<th className="price">Preço</th>
+								<th className="price">Custo</th>
+								<th className="price">Quantidade</th>
+								<th className="price">Total</th>
+								<th className="price">L/P</th>
 								<th width="10%" className="action">Visualizar</th>
 							</tr>
 						</thead>
@@ -44,10 +46,14 @@ export default function Home() {
 							{data.map(stock => (
 								<tr key={stock._id}>
 									<td data-header="Código">{stock._id}</td>
+									<td data-header="Variação" className="price">
+										{stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
+									</td>
+									<td data-header="Preço" className="price">{formatMoney(stock.marketPrice)}</td>
+									<td data-header="Custo" className="price">{formatMoney(stock.total / stock.qty)}</td>
 									<td data-header="Quantidade" className="price">{stock.qty}</td>
-									<td data-header="Preço" className="price">{formatMoney(stock.total / stock.qty)}</td>
-									<td data-header="Total" className="price">{formatMoney(stock.total)}</td>
-									<td data-header="L/P" className="price">{formatMoney(stock.profit)}</td>
+									<td data-header="Total" className="price">{formatMoney(stock.qty * stock.marketPrice)}</td>
+									<td data-header="L/P" className="price">{formatMoney(stock.qty * stock.marketPrice - stock.total)}</td>
 									<td className="action">
 										<div>
 											<Link href={`/stocks/${stock._id}`}>

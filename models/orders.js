@@ -1,4 +1,5 @@
 import connect from '../lib/database';
+import axios from 'axios';
 
 export async function getStockOrders(query) {
 	const db = await connect();
@@ -43,6 +44,12 @@ export async function getStockOrders(query) {
 
 	} else {
 		resultStock.avg_price = resultStock.total / resultStock.qty;
+
+		const marketResponse = await axios.get(`https://query2.finance.yahoo.com/v7/finance/quote?symbols=${resultStock._id}.SA`);
+		const marketData = marketResponse.data.quoteResponse.result;
+
+		resultStock.marketPrice = marketData[0].regularMarketPrice;
+		resultStock.marketChangePercent = marketData[0].regularMarketChangePercent;
 	}
 
 	return { 

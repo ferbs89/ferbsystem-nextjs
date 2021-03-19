@@ -48,7 +48,8 @@ export default withSession(async (req, res) => {
 
 			for (const item of stocks) {
 				await getStockOrders({ user_id, stock: item._id }).then(response => {
-					resultStocks.push(response.stock);
+					if (response.stock.qty > 0)
+						resultStocks.push(response.stock);
 				});
 			}
 

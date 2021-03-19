@@ -31,21 +31,25 @@ export default function Stock() {
 				<table className="stock-info">
 					<thead>
 						<tr>
-							<th width="20%">Código</th>
-							<th width="20%" className="price">Quantidade</th>
-							<th width="20%" className="price">Preço</th>
-							<th width="20%" className="price">Total</th>
-							<th width="20%" className="price">L/P</th>
+							<th >Código</th>
+							<th className="price">Variação</th>
+							<th className="price">Preço</th>
+							<th className="price">Custo</th>
+							<th className="price">Quantidade</th>
+							<th className="price">Total</th>
+							<th className="price">L/P</th>
 						</tr>
 					</thead>
 
 					<tbody>
 						<tr>
 							<td className="stock-symbol" data-header="Código">{data.stock._id}</td>
+							<td className="price" data-header="Variação">{data.stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}</td>
+							<td className="price" data-header="Preço">{formatMoney(data.stock.marketPrice)}</td>
+							<td className="price" data-header="Custo">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total / data.stock.qty))}</td>
 							<td className="price" data-header="Quantidade">{data.stock.qty}</td>
-							<td className="price" data-header="Preço">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total / data.stock.qty))}</td>
-							<td className="price" data-header="Total">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total))}</td>
-							<td className="price" data-header="L/P">{formatMoney(data.stock.profit)}</td>
+							<td className="price" data-header="Total">{formatMoney(data.stock.qty * data.stock.marketPrice)}</td>
+							<td className="price" data-header="L/P">{formatMoney(data.stock.qty * data.stock.marketPrice - data.stock.total)}</td>
 						</tr>
 					</tbody>
 				</table>
