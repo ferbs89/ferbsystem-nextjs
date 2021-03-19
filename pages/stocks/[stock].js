@@ -23,6 +23,8 @@ export default function Stock() {
 	if (error) return <Error />
 	if (!data) return <Loading />
 
+	const profit = data.stock.qty * data.stock.marketPrice - data.stock.total;
+
 	return (
 		<Layout title={stock}>
 			<div className="content">
@@ -33,6 +35,8 @@ export default function Stock() {
 						<tr>
 							<th >Código</th>
 							<th className="price">Variação</th>
+							<th className="price">Mín</th>
+							<th className="price">Máx</th>
 							<th className="price">Preço</th>
 							<th className="price">Custo</th>
 							<th className="price">Quantidade</th>
@@ -44,12 +48,22 @@ export default function Stock() {
 					<tbody>
 						<tr>
 							<td className="stock-symbol" data-header="Código">{data.stock._id}</td>
-							<td className="price" data-header="Variação">{data.stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}</td>
+							<td className="price" data-header="Variação">
+								<span className={data.stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
+									{data.stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
+								</span>
+							</td>
+							<td className="price" data-header="Mín">{formatMoney(data.stock.marketDayLow)}</td>
+							<td className="price" data-header="Máx">{formatMoney(data.stock.marketDayHigh)}</td>
 							<td className="price" data-header="Preço">{formatMoney(data.stock.marketPrice)}</td>
 							<td className="price" data-header="Custo">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total / data.stock.qty))}</td>
 							<td className="price" data-header="Quantidade">{data.stock.qty}</td>
 							<td className="price" data-header="Total">{formatMoney(data.stock.qty * data.stock.marketPrice)}</td>
-							<td className="price" data-header="L/P">{formatMoney(data.stock.qty * data.stock.marketPrice - data.stock.total)}</td>
+							<td className="price" data-header="L/P">
+								<span className={profit > 0 ? ('positive') : ('negative')}>
+									{formatMoney(profit)}
+								</span>
+							</td>
 						</tr>
 					</tbody>
 				</table>

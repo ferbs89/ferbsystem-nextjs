@@ -172,6 +172,16 @@ table th.action, table td.action {
 	text-align: center;
 }
 
+table td.price span.positive {
+	font-weight: 500;
+	color: green;
+}
+
+table td.price span.negative {
+	font-weight: 500;
+	color: red;
+}
+
 table td.action button {
 	border: 0;
 	margin: 0px 4px;

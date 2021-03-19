@@ -46,10 +46,12 @@ export async function getStockOrders(query) {
 		resultStock.avg_price = resultStock.total / resultStock.qty;
 
 		const marketResponse = await axios.get(`https://query2.finance.yahoo.com/v7/finance/quote?symbols=${resultStock._id}.SA`);
-		const marketData = marketResponse.data.quoteResponse.result;
+		const marketData = marketResponse.data.quoteResponse.result[0];
 
-		resultStock.marketPrice = marketData[0].regularMarketPrice;
-		resultStock.marketChangePercent = marketData[0].regularMarketChangePercent;
+		resultStock.marketChangePercent = marketData.regularMarketChangePercent;
+		resultStock.marketPrice = marketData.regularMarketPrice;
+		resultStock.marketDayHigh = marketData.regularMarketDayHigh;
+		resultStock.marketDayLow = marketData.regularMarketDayLow;
 	}
 
 	return { 

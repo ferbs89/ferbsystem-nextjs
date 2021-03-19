@@ -77,7 +77,7 @@ export default function OrderEdit({ order, query }) {
 						)}
 
 						{order.profit < 0 && (
-							<span className="profit negative">Lucro: {formatMoney(order.profit)}</span>
+							<span className="profit negative">Prejuízo: {formatMoney(order.profit)}</span>
 						)}
 					</td>
 					<td className="action">

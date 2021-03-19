@@ -43,26 +43,36 @@ export default function Home() {
 						</thead>
 
 						<tbody>
-							{data.map(stock => (
-								<tr key={stock._id}>
-									<td data-header="Código">{stock._id}</td>
-									<td data-header="Variação" className="price">
-										{stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
-									</td>
-									<td data-header="Preço" className="price">{formatMoney(stock.marketPrice)}</td>
-									<td data-header="Custo" className="price">{formatMoney(stock.total / stock.qty)}</td>
-									<td data-header="Quantidade" className="price">{stock.qty}</td>
-									<td data-header="Total" className="price">{formatMoney(stock.qty * stock.marketPrice)}</td>
-									<td data-header="L/P" className="price">{formatMoney(stock.qty * stock.marketPrice - stock.total)}</td>
-									<td className="action">
-										<div>
-											<Link href={`/stocks/${stock._id}`}>
-												<a><FiSearch /></a>
-											</Link>
-										</div>
-									</td>
-								</tr>
-							))}
+							{data.map(stock => {
+								const profit = stock.qty * stock.marketPrice - stock.total;
+
+								return (
+									<tr key={stock._id}>
+										<td data-header="Código">{stock._id}</td>
+										<td className="price" data-header="Variação">
+											<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
+												{stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
+											</span>
+										</td>
+										<td className="price" data-header="Preço">{formatMoney(stock.marketPrice)}</td>
+										<td className="price" data-header="Custo">{formatMoney(stock.total / stock.qty)}</td>
+										<td className="price" data-header="Quantidade">{stock.qty}</td>
+										<td className="price" data-header="Total">{formatMoney(stock.qty * stock.marketPrice)}</td>
+										<td className="price" data-header="L/P">
+											<span className={profit > 0 ? ('positive') : ('negative')}>
+												{formatMoney(profit)}
+											</span>
+										</td>
+										<td className="action">
+											<div>
+												<Link href={`/stocks/${stock._id}`}>
+													<a><FiSearch /></a>
+												</Link>
+											</div>
+										</td>
+									</tr>
+								)
+							})}
 						</tbody>
 					</table>
 				)}
