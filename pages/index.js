@@ -35,7 +35,7 @@ export default function Home() {
 								<th className="price">Variação</th>
 								<th className="price">Preço</th>
 								<th className="price">Custo</th>
-								<th className="price">Quantidade</th>
+								<th className="price">Qtde</th>
 								<th className="price">Total</th>
 								<th className="price">L/P</th>
 								<th width="10%" className="action">Visualizar</th>

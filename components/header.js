@@ -20,7 +20,6 @@ export default function Header() {
 				<div className={styles.profile}>
 					<div className={styles.user}>
 						<span className={styles.name}>{user?.name}</span>
-						<span className={styles.email}>{user?.email}</span>
 					</div>
 
 					<button onClick={async (e) => {

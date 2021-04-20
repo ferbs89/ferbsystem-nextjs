@@ -39,7 +39,7 @@ export default function Stock() {
 							<th className="price">Máx</th>
 							<th className="price">Preço</th>
 							<th className="price">Custo</th>
-							<th className="price">Quantidade</th>
+							<th className="price">Qtde</th>
 							<th className="price">Total</th>
 							<th className="price">L/P</th>
 						</tr>

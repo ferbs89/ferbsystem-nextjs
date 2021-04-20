@@ -1,7 +1,8 @@
 .menu {
 	display: flex;
 	align-items: center;
-	height: 64px;
+	padding-top: 16px;
+	padding-bottom: 16px;
 	padding-left: 32px;
 	background: #FFF;
 	border-bottom-left-radius: 8px;
@@ -33,7 +34,8 @@
 @media screen and (max-width: 480px) {
 	.menu {
 		justify-content: space-around;
-		padding-left: 0px;
+		height: auto;
+		padding: 8px;
 	}
 
 	.menu svg {
