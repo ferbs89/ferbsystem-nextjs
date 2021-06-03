@@ -9,7 +9,7 @@ export default withSession(async (req, res) => {
 		return res.status(401).end();
 
 	const db = await connect();
-	const orders = db.collection('orders');
+	const dividends = db.collection('dividends');
 
 	const { id } = req.query;
 
@@ -24,22 +24,23 @@ export default withSession(async (req, res) => {
 		return res.status(400).end();
 	}
 
-	result = await orders.findOne({ _id, user_id });
+	result = await dividends.findOne({ _id, user_id });
 
 	if (!result)
 		return res.status(400).end();
 
 	switch (req.method) {
 		case 'PUT':
-			const { date, stock, qty, price } = req.body;
+			const { stock, dateWith, datePay, qty, price } = req.body;
 
-			await orders.updateOne({
+			await dividends.updateOne({
 				_id,
 				user_id,
 			}, {
 				$set: {
-					date: new Date(date),
 					stock: stock.toUpperCase(),
+					dateWith: new Date(dateWith),
+                    datePay: new Date(datePay),
 					qty: new Int32(qty),
 					price: new Double(price),
 				}
@@ -49,7 +50,7 @@ export default withSession(async (req, res) => {
 			break;
 
 		case 'DELETE':
-			await orders.deleteOne({ _id, user_id });
+			await dividends.deleteOne({ _id, user_id });
 			return res.status(200).end();
 			break;
 	}

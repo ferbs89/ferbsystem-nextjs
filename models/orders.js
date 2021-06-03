@@ -4,9 +4,12 @@ import axios from 'axios';
 export async function getStockOrders(query) {
 	const db = await connect();
 	const orders = db.collection('orders');
+	const dividends = db.collection('dividends');
+
+	const listOrders = [];
 
 	let resultStock = null;
-	const listOrders = [];
+	let resultDividends = null;
 
 	const resultOrders = await orders
 		.find(query)
@@ -19,6 +22,7 @@ export async function getStockOrders(query) {
 		total: 0,
 		avg_price: 0,
 		profit: 0,
+		dividend: 0,
 	}
 
 	for (const item of resultOrders) {
@@ -34,6 +38,12 @@ export async function getStockOrders(query) {
 			resultStock.total += (item.qty * item.avg_price);
 			resultStock.profit += item.profit;
 		}
+
+		resultDividends = await dividends.find(query).toArray();
+
+		resultDividends.map(dividend => {
+			resultStock.dividend += (dividend.qty * dividend.price);
+		});
 
 		listOrders.push(item);
 	}

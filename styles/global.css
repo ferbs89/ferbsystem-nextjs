@@ -160,7 +160,7 @@ table th {
 }
 
 table td {
-	height: 60px;
+	height: 50px;
 	color: #05111a;
 }
 
@@ -170,6 +170,10 @@ table th.price, table td.price {
 
 table th.action, table td.action {
 	text-align: center;
+}
+
+table td.price span.total {
+	font-weight: 500;
 }
 
 table td.price span.positive {

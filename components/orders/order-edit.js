@@ -20,7 +20,7 @@ export default function OrderEdit({ order, query }) {
 		url += `?stock=${stock}`;
 
 	async function handleEdit(order_id) {
-		if (!date || !stock || !price || !qty) {
+		if (!date || !stock || !qty || !price) {
 			toast.error('Preencha todos os campos.');
 			return;
 		}
@@ -68,7 +68,7 @@ export default function OrderEdit({ order, query }) {
 						<td data-header="Ativo">{order.stock}</td>
 					)}
 					<td data-header="Quantidade">{order.qty}</td>
-					<td data-header="Preço">{formatMoney(order.price)}</td>
+					<td data-header="Valor">{formatMoney(order.price)}</td>
 					<td data-header="Total">
 						{formatMoney(order.price * order.qty)}
 						
@@ -102,7 +102,7 @@ export default function OrderEdit({ order, query }) {
 						<td data-header="Ativo"><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
 					)}
 					<td data-header="Quantidade"><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
-					<td data-header="Preço"><input type="number" min="0" step="0.01" placeholder="Preço" value={price} onChange={e => setPrice(e.target.value)} /></td>
+					<td data-header="Valor"><input type="number" min="0" step="0.01" placeholder="Valor" value={price} onChange={e => setPrice(e.target.value)} /></td>
 					<td data-header="Total">{formatMoney(price * qty)}</td>
 					<td className="action">
 						{!loading ? (

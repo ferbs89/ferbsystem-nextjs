@@ -19,10 +19,10 @@ export default function Menu() {
 				</a>
 			</Link>
 
-			<Link href="/earnings">
+			<Link href="/dividends">
 				<a>
 					<FiZap />
-					Proventos
+					Dividendos
 				</a>
 			</Link>
 		</div>

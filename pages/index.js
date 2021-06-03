@@ -18,6 +18,10 @@ export default function Home() {
 	if (error) return <Error />
 	if (!data) return <Loading />
 
+	let total = 0;
+	let totalDividends = 0;
+	let totalProfit = 0;
+
 	return (
 		<Layout title="Ativos">
 			<div className="content">
@@ -37,6 +41,7 @@ export default function Home() {
 								<th className="price">Custo</th>
 								<th className="price">Qtde</th>
 								<th className="price">Total</th>
+								<th className="price">Dividendos</th>
 								<th className="price">L/P</th>
 								<th width="10%" className="action">Visualizar</th>
 							</tr>
@@ -44,7 +49,11 @@ export default function Home() {
 
 						<tbody>
 							{data.map(stock => {
-								const profit = stock.qty * stock.marketPrice - stock.total;
+								const profit = (stock.qty * stock.marketPrice) - stock.total + stock.dividend;
+
+								total += (stock.qty * stock.marketPrice);
+								totalDividends += stock.dividend;
+								totalProfit += profit;
 
 								return (
 									<tr key={stock._id}>
@@ -58,6 +67,7 @@ export default function Home() {
 										<td className="price" data-header="Custo">{formatMoney(stock.total / stock.qty)}</td>
 										<td className="price" data-header="Quantidade">{stock.qty}</td>
 										<td className="price" data-header="Total">{formatMoney(stock.qty * stock.marketPrice)}</td>
+										<td className="price" data-header="Dividendos">{formatMoney(stock.dividend)}</td>
 										<td className="price" data-header="L/P">
 											<span className={profit > 0 ? ('positive') : ('negative')}>
 												{formatMoney(profit)}
@@ -73,6 +83,26 @@ export default function Home() {
 									</tr>
 								)
 							})}
+
+							<tr>
+								<td colspan="5"></td>
+								<td className="price" data-header="Total">
+									<span className="total">
+										{formatMoney(total)}
+									</span>
+								</td>
+								<td className="price" data-header="Dividendos">
+									<span className="total">
+										{formatMoney(totalDividends)}
+									</span>
+								</td>
+								<td className="price" data-header="L/P">
+									<span className={totalProfit > 0 ? ('positive') : ('negative')}>
+										{formatMoney(totalProfit)}
+									</span>
+								</td>
+								<td></td>
+							</tr>
 						</tbody>
 					</table>
 				)}
