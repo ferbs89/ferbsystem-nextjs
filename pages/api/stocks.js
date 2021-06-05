@@ -41,6 +41,11 @@ export default withSession(async (req, res) => {
 			
 			const stocks = [];
 			const resultStocks = [];
+
+			let totalWallet = 0;
+			let totalDividends = 0;
+			let totalSale = 0;
+			let totalProfit = 0;
 			
 			await aggCursor.forEach(item => {
 				stocks.push(item);
@@ -48,12 +53,27 @@ export default withSession(async (req, res) => {
 
 			for (const item of stocks) {
 				await getStockOrders({ user_id, stock: item._id }).then(response => {
-					if (response.stock.qty > 0)
+					if (response.stock.qty > 0) {
 						resultStocks.push(response.stock);
+
+						totalWallet += response.stock.qty * response.stock.marketPrice;
+						totalProfit += (response.stock.qty * response.stock.marketPrice) - response.stock.total;
+					}
+
+					totalSale += response.stock.profit;
+					totalDividends += response.stock.dividend;
 				});
 			}
 
-			return res.status(200).json(resultStocks);
+			return res.status(200).json({
+				totalWallet,
+				totalProfit,
+				totalSale,
+				totalDividends,
+				total: (totalProfit + totalSale + totalDividends),
+				stocks: resultStocks,
+			});
+
 			break;
 	}
 });

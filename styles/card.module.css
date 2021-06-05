@@ -1,0 +1,50 @@
+.card {
+	display: flex;
+	justify-content: space-between;
+	padding: 32px;
+	margin-bottom: 32px;
+	border: 1px solid #dcdce6;
+	border-radius: 8px;
+}
+
+.item {
+	text-align: center;
+}
+
+.item .title {
+	font-weight: 500;
+	color: #17496E;
+	margin-bottom: 4px;
+
+}
+
+.item .data {
+	font-size: 24px;
+	font-weight: 500;
+	color: #05111a;
+}
+
+.item .dataPositive {
+	font-size: 24px;
+	font-weight: 500;
+	color: green;
+}
+
+.item .dataNegative {
+	font-size: 24px;
+	font-weight: 500;
+	color: red;
+}
+
+@media screen and (max-width: 750px) {
+	.card {
+		flex-direction: column;
+		padding: 8px;
+		margin-bottom: 16px;
+	}
+
+	.item {
+		text-align: left;
+		padding: 8px;
+	}
+}

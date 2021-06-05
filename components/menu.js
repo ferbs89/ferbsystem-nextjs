@@ -8,7 +8,7 @@ export default function Menu() {
 			<Link href="/">
 				<a>
 					<FiTrendingUp />
-					Ativos
+					Carteira
 				</a>
 			</Link>
 

@@ -11,6 +11,7 @@ import OrderCreate from '../../components/orders/order-create';
 import OrderEdit from '../../components/orders/order-edit';
 
 import { FiArrowLeft } from 'react-icons/fi';
+import styles from '../../styles/card.module.css';
 
 export default function Stock() {
 	const router = useRouter();
@@ -23,50 +24,55 @@ export default function Stock() {
 	if (error) return <Error />
 	if (!data) return <Loading />
 
-	const profit = data.stock.qty * data.stock.marketPrice - data.stock.total;
+	const profit = (data.stock.qty * data.stock.marketPrice) - data.stock.total + data.stock.dividend;
 
 	return (
-		<Layout title={stock}>
+		<Layout title={data.stock._id}>
 			<div className="content">
-				<h1>Ativo</h1>
+				<h1>{data.stock._id}</h1>
 
-				<table className="stock-info">
-					<thead>
-						<tr>
-							<th >Código</th>
-							<th className="price">Variação</th>
-							<th className="price">Mín</th>
-							<th className="price">Máx</th>
-							<th className="price">Preço</th>
-							<th className="price">Custo</th>
-							<th className="price">Qtde</th>
-							<th className="price">Total</th>
-							<th className="price">L/P</th>
-						</tr>
-					</thead>
+				<div className={styles.card}>
+					<div className={styles.item}>
+						<div className={styles.title}>Variação</div>
+						<div className={(data.stock.marketChangePercent) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+							{data.stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
+						</div>
+					</div>
 
-					<tbody>
-						<tr>
-							<td className="stock-symbol" data-header="Código">{data.stock._id}</td>
-							<td className="price" data-header="Variação">
-								<span className={data.stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
-									{data.stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
-								</span>
-							</td>
-							<td className="price" data-header="Mín">{formatMoney(data.stock.marketDayLow)}</td>
-							<td className="price" data-header="Máx">{formatMoney(data.stock.marketDayHigh)}</td>
-							<td className="price" data-header="Preço">{formatMoney(data.stock.marketPrice)}</td>
-							<td className="price" data-header="Custo">{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total / data.stock.qty))}</td>
-							<td className="price" data-header="Quantidade">{data.stock.qty}</td>
-							<td className="price" data-header="Total">{formatMoney(data.stock.qty * data.stock.marketPrice)}</td>
-							<td className="price" data-header="L/P">
-								<span className={profit > 0 ? ('positive') : ('negative')}>
-									{formatMoney(profit)}
-								</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+					<div className={styles.item}>
+						<div className={styles.title}>Preço</div>
+						<div className={(data.stock.marketChangePercent) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+							{formatMoney(data.stock.marketPrice)}
+						</div>
+					</div>
+
+					<div className={styles.item}>
+						<div className={styles.title}>Custo</div>
+						<div className={styles.data}>{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total / data.stock.qty))}</div>
+					</div>
+
+					<div className={styles.item}>
+						<div className={styles.title}>Quantidade</div>
+						<div className={styles.data}>{data.stock.qty}</div>
+					</div>
+
+					<div className={styles.item}>
+						<div className={styles.title}>Total</div>
+						<div className={styles.data}>{formatMoney(data.stock.qty * data.stock.marketPrice)}</div>
+					</div>
+
+					<div className={styles.item}>
+						<div className={styles.title}>Dividendos</div>
+						<div className={styles.data}>{formatMoney(data.stock.dividend)}</div>
+					</div>
+
+					<div className={styles.item}>
+						<div className={styles.title}>L/P</div>
+						<div className={(profit) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+							{formatMoney(profit)}
+						</div>
+					</div>
+				</div>
 
 				<h1>Operações</h1>
 

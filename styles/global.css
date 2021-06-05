@@ -164,6 +164,10 @@ table td {
 	color: #05111a;
 }
 
+table td.strong {
+	font-weight: 500;
+}
+
 table th.price, table td.price {
 	text-align: center;
 }
@@ -216,18 +220,6 @@ table td.action a svg, table td.action button svg {
 table tfoot td {
 	border: 0px;
 	font-weight: bold;
-}
-
-table.stock-info {
-	margin-bottom: 32px;
-}
-
-table.stock-info td {
-	font-size: 15px;
-}
-
-table.stock-info td.stock-symbol {
-	font-weight: 500;
 }
 
 .profit {

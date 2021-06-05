@@ -8,6 +8,7 @@ import Loading from '../components/loading';
 import Error from '../components/error';
 
 import { FiSearch } from 'react-icons/fi';
+import styles from '../styles/card.module.css';
 
 export default function Home() {
 	const { user } = useUser({ redirectTo: '/login' });
@@ -23,15 +24,46 @@ export default function Home() {
 	let totalProfit = 0;
 
 	return (
-		<Layout title="Ativos">
+		<Layout title="Carteira">
 			<div className="content">
-				<h1>Ativos</h1>
+				<div className={styles.card}>
+					<div className={styles.item}>
+						<div className={styles.title}>Carteira</div>
+						<div className={styles.data}>{formatMoney(data.totalWallet)}</div>
+					</div>
 
-				{data.length == 0 && (
-					<p>Nenhum registro encontrado.</p>
+					<div className={styles.item}>
+						<div className={styles.title}>Lucro</div>
+						<div className={(data.totalProfit) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+							{formatMoney(data.totalProfit)}
+						</div>								
+					</div>
+
+					<div className={styles.item}>
+						<div className={styles.title}>Lucro em operações</div>
+						<div className={(data.totalSale) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+							{formatMoney(data.totalSale)}
+						</div>	
+					</div>	
+
+					<div className={styles.item}>
+						<div className={styles.title}>Dividendos</div>
+						<div className={styles.data}>{formatMoney(data.totalDividends)}</div>
+					</div>											
+
+					<div className={styles.item}>
+						<div className={styles.title}>Total geral</div>
+						<div className={(data.total) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+							{formatMoney(data.total)}
+						</div>	
+					</div>
+				</div>
+
+				{data.stocks.length == 0 && (
+					<h2>Cadastre suas operações para acompanhar sua carteira.</h2>
 				)}
 
-				{data.length > 0 && (
+				{data.stocks.length > 0 && (
 					<table>
 						<thead>
 							<tr>
@@ -48,22 +80,22 @@ export default function Home() {
 						</thead>
 
 						<tbody>
-							{data.map(stock => {
+							{data.stocks.map(stock => {
 								const profit = (stock.qty * stock.marketPrice) - stock.total + stock.dividend;
-
-								total += (stock.qty * stock.marketPrice);
-								totalDividends += stock.dividend;
-								totalProfit += profit;
 
 								return (
 									<tr key={stock._id}>
-										<td data-header="Código">{stock._id}</td>
+										<td className="strong" data-header="Código">{stock._id}</td>
 										<td className="price" data-header="Variação">
 											<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
 												{stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
 											</span>
 										</td>
-										<td className="price" data-header="Preço">{formatMoney(stock.marketPrice)}</td>
+										<td className="price" data-header="Preço">
+											<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
+												{formatMoney(stock.marketPrice)}
+											</span>
+										</td>
 										<td className="price" data-header="Custo">{formatMoney(stock.total / stock.qty)}</td>
 										<td className="price" data-header="Quantidade">{stock.qty}</td>
 										<td className="price" data-header="Total">{formatMoney(stock.qty * stock.marketPrice)}</td>
@@ -88,17 +120,17 @@ export default function Home() {
 								<td colspan="5"></td>
 								<td className="price" data-header="Total">
 									<span className="total">
-										{formatMoney(total)}
+										{formatMoney(data.totalWallet)}
 									</span>
 								</td>
 								<td className="price" data-header="Dividendos">
 									<span className="total">
-										{formatMoney(totalDividends)}
+										{formatMoney(data.totalDividends)}
 									</span>
 								</td>
 								<td className="price" data-header="L/P">
-									<span className={totalProfit > 0 ? ('positive') : ('negative')}>
-										{formatMoney(totalProfit)}
+									<span className={data.totalProfit + data.totalDividends > 0 ? ('positive') : ('negative')}>
+										{formatMoney(data.totalProfit + data.totalDividends)}
 									</span>
 								</td>
 								<td></td>

@@ -64,8 +64,8 @@ export default function DividendEdit({ dividend }) {
 			{!edit && (
 				<tr>
                     <td data-header="Ativo">{dividend.stock}</td>
-					<td data-header="Data Com">{formatDateDMY(dividend.dateWith)}</td>
-                    <td data-header="Data Pagamento">{formatDateDMY(dividend.datePay)}</td>
+					<td data-header="Data com">{formatDateDMY(dividend.dateWith)}</td>
+                    <td data-header="Data pagamento">{formatDateDMY(dividend.datePay)}</td>
 					<td data-header="Quantidade">{dividend.qty}</td>
 					<td data-header="Valor">{formatMoney(dividend.price)}</td>
 					<td data-header="Total">{formatMoney(dividend.price * dividend.qty)}</td>
@@ -87,8 +87,8 @@ export default function DividendEdit({ dividend }) {
             {edit && (
 				<tr>
                     <td data-header="Ativo"><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
-					<td data-header="Data Com"><input type="date" value={formatDateYMD(dateWith)} onChange={e => setDateWith(e.target.value)} /></td>
-                    <td data-header="Data Pagamento"><input type="date" value={formatDateYMD(datePay)} onChange={e => setDatePay(e.target.value)} /></td>
+					<td data-header="Data com"><input type="date" value={formatDateYMD(dateWith)} onChange={e => setDateWith(e.target.value)} /></td>
+                    <td data-header="Data pagamento"><input type="date" value={formatDateYMD(datePay)} onChange={e => setDatePay(e.target.value)} /></td>
 					<td data-header="Quantidade"><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
 					<td data-header="Valor"><input type="number" min="0" step="0.01" placeholder="Valor" value={price} onChange={e => setPrice(e.target.value)} /></td>
 					<td data-header="Total">{formatMoney(price * qty)}</td>

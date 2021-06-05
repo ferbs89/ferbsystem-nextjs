@@ -25,8 +25,8 @@ export default function Dividends() {
 					<thead>
 						<tr>
 							<th width="13%">Ativo</th>
-							<th width="20%">Data Com</th>
-							<th width="20%">Data Pagamento</th>
+							<th width="20%">Data com</th>
+							<th width="20%">Data pagamento</th>
 							<th width="13%">Quantidade</th>
 							<th width="13%">Valor</th>
 							<th width="11%">Total</th>
