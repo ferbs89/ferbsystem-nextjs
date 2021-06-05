@@ -276,6 +276,14 @@ table tfoot td {
 		color: #737380;
 	}
 
+	table td.view:before {
+		content: attr(data-header);		
+		float: left;
+		width: 100px;
+		font-weight: bold;
+		color: #737380;
+	}
+
 	table th.price, table td.price {
 		width: 100%;
 		text-align: left;
@@ -287,6 +295,10 @@ table tfoot td {
 
 	table td.action a, table td.action button {
 		width: 100%;
+	}
+
+	table td.empty {
+		display: none;
 	}
 
 	table tfoot tr {

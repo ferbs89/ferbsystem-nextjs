@@ -67,7 +67,7 @@ export default function Stock() {
 					</div>
 
 					<div className={styles.item}>
-						<div className={styles.title}>L/P</div>
+						<div className={styles.title}>Lucro</div>
 						<div className={(profit) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
 							{formatMoney(profit)}
 						</div>

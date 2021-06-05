@@ -74,7 +74,7 @@ export default function Home() {
 								<th className="price">Qtde</th>
 								<th className="price">Total</th>
 								<th className="price">Dividendos</th>
-								<th className="price">L/P</th>
+								<th className="price">Lucro</th>
 								<th width="10%" className="action">Visualizar</th>
 							</tr>
 						</thead>
@@ -85,22 +85,22 @@ export default function Home() {
 
 								return (
 									<tr key={stock._id}>
-										<td className="strong" data-header="Código">{stock._id}</td>
-										<td className="price" data-header="Variação">
+										<td className="strong view" data-header="Código">{stock._id}</td>
+										<td className="price view" data-header="Variação">
 											<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
 												{stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
 											</span>
 										</td>
-										<td className="price" data-header="Preço">
+										<td className="price view" data-header="Preço">
 											<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
 												{formatMoney(stock.marketPrice)}
 											</span>
 										</td>
-										<td className="price" data-header="Custo">{formatMoney(stock.total / stock.qty)}</td>
-										<td className="price" data-header="Quantidade">{stock.qty}</td>
-										<td className="price" data-header="Total">{formatMoney(stock.qty * stock.marketPrice)}</td>
-										<td className="price" data-header="Dividendos">{formatMoney(stock.dividend)}</td>
-										<td className="price" data-header="L/P">
+										<td className="price view" data-header="Custo">{formatMoney(stock.total / stock.qty)}</td>
+										<td className="price view" data-header="Quantidade">{stock.qty}</td>
+										<td className="price view" data-header="Total">{formatMoney(stock.qty * stock.marketPrice)}</td>
+										<td className="price view" data-header="Dividendos">{formatMoney(stock.dividend)}</td>
+										<td className="price view" data-header="Lucro">
 											<span className={profit > 0 ? ('positive') : ('negative')}>
 												{formatMoney(profit)}
 											</span>
@@ -117,7 +117,7 @@ export default function Home() {
 							})}
 
 							<tr>
-								<td colspan="5"></td>
+								<td className="empty" colSpan="5"></td>
 								<td className="price" data-header="Total">
 									<span className="total">
 										{formatMoney(data.totalWallet)}
@@ -128,12 +128,12 @@ export default function Home() {
 										{formatMoney(data.totalDividends)}
 									</span>
 								</td>
-								<td className="price" data-header="L/P">
+								<td className="price" data-header="Lucro">
 									<span className={data.totalProfit + data.totalDividends > 0 ? ('positive') : ('negative')}>
 										{formatMoney(data.totalProfit + data.totalDividends)}
 									</span>
 								</td>
-								<td></td>
+								<td className="empty"></td>
 							</tr>
 						</tbody>
 					</table>

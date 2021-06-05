@@ -63,13 +63,13 @@ export default function OrderEdit({ order, query }) {
 		<>
 			{!edit && (
 				<tr>
-					<td data-header="Data">{formatDateDMY(order.date)}</td>
+					<td className="view" data-header="Data">{formatDateDMY(order.date)}</td>
 					{!query && (
-						<td data-header="Ativo">{order.stock}</td>
+						<td className="view" data-header="Ativo">{order.stock}</td>
 					)}
-					<td data-header="Quantidade">{order.qty}</td>
-					<td data-header="Valor">{formatMoney(order.price)}</td>
-					<td data-header="Total">
+					<td className="view" data-header="Quantidade">{order.qty}</td>
+					<td className="view" data-header="Valor">{formatMoney(order.price)}</td>
+					<td className="view" data-header="Total">
 						{formatMoney(order.price * order.qty)}
 						
 						{order.profit > 0 && (
