@@ -19,10 +19,6 @@ export default function Home() {
 	if (error) return <Error />
 	if (!data) return <Loading />
 
-	let total = 0;
-	let totalDividends = 0;
-	let totalProfit = 0;
-
 	return (
 		<Layout title="Carteira">
 			<div className="content">
@@ -116,8 +112,8 @@ export default function Home() {
 								)
 							})}
 
-							<tr>
-								<td className="empty" colSpan="5"></td>
+							<tr className="empty">
+								<td colSpan="5"></td>
 								<td className="price" data-header="Total">
 									<span className="total">
 										{formatMoney(data.totalWallet)}
@@ -133,7 +129,7 @@ export default function Home() {
 										{formatMoney(data.totalProfit + data.totalDividends)}
 									</span>
 								</td>
-								<td className="empty"></td>
+								<td></td>
 							</tr>
 						</tbody>
 					</table>
