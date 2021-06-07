@@ -63,7 +63,7 @@ export default function DividendEdit({ dividend }) {
 		<>
 			{!edit && (
 				<tr>
-                    <td className="view" data-header="Ativo">{dividend.stock}</td>
+                    <td className="strong view" data-header="Ativo">{dividend.stock}</td>
 					<td className="view" data-header="Data com">{formatDateDMY(dividend.dateWith)}</td>
                     <td className="view" data-header="Data pagamento">{formatDateDMY(dividend.datePay)}</td>
 					<td className="view" data-header="Quantidade">{dividend.qty}</td>

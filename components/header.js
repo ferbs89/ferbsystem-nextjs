@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { mutate } from "swr";
 import useUser from '../hooks/useUser';
 import axios from 'axios';
 
@@ -24,7 +25,13 @@ export default function Header() {
 
 					<button onClick={async (e) => {
 						e.preventDefault();
+
 						await mutateUser(await axios.get('/api/logout'));
+						
+						mutate('/api/stocks', null);
+						mutate('/api/orders', null);
+						mutate('/api/dividends', null);
+
 						router.push('/login');
 					}}>
 						<a>

@@ -49,10 +49,10 @@ export default function OrderCreate({ query }) {
 
 	return (
 		<tr>
-			<td data-header="Data"><input type="date" value={date} onChange={e => setDate(e.target.value)} /></td>
 			{!query && (
 				<td data-header="Ativo"><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
 			)}
+			<td data-header="Data"><input type="date" value={date} onChange={e => setDate(e.target.value)} /></td>
 			<td data-header="Quantidade"><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
 			<td data-header="Valor"><input type="number" min="0" step="0.01" placeholder="Valor" value={price} onChange={e => setPrice(e.target.value)} /></td>
 			<td data-header="Total">{formatMoney(price * qty)}</td>

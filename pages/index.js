@@ -22,9 +22,11 @@ export default function Home() {
 	return (
 		<Layout title="Carteira">
 			<div className="content">
+				<h1>Carteira</h1>
+
 				<div className={styles.card}>
 					<div className={styles.item}>
-						<div className={styles.title}>Carteira</div>
+						<div className={styles.title}>Patrimônio</div>
 						<div className={styles.data}>{formatMoney(data.totalWallet)}</div>
 					</div>
 
@@ -60,6 +62,9 @@ export default function Home() {
 				)}
 
 				{data.stocks.length > 0 && (
+					<>
+					<h1>Ativos</h1>
+
 					<table>
 						<thead>
 							<tr>
@@ -133,6 +138,7 @@ export default function Home() {
 							</tr>
 						</tbody>
 					</table>
+					</>
 				)}
 			</div>
 		</Layout>

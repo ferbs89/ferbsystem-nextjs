@@ -63,10 +63,10 @@ export default function OrderEdit({ order, query }) {
 		<>
 			{!edit && (
 				<tr>
-					<td className="view" data-header="Data">{formatDateDMY(order.date)}</td>
 					{!query && (
-						<td className="view" data-header="Ativo">{order.stock}</td>
+						<td className="strong view" data-header="Ativo">{order.stock}</td>
 					)}
+					<td className="view" data-header="Data">{formatDateDMY(order.date)}</td>
 					<td className="view" data-header="Quantidade">{order.qty}</td>
 					<td className="view" data-header="Valor">{formatMoney(order.price)}</td>
 					<td className="view" data-header="Total">
@@ -97,10 +97,10 @@ export default function OrderEdit({ order, query }) {
 
 			{edit && (
 				<tr>
-					<td data-header="Data"><input type="date" value={formatDateYMD(date)} onChange={e => setDate(e.target.value)} /></td>
 					{!query !== false && (
 						<td data-header="Ativo"><input type="text" placeholder="Ativo" value={stock} onChange={e => setStock(e.target.value)} /></td>
 					)}
+					<td data-header="Data"><input type="date" value={formatDateYMD(date)} onChange={e => setDate(e.target.value)} /></td>
 					<td data-header="Quantidade"><input type="number" min="0" placeholder="Quantidade" value={qty} onChange={e => setQty(e.target.value)} /></td>
 					<td data-header="Valor"><input type="number" min="0" step="0.01" placeholder="Valor" value={price} onChange={e => setPrice(e.target.value)} /></td>
 					<td data-header="Total">{formatMoney(price * qty)}</td>

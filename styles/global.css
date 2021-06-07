@@ -219,7 +219,7 @@ table td.action a svg, table td.action button svg {
 
 table tfoot td {
 	border: 0px;
-	font-weight: bold;
+	font-weight: 500;
 }
 
 .profit {
@@ -272,7 +272,7 @@ table tfoot td {
 		content: attr(data-header);		
 		display: block;
 		margin-bottom: 4px;
-		font-weight: bold;
+		font-weight: 500;
 		color: #737380;
 	}
 
@@ -281,7 +281,7 @@ table tfoot td {
 		float: left;
 		margin-bottom: 0px;
 		text-align: left;
-		font-weight: bold;
+		font-weight: 500;
 		color: #737380;
 	}
 

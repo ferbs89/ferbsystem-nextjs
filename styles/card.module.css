@@ -1,7 +1,7 @@
 .card {
 	display: flex;
 	justify-content: space-between;
-	padding: 32px 8px;
+	padding: 32px;
 	margin-bottom: 32px;
 	border: 1px solid #dcdce6;
 	border-radius: 8px;
@@ -15,23 +15,22 @@
 	font-weight: 500;
 	color: #17496E;
 	margin-bottom: 4px;
-
 }
 
 .item .data {
-	font-size: 24px;
+	font-size: 18px;
 	font-weight: 500;
 	color: #05111a;
 }
 
 .item .dataPositive {
-	font-size: 24px;
+	font-size: 18px;
 	font-weight: 500;
 	color: green;
 }
 
 .item .dataNegative {
-	font-size: 24px;
+	font-size: 18px;
 	font-weight: 500;
 	color: red;
 }
@@ -40,11 +39,18 @@
 	.card {
 		flex-direction: column;
 		padding: 8px;
-		margin-bottom: 16px;
 	}
 
 	.item {
-		text-align: left;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
 		padding: 8px;
+		border-bottom: 1px solid #dcdce6;
+	}
+
+	.item .title {
+		margin-bottom: 0px;
 	}
 }
