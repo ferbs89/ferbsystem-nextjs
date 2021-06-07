@@ -50,6 +50,10 @@
 		border-bottom: 1px solid #dcdce6;
 	}
 
+	.item:last-child {
+		border-bottom: 0px;
+	}
+
 	.item .title {
 		margin-bottom: 0px;
 	}
