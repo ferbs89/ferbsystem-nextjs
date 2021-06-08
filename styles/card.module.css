@@ -1,13 +1,12 @@
 .card {
 	display: flex;
 	justify-content: space-between;
-	padding: 32px;
-	margin-bottom: 32px;
 	border: 1px solid #dcdce6;
 	border-radius: 8px;
 }
 
 .item {
+	padding: 16px;
 	text-align: center;
 }
 

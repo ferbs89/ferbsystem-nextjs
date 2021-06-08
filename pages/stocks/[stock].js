@@ -29,47 +29,49 @@ export default function Stock() {
 	return (
 		<Layout title={data.stock._id}>
 			<div className="content">
-				<h1>{data.stock._id}</h1>
-
-				<div className={styles.card}>
-					<div className={styles.item}>
-						<div className={styles.title}>Variação</div>
-						<div className={(data.stock.marketChangePercent) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
-							{data.stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
+				<div className="page-header">
+					<div className="stock-content">
+						<div className="stock-header">
+							<span className="page-header-title">{data.stock._id} </span>
 						</div>
-					</div>
 
-					<div className={styles.item}>
-						<div className={styles.title}>Preço</div>
-						<div className={(data.stock.marketChangePercent) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
-							{formatMoney(data.stock.marketPrice)}
+						<div className="stock-header">
+							<span className={(data.stock.marketChangePercent) > 0 ? ('stock-price-positive') : ('stock-price-negative')}>
+								{formatMoney(data.stock.marketPrice)} ({data.stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'})
+							</span>
 						</div>
-					</div>
 
-					<div className={styles.item}>
-						<div className={styles.title}>Custo</div>
-						<div className={styles.data}>{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total / data.stock.qty))}</div>
+						<div className="stock-min-max">
+							Mín: {formatMoney(data.stock.marketDayLow)} / Máx: {formatMoney(data.stock.marketDayHigh)}
+						</div>						
 					</div>
+				
+					<div className={styles.card}>
+						<div className={styles.item}>
+							<div className={styles.title}>Custo</div>
+							<div className={styles.data}>{formatMoney((data.stock.qty == 0) ? (0) : (data.stock.total / data.stock.qty))}</div>
+						</div>
 
-					<div className={styles.item}>
-						<div className={styles.title}>Quantidade</div>
-						<div className={styles.data}>{data.stock.qty}</div>
-					</div>
+						<div className={styles.item}>
+							<div className={styles.title}>Quantidade</div>
+							<div className={styles.data}>{data.stock.qty}</div>
+						</div>
 
-					<div className={styles.item}>
-						<div className={styles.title}>Total</div>
-						<div className={styles.data}>{formatMoney(data.stock.qty * data.stock.marketPrice)}</div>
-					</div>
+						<div className={styles.item}>
+							<div className={styles.title}>Total</div>
+							<div className={styles.data}>{formatMoney(data.stock.qty * data.stock.marketPrice)}</div>
+						</div>
 
-					<div className={styles.item}>
-						<div className={styles.title}>Dividendos</div>
-						<div className={styles.data}>{formatMoney(data.stock.dividend)}</div>
-					</div>
+						<div className={styles.item}>
+							<div className={styles.title}>Dividendos</div>
+							<div className={styles.data}>{formatMoney(data.stock.dividend)}</div>
+						</div>
 
-					<div className={styles.item}>
-						<div className={styles.title}>Lucro</div>
-						<div className={(profit) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
-							{formatMoney(profit)}
+						<div className={styles.item}>
+							<div className={styles.title}>Lucro</div>
+							<div className={(profit) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+								{formatMoney(profit)}
+							</div>
 						</div>
 					</div>
 				</div>

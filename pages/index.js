@@ -22,38 +22,40 @@ export default function Home() {
 	return (
 		<Layout title="Carteira">
 			<div className="content">
-				<h1>Carteira</h1>
+				<div className="page-header">
+					<span className="page-header-title">Carteira</span>
 
-				<div className={styles.card}>
-					<div className={styles.item}>
-						<div className={styles.title}>Patrimônio</div>
-						<div className={styles.data}>{formatMoney(data.totalWallet)}</div>
-					</div>
+					<div className={styles.card}>
+						<div className={styles.item}>
+							<div className={styles.title}>Patrimônio</div>
+							<div className={styles.data}>{formatMoney(data.totalWallet)}</div>
+						</div>
 
-					<div className={styles.item}>
-						<div className={styles.title}>Lucro</div>
-						<div className={(data.totalProfit) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
-							{formatMoney(data.totalProfit)}
-						</div>								
-					</div>
+						<div className={styles.item}>
+							<div className={styles.title}>Lucro</div>
+							<div className={(data.totalProfit) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+								{formatMoney(data.totalProfit)}
+							</div>								
+						</div>
 
-					<div className={styles.item}>
-						<div className={styles.title}>Lucro em operações</div>
-						<div className={(data.totalSale) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
-							{formatMoney(data.totalSale)}
+						<div className={styles.item}>
+							<div className={styles.title}>Lucro em operações</div>
+							<div className={(data.totalSale) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+								{formatMoney(data.totalSale)}
+							</div>	
 						</div>	
-					</div>	
 
-					<div className={styles.item}>
-						<div className={styles.title}>Dividendos</div>
-						<div className={styles.data}>{formatMoney(data.totalDividends)}</div>
-					</div>											
+						<div className={styles.item}>
+							<div className={styles.title}>Dividendos</div>
+							<div className={styles.data}>{formatMoney(data.totalDividends)}</div>
+						</div>											
 
-					<div className={styles.item}>
-						<div className={styles.title}>Total geral</div>
-						<div className={(data.total) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
-							{formatMoney(data.total)}
-						</div>	
+						<div className={styles.item}>
+							<div className={styles.title}>Total geral</div>
+							<div className={(data.total) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+								{formatMoney(data.total)}
+							</div>	
+						</div>
 					</div>
 				</div>
 
@@ -62,9 +64,6 @@ export default function Home() {
 				)}
 
 				{data.stocks.length > 0 && (
-					<>
-					<h1>Ativos</h1>
-
 					<table>
 						<thead>
 							<tr>
@@ -138,7 +137,6 @@ export default function Home() {
 							</tr>
 						</tbody>
 					</table>
-					</>
 				)}
 			</div>
 		</Layout>

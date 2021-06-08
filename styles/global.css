@@ -135,6 +135,60 @@ button {
 	font-size: 16px;
 }
 
+.page-header {
+	display: flex;
+	align-items: center;
+    justify-content: space-between;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+    border-bottom: 2px solid #17496E;
+}
+
+.page-header-title {
+	color: #05111a;
+	font-size: 24px;
+    font-weight: 500;
+}
+
+.page-header-button {
+    display: flex;
+	align-items: center;
+	background-color: #eee;
+	border: 1px solid #dcdce6;
+	border-radius: 8px;
+	padding: 8px;
+	color: #17496E;
+	font-weight: 500;	
+}
+
+.page-header-button svg {
+	width: 20px;
+    height: 20px;
+    color: #17496E;
+	margin-right: 4px;
+}
+
+.stock-header {
+	margin-bottom: 8px;
+}
+
+.stock-price-positive {
+	font-size: 20px;
+    font-weight: 500;
+	color: green;
+}
+
+.stock-price-negative {
+	font-size: 20px;
+	font-weight: 500;
+	color: red;
+}
+
+.stock-min-max {
+	color: #737380;
+	font-weight: 500;
+}
+
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -242,6 +296,22 @@ table tfoot td {
 	border-radius: 8px;
 }
 
+@media screen and (max-width: 850px) {
+	.page-header {
+		display: block;
+		flex-direction: column;
+	}
+
+	.page-header-title {
+		display: block;
+		margin-bottom: 8px;
+	}
+
+	.stock-content {
+		margin-bottom: 16px;
+	}
+}
+
 @media screen and (max-width: 750px) {
 	table tr {
 		display: block;
@@ -311,5 +381,13 @@ table tfoot td {
 
 	.empty {
 		display: none;
+	}
+
+	.page-header {
+		display: block;
+	}
+
+	.stock-min-max {
+		margin-bottom: 16px;
 	}
 }
