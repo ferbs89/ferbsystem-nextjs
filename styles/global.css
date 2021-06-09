@@ -139,7 +139,7 @@ button {
 	display: flex;
 	align-items: center;
     justify-content: space-between;
-    padding-bottom: 32px;
+    padding-bottom: 16px;
     margin-bottom: 32px;
     border-bottom: 2px solid #17496E;
 }
@@ -385,6 +385,7 @@ table tfoot td {
 
 	.page-header {
 		display: block;
+		padding-bottom: 32px;
 	}
 
 	.stock-min-max {
