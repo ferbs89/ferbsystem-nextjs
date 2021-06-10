@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { mutate } from "swr";
 import useUser from '../hooks/useUser';
 import axios from 'axios';
+import { destroyCookie } from 'nookies';
 
 import { FiLogOut } from 'react-icons/fi';
 import styles from '../styles/components/header.module.css';
@@ -31,6 +32,8 @@ export default function Header() {
 						mutate('/api/stocks', null);
 						mutate('/api/orders', null);
 						mutate('/api/dividends', null);
+
+						destroyCookie(null, 'VIEW');
 
 						router.push('/login');
 					}}>

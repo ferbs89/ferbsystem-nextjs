@@ -1,16 +1,21 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import useUser from '../hooks/useUser';
 import { useFetch } from '../hooks/useFetch';
 import { formatMoney } from '../utils/functions';
+import { setCookie, parseCookies } from 'nookies';
 
 import Layout from '../components/layout';
 import Loading from '../components/loading';
 import Error from '../components/error';
 
-import { FiSearch } from 'react-icons/fi';
-import styles from '../styles/card.module.css';
+import { FiSearch, FiAlignJustify, FiGrid } from 'react-icons/fi';
+import card from '../styles/card.module.css';
+import grid from '../styles/grid.module.css';
 
-export default function Home() {
+export default function Home(props) {
+	const [view, setView] = useState(props.view);
+
 	const { user } = useUser({ redirectTo: '/login' });
 	const { data, error } = useFetch(user?.isLoggedIn ? '/api/stocks' : null);
 
@@ -25,34 +30,34 @@ export default function Home() {
 				<div className="page-header">
 					<span className="page-header-title">Carteira</span>
 
-					<div className={styles.card}>
-						<div className={styles.item}>
-							<div className={styles.title}>Patrimônio</div>
-							<div className={styles.data}>{formatMoney(data.totalWallet)}</div>
+					<div className={card.card}>
+						<div className={card.item}>
+							<div className={card.title}>Patrimônio</div>
+							<div className={card.data}>{formatMoney(data.totalWallet)}</div>
 						</div>
 
-						<div className={styles.item}>
-							<div className={styles.title}>Lucro</div>
-							<div className={(data.totalProfit) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+						<div className={card.item}>
+							<div className={card.title}>Lucro</div>
+							<div className={(data.totalProfit) > 0 ? (card.dataPositive) : (card.dataNegative)}>
 								{formatMoney(data.totalProfit)}
 							</div>								
 						</div>
 
-						<div className={styles.item}>
-							<div className={styles.title}>Lucro em operações</div>
-							<div className={(data.totalSale) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+						<div className={card.item}>
+							<div className={card.title}>Lucro em operações</div>
+							<div className={(data.totalSale) > 0 ? (card.dataPositive) : (card.dataNegative)}>
 								{formatMoney(data.totalSale)}
 							</div>	
 						</div>	
 
-						<div className={styles.item}>
-							<div className={styles.title}>Dividendos</div>
-							<div className={styles.data}>{formatMoney(data.totalDividends)}</div>
+						<div className={card.item}>
+							<div className={card.title}>Dividendos</div>
+							<div className={card.data}>{formatMoney(data.totalDividends)}</div>
 						</div>											
 
-						<div className={styles.item}>
-							<div className={styles.title}>Total geral</div>
-							<div className={(data.total) > 0 ? (styles.dataPositive) : (styles.dataNegative)}>
+						<div className={card.item}>
+							<div className={card.title}>Total geral</div>
+							<div className={(data.total) > 0 ? (card.dataPositive) : (card.dataNegative)}>
 								{formatMoney(data.total)}
 							</div>	
 						</div>
@@ -64,81 +69,172 @@ export default function Home() {
 				)}
 
 				{data.stocks.length > 0 && (
-					<table>
-						<thead>
-							<tr>
-								<th>Código</th>
-								<th className="price">Variação</th>
-								<th className="price">Preço</th>
-								<th className="price">Custo</th>
-								<th className="price">Qtde</th>
-								<th className="price">Total</th>
-								<th className="price">Dividendos</th>
-								<th className="price">Lucro</th>
-								<th width="10%" className="action">Visualizar</th>
-							</tr>
-						</thead>
+					<>
+						<div className={grid.view}>
+							<button onClick={() => {
+								setView('table');
+								setCookie(null, 'VIEW', 'table', {
+									maxAge: 86400 * 31 * 12,
+									path: '/',
+								});
+							}}>
+								<FiAlignJustify />
+							</button>
 
-						<tbody>
-							{data.stocks.map(stock => {
-								const profit = (stock.qty * stock.marketPrice) - stock.total + stock.dividend;
+							<button onClick={() => {
+								setView('grid');
+								setCookie(null, 'VIEW', 'grid', {
+									maxAge: 86400 * 31 * 12,
+									path: '/',
+								});
+							}}>
+								<FiGrid />
+							</button>
+						</div>
 
-								return (
-									<tr key={stock._id}>
-										<td className="strong view" data-header="Código">{stock._id}</td>
-										<td className="price view" data-header="Variação">
-											<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
-												{stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
-											</span>
-										</td>
-										<td className="price view" data-header="Preço">
-											<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
-												{formatMoney(stock.marketPrice)}
-											</span>
-										</td>
-										<td className="price view" data-header="Custo">{formatMoney(stock.total / stock.qty)}</td>
-										<td className="price view" data-header="Quantidade">{stock.qty}</td>
-										<td className="price view" data-header="Total">{formatMoney(stock.qty * stock.marketPrice)}</td>
-										<td className="price view" data-header="Dividendos">{formatMoney(stock.dividend)}</td>
-										<td className="price view" data-header="Lucro">
-											<span className={profit > 0 ? ('positive') : ('negative')}>
-												{formatMoney(profit)}
-											</span>
-										</td>
-										<td className="action">
-											<div>
-												<Link href={`/stocks/${stock._id}`}>
-													<a><FiSearch /></a>
-												</Link>
+						{view == 'grid' ? (
+							<div className={grid.container}>
+								{data.stocks.map(stock => {
+									const profit = (stock.qty * stock.marketPrice) - stock.total + stock.dividend;
+
+									return (
+										<Link href={`/stocks/${stock._id}`} key={stock._id}>
+											<div className={grid.content}>
+												<div className={grid.header}>
+													<span className={grid.title}>{stock._id}</span>
+													<span className={stock.marketChangePercent > 0 ? (grid.positive) : (grid.negative)}>
+														{stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
+													</span>
+												</div>
+
+												<div className={grid.body}>
+													<div className={grid.row}>
+														<span className={grid.label}>Preço</span>
+														<span className={stock.marketChangePercent > 0 ? (grid.positive) : (grid.negative)}>
+															{formatMoney(stock.marketPrice)}
+														</span>
+													</div>
+
+													<div className={grid.row}>
+														<span className={grid.label}>Custo</span>
+														<span>{formatMoney(stock.total / stock.qty)}</span>
+													</div>
+
+													<div className={grid.row}>
+														<span className={grid.label}>Quantidade</span>
+														<span>{stock.qty}</span>
+													</div>
+
+													<div className={grid.row}>
+														<span className={grid.label}>Total</span>
+														<span>{formatMoney(stock.qty * stock.marketPrice)}</span>
+													</div>
+
+													<div className={grid.row}>
+														<span className={grid.label}>Dividendos</span>
+														<span>{formatMoney(stock.dividend)}</span>
+													</div>
+
+													<div className={grid.row}>
+														<span className={grid.label}>Lucro</span>
+														<span className={profit > 0 ? (grid.positive) : (grid.negative)}>
+															{formatMoney(profit)}
+														</span>
+													</div>
+												</div>
 											</div>
-										</td>
+										</Link>
+									)
+								})}
+							</div>
+						) : (
+							<table>
+								<thead>
+									<tr>
+										<th>Código</th>
+										<th className="price">Variação</th>
+										<th className="price">Preço</th>
+										<th className="price">Custo</th>
+										<th className="price">Qtde</th>
+										<th className="price">Total</th>
+										<th className="price">Dividendos</th>
+										<th className="price">Lucro</th>
+										<th width="10%" className="action">Visualizar</th>
 									</tr>
-								)
-							})}
+								</thead>
 
-							<tr className="empty">
-								<td colSpan="5"></td>
-								<td className="price" data-header="Total">
-									<span className="total">
-										{formatMoney(data.totalWallet)}
-									</span>
-								</td>
-								<td className="price" data-header="Dividendos">
-									<span className="total">
-										{formatMoney(data.totalDividends)}
-									</span>
-								</td>
-								<td className="price" data-header="Lucro">
-									<span className={data.totalProfit + data.totalDividends > 0 ? ('positive') : ('negative')}>
-										{formatMoney(data.totalProfit + data.totalDividends)}
-									</span>
-								</td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
+								<tbody>
+									{data.stocks.map(stock => {
+										const profit = (stock.qty * stock.marketPrice) - stock.total + stock.dividend;
+
+										return (
+											<tr key={stock._id}>
+												<td className="strong view" data-header="Código">{stock._id}</td>
+												<td className="price view" data-header="Variação">
+													<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
+														{stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
+													</span>
+												</td>
+												<td className="price view" data-header="Preço">
+													<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
+														{formatMoney(stock.marketPrice)}
+													</span>
+												</td>
+												<td className="price view" data-header="Custo">{formatMoney(stock.total / stock.qty)}</td>
+												<td className="price view" data-header="Quantidade">{stock.qty}</td>
+												<td className="price view" data-header="Total">{formatMoney(stock.qty * stock.marketPrice)}</td>
+												<td className="price view" data-header="Dividendos">{formatMoney(stock.dividend)}</td>
+												<td className="price view" data-header="Lucro">
+													<span className={profit > 0 ? ('positive') : ('negative')}>
+														{formatMoney(profit)}
+													</span>
+												</td>
+												<td className="action">
+													<div>
+														<Link href={`/stocks/${stock._id}`}>
+															<a><FiSearch /></a>
+														</Link>
+													</div>
+												</td>
+											</tr>
+										)
+									})}
+
+									<tr className="empty">
+										<td colSpan="5"></td>
+										<td className="price" data-header="Total">
+											<span className="total">
+												{formatMoney(data.totalWallet)}
+											</span>
+										</td>
+										<td className="price" data-header="Dividendos">
+											<span className="total">
+												{formatMoney(data.totalDividends)}
+											</span>
+										</td>
+										<td className="price" data-header="Lucro">
+											<span className={data.totalProfit + data.totalDividends > 0 ? ('positive') : ('negative')}>
+												{formatMoney(data.totalProfit + data.totalDividends)}
+											</span>
+										</td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						)}						
+					</>
 				)}
 			</div>
 		</Layout>
 	);
+}
+
+export async function getServerSideProps(context) {
+	const cookies = parseCookies(context);
+
+	return {
+		props: {
+			view: cookies.VIEW != undefined ? cookies.VIEW : null,
+		}
+	}
 }
