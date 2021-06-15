@@ -5,9 +5,12 @@
 }
 
 .content {
-    cursor: pointer;
     border: 1px solid #dcdce6;
 	border-radius: 8px;
+}
+
+.content a {
+    text-decoration: none;
 }
 
 .header {

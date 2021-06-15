@@ -271,11 +271,6 @@ table td.action a svg, table td.action button svg {
 	color: #17496E;
 }
 
-table tfoot td {
-	border: 0px;
-	font-weight: 500;
-}
-
 .profit {
 	display: block;
 	margin-top: 4px;
@@ -310,9 +305,7 @@ table tfoot td {
 	.stock-content {
 		margin-bottom: 16px;
 	}
-}
 
-@media screen and (max-width: 750px) {
 	table tr {
 		display: block;
 		padding: 8px;
@@ -368,24 +361,12 @@ table tfoot td {
 		width: 100%;
 	}
 
-	table tfoot tr {
-		margin-top: 16px;
-		padding-top: 16px;
-		padding-bottom: 16px;
-	}
-
-	table tfoot td {
-		padding: 0px;
-		text-align: center;
-	}
-
 	.empty {
 		display: none;
 	}
 
 	.page-header {
 		display: block;
-		padding-bottom: 32px;
 	}
 
 	.stock-min-max {

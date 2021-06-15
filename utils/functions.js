@@ -1,11 +1,20 @@
-export function formatMoney(amount) {
-	if (isNaN(amount))
-		amount = 0;
+export function formatMoney(value) {
+	if (isNaN(value))
+		value = 0;
 
 	return new Intl.NumberFormat('pt-BR', {
 		style: 'currency',
 		currency: 'BRL',
-	}).format(amount);
+	}).format(value);
+}
+
+export function formatNumber(value, digits = 2) {
+	if (isNaN(value))
+		value = 0;
+
+	return new Intl.NumberFormat('pt-BR', { 
+		maximumFractionDigits: digits,
+	}).format(value);
 }
 
 export function formatDateDMY(value) {
