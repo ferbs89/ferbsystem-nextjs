@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import useUser from '../hooks/useUser';
 import { useFetch } from '../hooks/useFetch';
-import { formatMoney, formatNumber } from '../utils/functions';
+import { formatMoney } from '../utils/functions';
 import { setCookie, parseCookies } from 'nookies';
 
 import Layout from '../components/layout';
@@ -139,7 +139,7 @@ export default function Home(props) {
 												<div className={grid.row}>
 													<span className={grid.label}>Rentabilidade</span>
 													<span className={profit_percent > 0 ? (grid.positive) : (grid.negative)}>
-														{formatNumber(profit_percent)}%
+														{profit_percent.toFixed(2).replace('.', ',')}%
 													</span>
 												</div>
 
@@ -197,7 +197,7 @@ export default function Home(props) {
 												</td>
 												<td className="price view" data-header="Rentabilidade">
 													<span className={profit_percent > 0 ? ('positive') : ('negative')}>
-														{formatNumber(profit_percent)}%
+														{profit_percent.toFixed(2).replace('.', ',')}%
 													</span>
 												</td>
 												<td className="price view" data-header="Dividendos">{formatMoney(stock.dividend)}</td>
@@ -226,7 +226,7 @@ export default function Home(props) {
 										</td>
 										<td className="price">
 											<span className={((data.totalProfit / data.totalCost) * 100) > 0 ? ('positive') : ('negative')}>
-												{formatNumber((data.totalProfit / data.totalCost) * 100)}%
+												{((data.totalProfit / data.totalCost) * 100).toFixed(2).replace('.', ',')}%
 											</span>
 										</td>
 										<td className="price">
