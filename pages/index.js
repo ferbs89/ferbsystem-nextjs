@@ -95,9 +95,10 @@ export default function Home(props) {
 						{view == 'grid' ? (
 							<div className={grid.container}>
 								{data.stocks.map(stock => {
+									const newPrice = (stock.total - stock.dividend) / stock.qty;
+									const total_percent = (stock.marketPrice - stock.avg_price) / stock.avg_price * 100;
 									const profit = (stock.qty * stock.marketPrice) - stock.total + stock.dividend;
-									const price = (stock.total - stock.dividend) / stock.qty;
-									const profitability = (stock.marketPrice - price) / price * 100;
+									const profit_percent = (stock.marketPrice - newPrice) / newPrice * 100;
 
 									return (
 										<div className={grid.content} key={stock._id}>
@@ -126,8 +127,12 @@ export default function Home(props) {
 												</div>
 
 												<div className={grid.row}>
-													<span className={grid.label}>Total</span>
-													<span>{formatMoney(stock.qty * stock.marketPrice)}</span>
+													<span className={total_percent > 0 ? (grid.positive) : (grid.negative)}>
+														Total ({formatNumber(total_percent)}%)
+													</span>
+													<span className={total_percent > 0 ? (grid.positive) : (grid.negative)}>
+														{formatMoney(stock.qty * stock.marketPrice)}
+													</span>
 												</div>
 
 												<div className={grid.row}>
@@ -136,16 +141,11 @@ export default function Home(props) {
 												</div>
 
 												<div className={grid.row}>
-													<span className={grid.label}>Lucro</span>
+													<span className={profit_percent > 0 ? (grid.positive) : (grid.negative)}>
+														Lucro ({formatNumber(profit_percent)}%)
+													</span>
 													<span className={profit > 0 ? (grid.positive) : (grid.negative)}>
 														{formatMoney(profit)}
-													</span>
-												</div>
-
-												<div className={grid.row}>
-													<span className={grid.label}>Rentabilidade</span>
-													<span className={profitability > 0 ? (grid.positive) : (grid.negative)}>
-														{formatNumber(profitability)}%
 													</span>
 												</div>
 											</div>
