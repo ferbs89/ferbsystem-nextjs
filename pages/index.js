@@ -95,10 +95,8 @@ export default function Home(props) {
 						{view == 'grid' ? (
 							<div className={grid.container}>
 								{data.stocks.map(stock => {
-									const newPrice = (stock.total - stock.dividend) / stock.qty;
-									const total_percent = (stock.marketPrice - stock.avg_price) / stock.avg_price * 100;
-									const profit = (stock.qty * stock.marketPrice) - stock.total + stock.dividend;
-									const profit_percent = (stock.marketPrice - newPrice) / newPrice * 100;
+									const profit = (stock.qty * stock.marketPrice) - stock.total;
+									const profit_percent = (stock.marketPrice - stock.avg_price) / stock.avg_price * 100;
 
 									return (
 										<div className={grid.content} key={stock._id}>
@@ -127,26 +125,27 @@ export default function Home(props) {
 												</div>
 
 												<div className={grid.row}>
-													<span className={total_percent > 0 ? (grid.positive) : (grid.negative)}>
-														Total ({formatNumber(total_percent)}%)
+													<span className={grid.label}>Total</span>
+													<span>{formatMoney(stock.qty * stock.marketPrice)}</span>
+												</div>
+
+												<div className={grid.row}>
+													<span className={grid.label}>Lucro</span>
+													<span className={profit > 0 ? (grid.positive) : (grid.negative)}>
+														{formatMoney(profit)}
 													</span>
-													<span className={total_percent > 0 ? (grid.positive) : (grid.negative)}>
-														{formatMoney(stock.qty * stock.marketPrice)}
+												</div>
+
+												<div className={grid.row}>
+													<span className={grid.label}>Rentabilidade</span>
+													<span className={profit_percent > 0 ? (grid.positive) : (grid.negative)}>
+														{formatNumber(profit_percent)}%
 													</span>
 												</div>
 
 												<div className={grid.row}>
 													<span className={grid.label}>Dividendos</span>
 													<span>{formatMoney(stock.dividend)}</span>
-												</div>
-
-												<div className={grid.row}>
-													<span className={profit_percent > 0 ? (grid.positive) : (grid.negative)}>
-														Lucro ({formatNumber(profit_percent)}%)
-													</span>
-													<span className={profit > 0 ? (grid.positive) : (grid.negative)}>
-														{formatMoney(profit)}
-													</span>
 												</div>
 											</div>
 										</div>											
@@ -163,18 +162,17 @@ export default function Home(props) {
 										<th className="price">Custo</th>
 										<th className="price">Qtde</th>
 										<th className="price">Total</th>
-										<th className="price">Dividendos</th>
 										<th className="price">Lucro</th>
 										<th className="price">Rentabilidade</th>
+										<th className="price">Dividendos</th>
 										<th width="10%" className="action">Visualizar</th>
 									</tr>
 								</thead>
 
 								<tbody>
 									{data.stocks.map(stock => {
-										const profit = (stock.qty * stock.marketPrice) - stock.total + stock.dividend;
-										const price = (stock.total - stock.dividend) / stock.qty;
-										const profitability = (stock.marketPrice - price) / price * 100;
+										const profit = (stock.qty * stock.marketPrice) - stock.total;
+										const profit_percent = (stock.marketPrice - stock.avg_price) / stock.avg_price * 100;
 
 										return (
 											<tr key={stock._id}>
@@ -192,17 +190,17 @@ export default function Home(props) {
 												<td className="price view" data-header="Custo">{formatMoney(stock.avg_price)}</td>
 												<td className="price view" data-header="Quantidade">{stock.qty}</td>
 												<td className="price view" data-header="Total">{formatMoney(stock.qty * stock.marketPrice)}</td>
-												<td className="price view" data-header="Dividendos">{formatMoney(stock.dividend)}</td>
 												<td className="price view" data-header="Lucro">
 													<span className={profit > 0 ? ('positive') : ('negative')}>
 														{formatMoney(profit)}
 													</span>
 												</td>
 												<td className="price view" data-header="Rentabilidade">
-													<span className={profitability > 0 ? ('positive') : ('negative')}>
-														{formatNumber(profitability)}%
+													<span className={profit_percent > 0 ? ('positive') : ('negative')}>
+														{formatNumber(profit_percent)}%
 													</span>
 												</td>
+												<td className="price view" data-header="Dividendos">{formatMoney(stock.dividend)}</td>
 												<td className="action">
 													<div>
 														<Link href={`/stocks/${stock._id}`}>
@@ -216,22 +214,27 @@ export default function Home(props) {
 
 									<tr className="empty">
 										<td colSpan="5"></td>
-										<td className="price" data-header="Total">
+										<td className="price">
 											<span className="total">
 												{formatMoney(data.totalWallet)}
 											</span>
 										</td>
-										<td className="price" data-header="Dividendos">
+										<td className="price">
+											<span className={data.totalProfit > 0 ? ('positive') : ('negative')}>
+												{formatMoney(data.totalProfit)}
+											</span>
+										</td>
+										<td className="price">
+											<span className={((data.totalProfit / data.totalCost) * 100) > 0 ? ('positive') : ('negative')}>
+												{formatNumber((data.totalProfit / data.totalCost) * 100)}%
+											</span>
+										</td>
+										<td className="price">
 											<span className="total">
 												{formatMoney(data.totalDividends)}
 											</span>
 										</td>
-										<td className="price" data-header="Lucro">
-											<span className={data.totalProfit + data.totalDividends > 0 ? ('positive') : ('negative')}>
-												{formatMoney(data.totalProfit + data.totalDividends)}
-											</span>
-										</td>
-										<td colSpan="2"></td>
+										<td></td>
 									</tr>
 								</tbody>
 							</table>
