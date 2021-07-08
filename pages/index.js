@@ -8,8 +8,9 @@ import { setCookie, parseCookies } from 'nookies';
 import Layout from '../components/layout';
 import Loading from '../components/loading';
 import Error from '../components/error';
+import Chart from '../components/chart';
 
-import { FiSearch, FiAlignJustify, FiGrid } from 'react-icons/fi';
+import { FiSearch, FiGrid, FiAlignJustify, FiBarChart2 } from 'react-icons/fi';
 import card from '../styles/card.module.css';
 import grid from '../styles/grid.module.css';
 
@@ -72,6 +73,16 @@ export default function Home(props) {
 					<>
 						<div className={grid.view}>
 							<button onClick={() => {
+								setView('grid');
+								setCookie(null, 'VIEW', 'grid', {
+									maxAge: 86400 * 31 * 12,
+									path: '/',
+								});
+							}}>
+								<FiGrid />
+							</button>
+
+							<button onClick={() => {
 								setView('table');
 								setCookie(null, 'VIEW', 'table', {
 									maxAge: 86400 * 31 * 12,
@@ -82,17 +93,17 @@ export default function Home(props) {
 							</button>
 
 							<button onClick={() => {
-								setView('grid');
-								setCookie(null, 'VIEW', 'grid', {
+								setView('chart');
+								setCookie(null, 'VIEW', 'chart', {
 									maxAge: 86400 * 31 * 12,
 									path: '/',
 								});
 							}}>
-								<FiGrid />
+								<FiBarChart2 />
 							</button>
 						</div>
 
-						{view == 'grid' ? (
+						{view == 'grid' && (
 							<div className={grid.container}>
 								{data.stocks.map(stock => {
 									const profit = (stock.qty * stock.marketPrice) - stock.total;
@@ -152,7 +163,9 @@ export default function Home(props) {
 									)
 								})}
 							</div>
-						) : (
+						)}
+						
+						{view == 'table' && (
 							<table>
 								<thead>
 									<tr>
@@ -239,6 +252,10 @@ export default function Home(props) {
 								</tbody>
 							</table>
 						)}
+
+						{view == 'chart' && (
+							<Chart item={data.stocks} />
+						)}
 					</>
 				)}
 			</div>
@@ -251,7 +268,7 @@ export async function getServerSideProps(context) {
 
 	return {
 		props: {
-			view: cookies.VIEW != undefined ? cookies.VIEW : null,
+			view: cookies.VIEW != undefined ? cookies.VIEW : 'grid',
 		}
 	}
 }
