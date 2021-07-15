@@ -39,12 +39,6 @@ export async function getStockOrders(query) {
 			resultStock.profit += item.profit;
 		}
 
-		resultDividends = await dividends.find(query).toArray();
-
-		resultDividends.map(dividend => {
-			resultStock.dividend += (dividend.qty * dividend.price);
-		});
-
 		listOrders.push(item);
 	}
 
@@ -63,6 +57,12 @@ export async function getStockOrders(query) {
 		resultStock.marketDayHigh = marketData.regularMarketDayHigh;
 		resultStock.marketDayLow = marketData.regularMarketDayLow;
 	}
+
+	resultDividends = await dividends.find(query).toArray();
+
+	resultDividends.map(dividend => {
+		resultStock.dividend += (dividend.qty * dividend.price);
+	});
 
 	return { 
 		stock: resultStock,
