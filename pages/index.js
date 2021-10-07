@@ -29,7 +29,43 @@ export default function Home(props) {
 		<Layout title="Carteira">
 			<div className="content">
 				<div className="page-header">
-					<span className="page-header-title">Carteira</span>
+					<div>
+						<span className="page-header-title">Carteira</span>
+
+						{data.stocks.length > 0 && (
+							<div className={grid.view}>
+								<button onClick={() => {
+									setView('grid');
+									setCookie(null, 'VIEW', 'grid', {
+										maxAge: 86400 * 31 * 12,
+										path: '/',
+									});
+								}}>
+									<FiGrid />
+								</button>
+
+								<button onClick={() => {
+									setView('table');
+									setCookie(null, 'VIEW', 'table', {
+										maxAge: 86400 * 31 * 12,
+										path: '/',
+									});
+								}}>
+									<FiAlignJustify />
+								</button>
+
+								<button onClick={() => {
+									setView('chart');
+									setCookie(null, 'VIEW', 'chart', {
+										maxAge: 86400 * 31 * 12,
+										path: '/',
+									});
+								}}>
+									<FiBarChart2 />
+								</button>
+							</div>
+						)}
+					</div>
 
 					<div className={card.card}>
 						<div className={card.item}>
@@ -71,38 +107,6 @@ export default function Home(props) {
 
 				{data.stocks.length > 0 && (
 					<>
-						<div className={grid.view}>
-							<button onClick={() => {
-								setView('grid');
-								setCookie(null, 'VIEW', 'grid', {
-									maxAge: 86400 * 31 * 12,
-									path: '/',
-								});
-							}}>
-								<FiGrid />
-							</button>
-
-							<button onClick={() => {
-								setView('table');
-								setCookie(null, 'VIEW', 'table', {
-									maxAge: 86400 * 31 * 12,
-									path: '/',
-								});
-							}}>
-								<FiAlignJustify />
-							</button>
-
-							<button onClick={() => {
-								setView('chart');
-								setCookie(null, 'VIEW', 'chart', {
-									maxAge: 86400 * 31 * 12,
-									path: '/',
-								});
-							}}>
-								<FiBarChart2 />
-							</button>
-						</div>
-
 						{view == 'grid' && (
 							<div className={grid.container}>
 								{data.stocks.map(stock => {

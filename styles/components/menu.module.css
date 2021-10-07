@@ -5,8 +5,7 @@
 	padding-bottom: 16px;
 	padding-left: 32px;
 	background: #FFF;
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
+	border-bottom: 1px solid #dcdce6;
 }
 
 .menu a {
@@ -16,7 +15,7 @@
 	margin-right: 32px;
 	color: #17496E;
 	text-decoration: none;
-	font-weight: 700;
+	font-weight: 600;
 	transition: opacity 0.2s;
 }
 

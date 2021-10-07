@@ -3,6 +3,7 @@
 	justify-content: space-between;
 	border: 1px solid #dcdce6;
 	border-radius: 8px;
+	white-space: nowrap
 }
 
 .item {
