@@ -76,8 +76,6 @@ export default function Stock() {
 					</div>
 				</div>
 
-				<h1>Operações</h1>
-
 				<table>
 					<thead>
 						<tr>
