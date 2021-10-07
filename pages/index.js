@@ -8,9 +8,8 @@ import { setCookie, parseCookies } from 'nookies';
 import Layout from '../components/layout';
 import Loading from '../components/loading';
 import Error from '../components/error';
-import Chart from '../components/chart';
 
-import { FiSearch, FiGrid, FiAlignJustify, FiBarChart2 } from 'react-icons/fi';
+import { FiSearch, FiGrid, FiAlignJustify } from 'react-icons/fi';
 import card from '../styles/card.module.css';
 import grid from '../styles/grid.module.css';
 
@@ -32,39 +31,27 @@ export default function Home(props) {
 					<div>
 						<span className="page-header-title">Carteira</span>
 
-						{data.stocks.length > 0 && (
-							<div className={grid.view}>
-								<button onClick={() => {
-									setView('grid');
-									setCookie(null, 'VIEW', 'grid', {
-										maxAge: 86400 * 31 * 12,
-										path: '/',
-									});
-								}}>
-									<FiGrid />
-								</button>
+						<div className={grid.view}>
+							<button onClick={() => {
+								setView('grid');
+								setCookie(null, 'VIEW', 'grid', {
+									maxAge: 86400 * 31 * 12,
+									path: '/',
+								});
+							}}>
+								<FiGrid />
+							</button>
 
-								<button onClick={() => {
-									setView('table');
-									setCookie(null, 'VIEW', 'table', {
-										maxAge: 86400 * 31 * 12,
-										path: '/',
-									});
-								}}>
-									<FiAlignJustify />
-								</button>
-
-								<button onClick={() => {
-									setView('chart');
-									setCookie(null, 'VIEW', 'chart', {
-										maxAge: 86400 * 31 * 12,
-										path: '/',
-									});
-								}}>
-									<FiBarChart2 />
-								</button>
-							</div>
-						)}
+							<button onClick={() => {
+								setView('table');
+								setCookie(null, 'VIEW', 'table', {
+									maxAge: 86400 * 31 * 12,
+									path: '/',
+								});
+							}}>
+								<FiAlignJustify />
+							</button>
+						</div>
 					</div>
 
 					<div className={card.card}>
@@ -255,10 +242,6 @@ export default function Home(props) {
 									</tr>
 								</tbody>
 							</table>
-						)}
-
-						{view == 'chart' && (
-							<Chart item={data.stocks} />
 						)}
 					</>
 				)}
