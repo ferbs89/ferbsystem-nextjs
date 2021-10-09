@@ -8,7 +8,7 @@
 }
 
 body {
-	font: 400 14px Inter, sans-serif;
+	font: 400 14px 'Inter', sans-serif;
 	background: #FFF;
 }
 
@@ -63,7 +63,7 @@ form .field {
 }
 
 input, button, textarea {
-	font: 400 14px Inter, sans-serif;
+	font: 400 14px 'Inter', sans-serif;
 }
 
 button {
