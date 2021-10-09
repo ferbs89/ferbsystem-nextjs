@@ -61,7 +61,6 @@
 .view {
     display: flex;
     align-items: center;
-    padding-top: 8px;
 }
 
 .view button {
@@ -94,9 +93,10 @@
         grid-template-columns: 1fr 1fr 1fr;
     }
 
-    .view {
-        padding-bottom: 16px;
-    }    
+    .view button {
+        margin-left: 8px;
+        margin-right: 0;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -106,11 +106,6 @@
 
     .view {
         justify-content: space-between;
-    }
-
-    .view button {
-        width: 100%;
-        margin: 0px 4px;
     }
 }
 

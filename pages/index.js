@@ -28,7 +28,7 @@ export default function Home(props) {
 		<Layout title="Carteira">
 			<div className="content">
 				<div className="page-header">
-					<div>
+					<div className="page-header-right">
 						<span className="page-header-title">Carteira</span>
 
 						<div className={grid.view}>
@@ -169,7 +169,7 @@ export default function Home(props) {
 										<th className="price">Lucro</th>
 										<th className="price">Rentabilidade</th>
 										<th className="price">Dividendos</th>
-										<th width="10%" className="action">Visualizar</th>
+										<th className="action">Visualizar</th>
 									</tr>
 								</thead>
 

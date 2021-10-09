@@ -30,22 +30,20 @@ export default function Stock() {
 		<Layout title={data.stock._id}>
 			<div className="content">
 				<div className="page-header">
-					<div className="stock-content">
-						<div className="stock-header">
-							<span className="page-header-title">{data.stock._id} </span>
-						</div>
+					<div className="stock-header-right">
+						<span className="page-header-title">{data.stock._id}</span>
 
 						<div className="stock-header">
 							<span className={(data.stock.marketChangePercent) > 0 ? ('stock-price-positive') : ('stock-price-negative')}>
 								{formatMoney(data.stock.marketPrice)} ({data.stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'})
 							</span>
-						</div>
 
-						<div className="stock-min-max">
-							Mín: {formatMoney(data.stock.marketDayLow)} / Máx: {formatMoney(data.stock.marketDayHigh)}
-						</div>						
+							<div className="stock-min-max">
+								Mín: {formatMoney(data.stock.marketDayLow)} / Máx: {formatMoney(data.stock.marketDayHigh)}
+							</div>
+						</div>
 					</div>
-				
+
 					<div className={styles.card}>
 						<div className={styles.item}>
 							<div className={styles.title}>Custo</div>
@@ -79,11 +77,11 @@ export default function Stock() {
 				<table>
 					<thead>
 						<tr>
-							<th width="22%">Data</th>
-							<th width="22%">Quantidade</th>
-							<th width="22%">Preço</th>
-							<th width="22%">Total</th>
-							<th width="10%" className="action">Ação</th>
+							<th>Data</th>
+							<th>Quantidade</th>
+							<th>Preço</th>
+							<th>Total</th>
+							<th className="action">Ação</th>
 						</tr>
 					</thead>
 

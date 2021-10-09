@@ -1,43 +1,47 @@
 .card {
 	display: flex;
-	justify-content: space-between;
+	flex: 1;
+	align-items: center;
+	justify-content: space-evenly;
 	border: 1px solid #dcdce6;
 	border-radius: 8px;
-	white-space: nowrap
+	text-align: center;
+	white-space: nowrap;
 }
 
 .item {
-	padding: 16px;
-	text-align: center;
+	padding: 1rem;
 }
 
 .item .title {
+	margin-bottom: 4px;
+	font-size: 1rem;
 	font-weight: 500;
 	color: #17496E;
-	margin-bottom: 4px;
 }
 
 .item .data {
-	font-size: 18px;
+	font-size: 1.25rem;
 	font-weight: 500;
 	color: #05111a;
 }
 
 .item .dataPositive {
-	font-size: 18px;
+	font-size: 1.25rem;
 	font-weight: 500;
 	color: green;
 }
 
 .item .dataNegative {
-	font-size: 18px;
+	font-size: 1.25rem;
 	font-weight: 500;
 	color: red;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 768px) {
 	.card {
 		flex-direction: column;
+		align-items: initial;
 		padding: 8px;
 	}
 

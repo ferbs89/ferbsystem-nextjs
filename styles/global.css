@@ -41,13 +41,12 @@ body {
 }
 
 h1 {
-	margin-bottom: 16px;
-	font-size: 24px;
-	font-weight: 500;
+	margin-bottom: 1rem;
+	font-size: 2.5rem;
 }
 
 h2 {
-	font-weight: 500;
+	font-size: 1.5rem;
 }
 
 input {
@@ -134,14 +133,20 @@ button {
 .page-header {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.page-header-right {
+	display: flex;
+	flex: 1;
     justify-content: space-between;
-    margin-bottom: 16px;
 }
 
 .page-header-title {
+	font-size: 2.5rem;
+    font-weight: bold;
 	color: #05111a;
-	font-size: 24px;
-    font-weight: 500;
 }
 
 .page-header-button {
@@ -162,18 +167,27 @@ button {
 	margin-right: 4px;
 }
 
+.stock-header-right {
+	display: flex;
+	flex: 1;
+	align-items: center;
+}
+
 .stock-header {
-	margin-bottom: 8px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-left: 16px;
 }
 
 .stock-price-positive {
-	font-size: 20px;
+	font-size: 1.5rem;
     font-weight: 500;
 	color: green;
 }
 
 .stock-price-negative {
-	font-size: 20px;
+	font-size: 1.5rem;
 	font-weight: 500;
 	color: red;
 }
@@ -205,11 +219,13 @@ table th, table td {
 table th {
 	font-weight: 500;
 	color: #737380;
+	text-align: center;
 }
 
 table td {
 	height: 50px;
 	color: #05111a;
+	text-align: center;
 }
 
 table td.strong {
@@ -265,6 +281,11 @@ table td.action a svg, table td.action button svg {
 	color: #17496E;
 }
 
+table input {
+	max-width: 200px;
+	text-align: center;
+}
+
 .profit {
 	display: block;
 	margin-top: 4px;
@@ -298,11 +319,15 @@ table td.action a svg, table td.action button svg {
 		flex-direction: column;
 	}
 
+	.page-header-right {
+		margin-bottom: 0.5rem;
+	}
+
 	.page-header-title {
 		display: block;
 	}
 
-	.stock-content {
+	.stock-header-right {
 		margin-bottom: 16px;
 	}
 
@@ -361,15 +386,16 @@ table td.action a svg, table td.action button svg {
 		width: 100%;
 	}
 
+	table input {
+		max-width: 100%;
+		text-align: initial;
+	}
+
 	.empty {
 		display: none;
 	}
 
 	.page-header {
 		display: block;
-	}
-
-	.stock-min-max {
-		margin-bottom: 16px;
 	}
 }

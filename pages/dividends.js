@@ -24,13 +24,13 @@ export default function Dividends() {
 				<table>
 					<thead>
 						<tr>
-							<th width="13%">Ativo</th>
-							<th width="20%">Data com</th>
-							<th width="20%">Data pagamento</th>
-							<th width="13%">Quantidade</th>
-							<th width="13%">Valor</th>
-							<th width="11%">Total</th>
-							<th width="10%" className="action">Ação</th>
+							<th>Ativo</th>
+							<th>Data com</th>
+							<th>Data pagamento</th>
+							<th>Quantidade</th>
+							<th>Valor</th>
+							<th>Total</th>
+							<th className="action">Ação</th>
 						</tr>
 					</thead>
 
