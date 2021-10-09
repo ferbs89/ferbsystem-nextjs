@@ -74,7 +74,7 @@ export default function Stock() {
 					</div>
 				</div>
 
-				<table>
+				<table className="responsive">
 					<thead>
 						<tr>
 							<th>Data</th>

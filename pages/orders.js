@@ -21,7 +21,7 @@ export default function Orders() {
 			<div className="content">
 				<h1>Operações</h1>
 
-				<table>
+				<table className="responsive">
 					<thead>
 						<tr>
 							<th>Ativo</th>

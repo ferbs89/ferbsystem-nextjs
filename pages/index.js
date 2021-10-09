@@ -157,91 +157,93 @@ export default function Home(props) {
 						)}
 						
 						{view == 'table' && (
-							<table>
-								<thead>
-									<tr>
-										<th>Código</th>
-										<th className="price">Variação</th>
-										<th className="price">Preço</th>
-										<th className="price">Custo</th>
-										<th className="price">Qtde</th>
-										<th className="price">Total</th>
-										<th className="price">Lucro</th>
-										<th className="price">Rentabilidade</th>
-										<th className="price">Dividendos</th>
-										<th className="action">Visualizar</th>
-									</tr>
-								</thead>
+							<div className="table-scroll">
+								<table>
+									<thead>
+										<tr>
+											<th>Código</th>
+											<th className="price">Variação</th>
+											<th className="price">Preço</th>
+											<th className="price">Custo</th>
+											<th className="price">Qtde</th>
+											<th className="price">Total</th>
+											<th className="price">Lucro</th>
+											<th className="price">Rentabilidade</th>
+											<th className="price">Dividendos</th>
+											<th className="action">Visualizar</th>
+										</tr>
+									</thead>
 
-								<tbody>
-									{data.stocks.map(stock => {
-										const profit = (stock.qty * stock.marketPrice) - stock.total;
-										const profit_percent = (stock.marketPrice - stock.avg_price) / stock.avg_price * 100;
+									<tbody>
+										{data.stocks.map(stock => {
+											const profit = (stock.qty * stock.marketPrice) - stock.total;
+											const profit_percent = (stock.marketPrice - stock.avg_price) / stock.avg_price * 100;
 
-										return (
-											<tr key={stock._id}>
-												<td className="strong view" data-header="Código">{stock._id}</td>
-												<td className="price view" data-header="Variação">
-													<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
-														{stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
-													</span>
-												</td>
-												<td className="price view" data-header="Preço">
-													<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
-														{formatMoney(stock.marketPrice)}
-													</span>
-												</td>
-												<td className="price view" data-header="Custo">{formatMoney(stock.avg_price)}</td>
-												<td className="price view" data-header="Quantidade">{stock.qty}</td>
-												<td className="price view" data-header="Total">{formatMoney(stock.qty * stock.marketPrice)}</td>
-												<td className="price view" data-header="Lucro">
-													<span className={profit > 0 ? ('positive') : ('negative')}>
-														{formatMoney(profit)}
-													</span>
-												</td>
-												<td className="price view" data-header="Rentabilidade">
-													<span className={profit_percent > 0 ? ('positive') : ('negative')}>
-														{profit_percent.toFixed(2).replace('.', ',')}%
-													</span>
-												</td>
-												<td className="price view" data-header="Dividendos">{formatMoney(stock.dividend)}</td>
-												<td className="action">
-													<div>
-														<Link href={`/stocks/${stock._id}`}>
-															<a><FiSearch /></a>
-														</Link>
-													</div>
-												</td>
-											</tr>
-										)
-									})}
+											return (
+												<tr key={stock._id}>
+													<td className="strong view" data-header="Código">{stock._id}</td>
+													<td className="price view" data-header="Variação">
+														<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
+															{stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'}
+														</span>
+													</td>
+													<td className="price view" data-header="Preço">
+														<span className={stock.marketChangePercent > 0 ? ('positive') : ('negative')}>
+															{formatMoney(stock.marketPrice)}
+														</span>
+													</td>
+													<td className="price view" data-header="Custo">{formatMoney(stock.avg_price)}</td>
+													<td className="price view" data-header="Quantidade">{stock.qty}</td>
+													<td className="price view" data-header="Total">{formatMoney(stock.qty * stock.marketPrice)}</td>
+													<td className="price view" data-header="Lucro">
+														<span className={profit > 0 ? ('positive') : ('negative')}>
+															{formatMoney(profit)}
+														</span>
+													</td>
+													<td className="price view" data-header="Rentabilidade">
+														<span className={profit_percent > 0 ? ('positive') : ('negative')}>
+															{profit_percent.toFixed(2).replace('.', ',')}%
+														</span>
+													</td>
+													<td className="price view" data-header="Dividendos">{formatMoney(stock.dividend)}</td>
+													<td className="action">
+														<div>
+															<Link href={`/stocks/${stock._id}`}>
+																<a><FiSearch /></a>
+															</Link>
+														</div>
+													</td>
+												</tr>
+											)
+										})}
 
-									<tr className="empty">
-										<td colSpan="5"></td>
-										<td className="price">
-											<span className="total">
-												{formatMoney(data.totalWallet)}
-											</span>
-										</td>
-										<td className="price">
-											<span className={data.totalProfit > 0 ? ('positive') : ('negative')}>
-												{formatMoney(data.totalProfit)}
-											</span>
-										</td>
-										<td className="price">
-											<span className={((data.totalProfit / data.totalCost) * 100) > 0 ? ('positive') : ('negative')}>
-												{((data.totalProfit / data.totalCost) * 100).toFixed(2).replace('.', ',')}%
-											</span>
-										</td>
-										<td className="price">
-											<span className="total">
-												{formatMoney(data.totalDividends)}
-											</span>
-										</td>
-										<td></td>
-									</tr>
-								</tbody>
-							</table>
+										<tr className="empty">
+											<td colSpan="5"></td>
+											<td className="price">
+												<span className="total">
+													{formatMoney(data.totalWallet)}
+												</span>
+											</td>
+											<td className="price">
+												<span className={data.totalProfit > 0 ? ('positive') : ('negative')}>
+													{formatMoney(data.totalProfit)}
+												</span>
+											</td>
+											<td className="price">
+												<span className={((data.totalProfit / data.totalCost) * 100) > 0 ? ('positive') : ('negative')}>
+													{((data.totalProfit / data.totalCost) * 100).toFixed(2).replace('.', ',')}%
+												</span>
+											</td>
+											<td className="price">
+												<span className="total">
+													{formatMoney(data.totalDividends)}
+												</span>
+											</td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						)}
 					</>
 				)}

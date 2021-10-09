@@ -21,7 +21,7 @@ export default function Dividends() {
 			<div className="content">
 				<h1>Dividendos</h1>
                 
-				<table>
+				<table className="responsive">
 					<thead>
 						<tr>
 							<th>Ativo</th>

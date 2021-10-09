@@ -42,7 +42,7 @@ body {
 
 h1 {
 	margin-bottom: 1rem;
-	font-size: 2.5rem;
+	font-size: 2rem;
 }
 
 h2 {
@@ -144,7 +144,7 @@ button {
 }
 
 .page-header-title {
-	font-size: 2.5rem;
+	font-size: 2rem;
     font-weight: bold;
 	color: #05111a;
 }
@@ -234,6 +234,7 @@ table td.strong {
 
 table th.price, table td.price {
 	text-align: center;
+	white-space: nowrap;
 }
 
 table th.action, table td.action {
@@ -291,6 +292,7 @@ table input {
 	margin-top: 4px;
 	font-size: 12px;
 	font-weight: 500;
+	white-space: nowrap;
 }
 
 .profit.positive {
@@ -331,7 +333,25 @@ table input {
 		margin-bottom: 16px;
 	}
 
-	table tr {
+	.table-scroll {
+		overflow-x: scroll;
+	}
+
+	.empty {
+		display: none;
+	}
+
+	.stock-header-right {
+		justify-content: space-between;
+	}
+
+	.stock-header {
+		margin-left: 0;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	table.responsive tr {
 		display: block;
 		padding: 8px;
 		border: 1px solid #dcdce6;
@@ -340,15 +360,15 @@ table input {
 		margin-bottom: 16px;
 	}
 
-	table tr:last-child {
+	table.responsive tr:last-child {
 		margin-bottom: 0px;
 	}
 	
-	table thead {
+	table.responsive thead {
 		display: none;
 	}
 	
-	table td {
+	table.responsive td {
 		display: block;
 		border: 0;
 		width: 100%;
@@ -356,7 +376,7 @@ table input {
 		text-align: justify;
 	}
 	
-	table td:before {
+	table.responsive td:before {
 		content: attr(data-header);		
 		display: block;
 		margin-bottom: 4px;
@@ -364,7 +384,7 @@ table input {
 		color: #737380;
 	}
 
-	table td.view:before {
+	table.responsive td.view:before {
 		content: attr(data-header);		
 		float: left;
 		margin-bottom: 0px;
@@ -373,29 +393,31 @@ table input {
 		color: #737380;
 	}
 
-	table td.view {
+	table.responsive td.view {
 		text-align: right;
 		border-bottom: 1px solid #dcdce6;
 	}
 
-	table td.action {
+	table.responsive td.action {
 		width: 100%;
 	}
 
-	table td.action a, table td.action button {
+	table.responsive td.action a, table.responsive td.action button {
 		width: 100%;
 	}
 
-	table input {
+	table.responsive input {
 		max-width: 100%;
 		text-align: initial;
 	}
+}
 
-	.empty {
-		display: none;
+@media screen and (max-width: 425px) {
+	.content {
+		padding: 1rem;
 	}
 
-	.page-header {
-		display: block;
+	.stock-header-right {
+		flex-direction: column;
 	}
 }
