@@ -24,6 +24,8 @@ export default function Home(props) {
 	if (error) return <Error />
 	if (!data) return <Loading />
 
+	let totalDividends = 0;
+
 	return (
 		<Layout title="Carteira">
 			<div className="content">
@@ -179,6 +181,8 @@ export default function Home(props) {
 											const profit = (stock.qty * stock.marketPrice) - stock.total;
 											const profit_percent = (stock.marketPrice - stock.avg_price) / stock.avg_price * 100;
 
+											totalDividends += stock.dividend;
+
 											return (
 												<tr key={stock._id}>
 													<td className="strong view" data-header="Código">{stock._id}</td>
@@ -217,7 +221,7 @@ export default function Home(props) {
 											)
 										})}
 
-										<tr className="empty">
+										<tr>
 											<td colSpan="5"></td>
 											<td className="price">
 												<span className="total">
@@ -236,7 +240,7 @@ export default function Home(props) {
 											</td>
 											<td className="price">
 												<span className="total">
-													{formatMoney(data.totalDividends)}
+													{formatMoney(totalDividends)}
 												</span>
 											</td>
 											<td></td>

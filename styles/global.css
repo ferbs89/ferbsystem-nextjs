@@ -133,7 +133,6 @@ button {
 .page-header {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
     margin-bottom: 1rem;
 }
 
@@ -169,11 +168,19 @@ button {
 
 .stock-header-right {
 	display: flex;
-	flex: 1;
 	align-items: center;
 }
 
 .stock-header {
+	display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: #eef6fb;
+    border: 1px solid #dcdce6;
+    border-radius: 0.5rem;
+}
+
+.stock-header-price {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -287,6 +294,10 @@ table input {
 	text-align: center;
 }
 
+.table-scroll {
+	overflow-x: auto;
+}
+
 .profit {
 	display: block;
 	margin-top: 4px;
@@ -318,7 +329,6 @@ table input {
 @media screen and (max-width: 1024px) {
 	.page-header {
 		display: block;
-		flex-direction: column;
 	}
 
 	.page-header-right {
@@ -333,20 +343,17 @@ table input {
 		margin-bottom: 16px;
 	}
 
-	.table-scroll {
-		overflow-x: scroll;
+	.stock-header {
+		flex: 1;
+		justify-content: space-between;
+	}
+
+	.stock-header-price {
+		margin-left: 0;
 	}
 
 	.empty {
 		display: none;
-	}
-
-	.stock-header-right {
-		justify-content: space-between;
-	}
-
-	.stock-header {
-		margin-left: 0;
 	}
 }
 
@@ -417,7 +424,7 @@ table input {
 		padding: 1rem;
 	}
 
-	.stock-header-right {
+	.stock-header {
 		flex-direction: column;
 	}
 }

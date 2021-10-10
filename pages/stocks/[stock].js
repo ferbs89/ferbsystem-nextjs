@@ -31,15 +31,17 @@ export default function Stock() {
 			<div className="content">
 				<div className="page-header">
 					<div className="stock-header-right">
-						<span className="page-header-title">{data.stock._id}</span>
-
 						<div className="stock-header">
-							<span className={(data.stock.marketChangePercent) > 0 ? ('stock-price-positive') : ('stock-price-negative')}>
-								{formatMoney(data.stock.marketPrice)} ({data.stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'})
-							</span>
+							<span className="page-header-title">{data.stock._id}</span>
 
-							<div className="stock-min-max">
-								Mín: {formatMoney(data.stock.marketDayLow)} / Máx: {formatMoney(data.stock.marketDayHigh)}
+							<div className="stock-header-price">
+								<span className={(data.stock.marketChangePercent) > 0 ? ('stock-price-positive') : ('stock-price-negative')}>
+									{formatMoney(data.stock.marketPrice)} ({data.stock.marketChangePercent.toFixed(2).toString().replace('.', ',') + '%'})
+								</span>
+
+								<div className="stock-min-max">
+									{formatMoney(data.stock.marketDayLow)} - {formatMoney(data.stock.marketDayHigh)}
+								</div>
 							</div>
 						</div>
 					</div>

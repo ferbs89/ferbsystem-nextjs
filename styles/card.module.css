@@ -1,8 +1,8 @@
 .card {
 	display: flex;
-	flex: 1;
 	align-items: center;
 	justify-content: space-evenly;
+	margin-left: 1rem;
 	border: 1px solid #dcdce6;
 	border-radius: 8px;
 	text-align: center;
@@ -36,6 +36,12 @@
 	font-size: 1.25rem;
 	font-weight: 500;
 	color: red;
+}
+
+@media screen and (max-width: 1024px) {
+	.card {
+		margin-left: 0;
+	}
 }
 
 @media screen and (max-width: 768px) {
