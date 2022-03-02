@@ -26,5 +26,11 @@ export default withSession(async (req, res) => {
 	});
 
 	await req.session.save();
-	return res.status(200).end();
+
+	return res.status(200).json({
+		isLoggedIn: true,
+		_id: response.insertedId,
+		name,
+		email,
+	});
 });
