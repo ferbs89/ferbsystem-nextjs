@@ -6,3 +6,15 @@
 <p><strong>Live demo: </strong>https://ferbsystem.vercel.app/</p>
 
 <p><strong>Versão mobile: </strong>https://github.com/ferbs89/FerbsystemApp</p>
+
+## Tecnologias utilizadas
+- React
+- Next.js
+- MongoDB
+- Axios
+- SWR
+- API Yahoo Finance
+- React Icons
+- React Toastify
+
+**Status do projeto:** Em desenvolvimento.
